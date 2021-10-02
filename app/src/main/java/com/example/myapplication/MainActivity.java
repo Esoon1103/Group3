@@ -14,15 +14,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.landing_page);
 
-        TextView textView = findViewById(R.id.textView5);
-        String text = "inTea Delight";
-        SpannableString ss = new SpannableString(text);
-        ForegroundColorSpan fcsRed = new ForegroundColorSpan(Color.RED);
 
-        ss.setSpan(fcsRed, 0,2, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-
-        textView.setText(ss);
     }
 }

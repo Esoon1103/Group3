@@ -8,7 +8,7 @@
                 android:width="2dp"
                 android:color="@color/black"/>
             <corners
-                android:radius="30dp"/>
+                android:radius="20dp"/>
 
         </shape>
     </item>
