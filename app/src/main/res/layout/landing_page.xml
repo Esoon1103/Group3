@@ -195,6 +195,6 @@
         app:srcCompat="@drawable/shape7"
         tools:layout_editor_absoluteX="322dp"
         tools:layout_editor_absoluteY="522dp" />
-asdasdasdasdasdasdasdasdasdasdasd
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
