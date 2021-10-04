@@ -9,7 +9,7 @@ import android.text.Spanned;
 import android.text.style.ForegroundColorSpan;
 import android.widget.TextView;
 
-public class MainActivity extends AppCompatActivity {
+public class LandingPage extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
