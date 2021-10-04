@@ -14,7 +14,7 @@
             android:exported="true"
             android:label="@string/title_activity_navigation_bar" />
         <activity
-            android:name=".LandingPage"
+            android:name=".landingPage"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
