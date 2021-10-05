@@ -13,26 +13,26 @@ import android.widget.TextView;
 
 import com.example.myapplication.ui.home.HomeFragment;
 //implements View.OnClickListener
-public class landingPage extends AppCompatActivity {
+public class landingPage extends AppCompatActivity implements View.OnClickListener{
     private Button buttonLoginLanding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.landing_page);
-        //buttonLoginLanding = findViewById(R.id.buttonLoginLanding);
-       // buttonLoginLanding.setOnClickListener(this);
+        buttonLoginLanding = findViewById(R.id.buttonLoginLanding);
+       buttonLoginLanding.setOnClickListener(this);
 
     }
 
 
-   /* @Override
+   @Override
     public void onClick(View view) {
         switch(view.getId()){
             case R.id.buttonLoginLanding:
-                Intent toLogin = new Intent(this, HomeFragment.class);
+                Intent toLogin = new Intent(this, HomePage.class);
                 startActivity(toLogin);
                 break;
         }
-    }*/
+    }
 }
