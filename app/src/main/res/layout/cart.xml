@@ -4,9 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F1F1F1"
-    android:backgroundTint="#FDFDFD"
-    tools:context=".HomePage">
+    tools:context=".cart">
 
 
     <RelativeLayout
@@ -26,9 +24,9 @@
             android:layout_height="50dp"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="10dp"
-
+            app:backgroundTint="#000000"
             android:background="@drawable/ic_home_black_24dp"
-            app:backgroundTint="#FFFFFF" />
+             />
 
         <Button
             android:id="@+id/account1"
@@ -37,9 +35,10 @@
             android:layout_marginLeft="80dp"
             android:layout_marginTop="10dp"
             android:layout_toRightOf="@id/cart1"
+            app:backgroundTint="#000000"
 
             android:background="@drawable/ic_baseline_account_circle_24"
-            app:backgroundTint="#000000" />
+            />
 
         <Button
             android:id="@+id/orderHistory1"
@@ -48,8 +47,9 @@
             android:layout_marginLeft="26dp"
             android:layout_marginTop="10dp"
             android:layout_toRightOf="@id/home1"
+            app:backgroundTint="#000000"
             android:background="@drawable/ic_baseline_article_24"
-            app:backgroundTint="#000000" />
+            />
 
         <Button
             android:id="@+id/cart1"
@@ -57,13 +57,13 @@
             android:layout_height="50dp"
             android:layout_marginLeft="51dp"
             android:layout_marginTop="10dp"
+            app:backgroundTint="#FFFFFF"
             android:layout_toRightOf="@id/orderHistory1"
             android:background="@drawable/ic_baseline_shopping_cart_24"
 
 
-            app:backgroundTint="#000000" />
+             />
 
 
     </RelativeLayout>
-
 </RelativeLayout>

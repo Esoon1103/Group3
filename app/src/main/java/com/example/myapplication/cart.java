@@ -7,12 +7,12 @@ import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class HomePage extends AppCompatActivity implements View.OnClickListener {
-    private Button account1,home1,orderHistory1,cart1;
+public class cart extends AppCompatActivity implements View.OnClickListener {
+    private Button account1, home1, orderHistory1, cart1;
+
     @Override
     public void onClick(View view) {
-
-        switch(view.getId()){
+        switch (view.getId()) {
             case R.id.account1:
                 Intent toLogin = new Intent(this, Account.class);
                 startActivity(toLogin);
@@ -30,14 +30,11 @@ public class HomePage extends AppCompatActivity implements View.OnClickListener 
                 startActivity(toLogin3);
                 break;
         }
-
-
-
     }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.home_page);
+        setContentView(R.layout.cart);
 
         account1 = findViewById(R.id.account1);
         account1.setOnClickListener(this);
@@ -50,5 +47,8 @@ public class HomePage extends AppCompatActivity implements View.OnClickListener 
 
         cart1= findViewById(R.id.cart1);
         cart1.setOnClickListener(this);
+
     }
 }
+
+

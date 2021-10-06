@@ -25,6 +25,8 @@
 
         <activity android:name=".HomePage"></activity>
         <activity android:name=".Account"></activity>
+        <activity android:name=".orderHistory"></activity>
+        <activity android:name=".cart"></activity>
 
     </application>
 
