@@ -34,5 +34,6 @@ public class landingPage extends AppCompatActivity implements View.OnClickListen
                 startActivity(toLogin);
                 break;
         }
+
     }
 }
