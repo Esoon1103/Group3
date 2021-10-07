@@ -124,5 +124,67 @@
         android:textColor="@color/black"
         />
 
+    <TextView
+        android:id="@+id/Username_Display"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/layoutTopBar"
+        android:layout_marginLeft="14dp"
+        android:layout_marginTop="85dp"
+        android:inputType="textPersonName"
+        android:text="Username: "
+        android:textColor="@color/black"
+        android:textSize="22sp" />
+
+    <TextView
+        android:id="@+id/Email_Display"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/layoutTopBar"
+        android:layout_marginLeft="14dp"
+        android:layout_marginTop="130dp"
+        android:inputType="textPersonName"
+        android:text="Email: "
+        android:textColor="@color/black"
+        android:textSize="22sp" />
+
+    <Button
+        android:id="@+id/Settings_Option"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_below="@id/Email_Display"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/button_shape"
+        android:gravity="left"
+        android:inputType="textPersonName"
+        android:text="Settings"
+        android:textColor="@color/black"
+        android:textSize="22sp"/>
+
+
+    <TextView
+        android:id="@+id/LogOut_Option"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_below="@id/Settings_Option"
+        android:background="@drawable/button_shape"
+        android:inputType="textPersonName"
+        android:padding="10dp"
+        android:text="Log out"
+        android:textColor="@color/black"
+        android:textSize="22sp" />
+
+    <EditText
+        android:id="@+id/Underline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/layoutTopBar"
+        android:layout_marginLeft="14dp"
+        android:layout_marginTop="324dp"
+        android:ems="13"
+        android:inputType="textPersonName"
+        android:textColor="@color/black"
+        android:textSize="25sp"
+        android:textStyle="bold" />
 
 </RelativeLayout>
