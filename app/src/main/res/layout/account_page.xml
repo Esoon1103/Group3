@@ -20,20 +20,31 @@
         tools:layout_editor_absoluteY="655dp">
 
         <Button
-            android:id="@+id/account1"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginLeft="310dp"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/ic_baseline_account_circle_24"
-            app:backgroundTint="#FFFFFF" />
+            android:id="@+id/home1"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="17dp"
+            android:background="@drawable/ic_home_black_24dp"
+            app:backgroundTint="#000000" />
+
+        <Button
+            android:id="@+id/orderHistory1"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="130dp"
+            android:layout_marginTop="17dp"
+            android:background="@drawable/ic_baseline_article_24"
+            app:backgroundTint="#000000"
+            tools:layout_editor_absoluteX="34dp"
+            tools:layout_editor_absoluteY="278dp" />
 
         <Button
             android:id="@+id/cart1"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginLeft="220dp"
-            android:layout_marginTop="10dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="225dp"
+            android:layout_marginTop="17dp"
             android:background="@drawable/ic_baseline_shopping_cart_24"
 
             app:backgroundTint="#000000"
@@ -41,36 +52,14 @@
             tools:layout_editor_absoluteY="236dp" />
 
         <Button
-            android:id="@+id/orderHistory1"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginLeft="130dp"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/ic_baseline_article_24"
-            app:backgroundTint="#000000"
-            tools:layout_editor_absoluteX="34dp"
-            tools:layout_editor_absoluteY="278dp" />
+            android:id="@+id/account1"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="320dp"
+            android:layout_marginTop="17dp"
+            android:background="@drawable/ic_baseline_account_circle_24"
+            app:backgroundTint="#FFFFFF" />
 
-        <RelativeLayout
-            android:id="@+id/bgcolor1"
-            android:layout_width="match_parent"
-            android:layout_height="75dp"
-
-            android:layout_marginBottom="-7dp"
-            android:accessibilityHeading="false"
-            android:background="#D53C3C"
-            android:visibility="visible">
-
-            <Button
-                android:id="@+id/home1"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_marginLeft="40dp"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/ic_home_black_24dp"
-                app:backgroundTint="#000000" />
-
-        </RelativeLayout>
     </RelativeLayout>
 
     <RelativeLayout
