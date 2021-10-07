@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Account">>
+    tools:context=".Account">
 
 
     <RelativeLayout
@@ -24,7 +24,7 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginLeft="40dp"
-            android:layout_marginTop="17dp"
+            android:layout_marginTop="15dp"
             android:background="@drawable/ic_home_black_24dp"
             app:backgroundTint="#000000" />
 
@@ -109,30 +109,28 @@
 
     </RelativeLayout>
 
-    <EditText
+    <TextView
         android:id="@+id/profile_Title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/layoutTopBar"
         android:layout_marginLeft="14dp"
-        android:layout_marginTop="23dp"
-        android:ems="3"
+        android:layout_marginTop="25dp"
         android:inputType="textPersonName"
         android:text="Profile"
-        android:textSize="25sp"
-        android:textStyle="bold"
         android:textColor="@color/black"
-        />
+        android:textSize="25sp"
+        android:textStyle="bold" />
 
     <TextView
-        android:id="@+id/Username_Display"
+        android:id="@+id/ID_Display"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/layoutTopBar"
         android:layout_marginLeft="14dp"
-        android:layout_marginTop="85dp"
+        android:layout_marginTop="75dp"
         android:inputType="textPersonName"
-        android:text="Username: "
+        android:text="Your ID: "
         android:textColor="@color/black"
         android:textSize="22sp" />
 
@@ -142,49 +140,62 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/layoutTopBar"
         android:layout_marginLeft="14dp"
-        android:layout_marginTop="130dp"
+        android:layout_marginTop="120dp"
         android:inputType="textPersonName"
         android:text="Email: "
         android:textColor="@color/black"
         android:textSize="22sp" />
 
-    <Button
-        android:id="@+id/Settings_Option"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
+    <TextView
+        android:id="@+id/Settings_Display"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_below="@id/Email_Display"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/button_shape"
-        android:gravity="left"
+        android:layout_marginLeft="14dp"
+        android:layout_marginTop="40dp"
         android:inputType="textPersonName"
         android:text="Settings"
         android:textColor="@color/black"
-        android:textSize="22sp"/>
+        android:textSize="22sp"
+        android:textStyle="bold" />
 
-
-    <TextView
-        android:id="@+id/LogOut_Option"
+    <Button
+        android:id="@+id/Payment_Method"
+        style="?attr/materialButtonOutlinedStyle"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:layout_below="@id/Settings_Option"
-        android:background="@drawable/button_shape"
+        android:layout_below="@id/Settings_Display"
+        android:layout_marginTop="20dp"
+        android:gravity="left"
         android:inputType="textPersonName"
-        android:padding="10dp"
-        android:text="Log out"
+        android:text="Change Payment Method"
         android:textColor="@color/black"
         android:textSize="22sp" />
 
-    <EditText
-        android:id="@+id/Underline"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/layoutTopBar"
-        android:layout_marginLeft="14dp"
-        android:layout_marginTop="324dp"
-        android:ems="13"
+    <Button
+        android:id="@+id/Password_Change"
+        style="?attr/materialButtonOutlinedStyle"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_below="@id/Payment_Method"
+        android:layout_marginTop="5dp"
+        android:gravity="left"
         android:inputType="textPersonName"
+        android:text="Change Password"
         android:textColor="@color/black"
-        android:textSize="25sp"
-        android:textStyle="bold" />
+        android:textSize="22sp" />
+
+    <Button
+        android:id="@+id/LogOut_Option"
+        style="?attr/materialButtonOutlinedStyle"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_below="@id/Password_Change"
+        android:layout_marginTop="20dp"
+        android:gravity="left"
+        android:inputType="textPersonName"
+        android:text="Log Out"
+        android:textColor="@color/black"
+        android:textSize="22sp" />
 
 </RelativeLayout>
