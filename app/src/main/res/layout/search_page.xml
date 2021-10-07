@@ -75,35 +75,7 @@
         android:paddingStart="15dp"
         />
 
-    <ImageButton
-        android:id="@+id/rice"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:layout_below="@id/searchBar"
-        android:backgroundTint="@color/black"
-        android:src="@drawable/rice"
-        android:layout_marginLeft="40dp"/>
 
-    <ImageButton
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:layout_below="@id/searchBar"
-        android:src="@drawable/rice"
-        android:layout_marginLeft="40dp"/>
-
-    <ImageButton
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:layout_below="@id/searchBar"
-        android:src="@drawable/rice"
-        android:layout_marginLeft="40dp"/>
-
-    <ImageButton
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:layout_below="@id/searchBar"
-        android:src="@drawable/rice"
-        android:layout_marginLeft="40dp"/>
 
     <!--
     <Button
