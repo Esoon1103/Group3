@@ -112,10 +112,10 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="384dp"
+        android:layout_height="wrap_content"
         android:layout_below="@id/layoutTopBar"
         android:layout_alignParentBottom="true"
-        android:layout_marginTop="168dp"
+        android:layout_marginTop="143dp"
         android:layout_marginBottom="70dp">
 
         <ImageButton
@@ -222,20 +222,22 @@
             app:layout_constraintTop_toTopOf="@+id/imageButtonBeverage" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-<com.smarteist.autoimageslider.SliderView
-    android:layout_below="@id/layoutTopBar"
-    android:layout_width="match_parent"
-    android:id="@+id/slideshow_homepage"
-    app:sliderScrollTimeInSec="2"
-    android:layout_height="100dp"
-    app:sliderStartAutoCycle="true"
-    app:sliderAutoCycleDirection="left"
-    app:sliderIndicatorPadding="4dp"
-    app:sliderIndicatorRadius="1.5dp"
-    app:sliderIndicatorSelectedColor="#636363"
-    app:sliderIndicatorUnselectedColor="#FFFFFF"
-    app:sliderAnimationDuration="1000"
-    app:sliderIndicatorOrientation="horizontal"
-    app:sliderIndicatorGravity="center_horizontal|bottom"
-    />
+
+    <com.smarteist.autoimageslider.SliderView
+        android:id="@+id/slideshow_homepage"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_below="@id/layoutTopBar"
+        android:layout_marginTop="29dp"
+        app:sliderAnimationDuration="1000"
+        app:sliderAutoCycleDirection="left"
+        app:sliderIndicatorGravity="center_horizontal|bottom"
+        app:sliderIndicatorOrientation="horizontal"
+        app:sliderIndicatorPadding="4dp"
+        app:sliderIndicatorRadius="1.5dp"
+        app:sliderIndicatorSelectedColor="#636363"
+        app:sliderIndicatorUnselectedColor="#FFFFFF"
+        app:sliderScrollTimeInSec="2"
+        app:sliderStartAutoCycle="true" />
+
 </RelativeLayout>
