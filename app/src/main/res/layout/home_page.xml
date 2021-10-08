@@ -112,21 +112,23 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="550dp"
+        android:layout_height="384dp"
         android:layout_below="@id/layoutTopBar"
-        android:layout_marginTop="3dp">
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="168dp"
+        android:layout_marginBottom="70dp">
 
         <ImageButton
             android:id="@+id/imageButton2"
             android:layout_width="169dp"
             android:layout_height="117dp"
             android:background="@drawable/food_shape"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/imageButtonDessert"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.005"
+            app:layout_constraintHorizontal_bias="0.066"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.501"
+            app:layout_constraintVertical_bias="0.547"
             app:srcCompat="@drawable/rice" />
 
         <TextView
@@ -147,12 +149,12 @@
             android:layout_width="169dp"
             android:layout_height="117dp"
             android:background="@drawable/food_shape"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/imageButtonBeverage"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.88"
+            app:layout_constraintHorizontal_bias="0.888"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.501"
+            app:layout_constraintVertical_bias="0.543"
             app:srcCompat="@drawable/noodle" />
 
         <TextView
@@ -175,10 +177,10 @@
             android:background="@drawable/food_shape"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintHorizontal_bias="0.066"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.808"
+            app:layout_constraintVertical_bias="0.77"
             app:srcCompat="@drawable/dessert" />
 
         <ImageButton
@@ -188,10 +190,10 @@
             android:background="@drawable/food_shape"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.88"
+            app:layout_constraintHorizontal_bias="0.888"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.826"
+            app:layout_constraintVertical_bias="0.77"
             app:srcCompat="@drawable/drink" />
 
         <TextView
@@ -220,5 +222,20 @@
             app:layout_constraintTop_toTopOf="@+id/imageButtonBeverage" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
+<com.smarteist.autoimageslider.SliderView
+    android:layout_below="@id/layoutTopBar"
+    android:layout_width="match_parent"
+    android:id="@+id/slideshow_homepage"
+    app:sliderScrollTimeInSec="2"
+    android:layout_height="100dp"
+    app:sliderStartAutoCycle="true"
+    app:sliderAutoCycleDirection="left"
+    app:sliderIndicatorPadding="4dp"
+    app:sliderIndicatorRadius="1.5dp"
+    app:sliderIndicatorSelectedColor="#636363"
+    app:sliderIndicatorUnselectedColor="#FFFFFF"
+    app:sliderAnimationDuration="1000"
+    app:sliderIndicatorOrientation="horizontal"
+    app:sliderIndicatorGravity="center_horizontal|bottom"
+    />
 </RelativeLayout>

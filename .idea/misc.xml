@@ -6,6 +6,7 @@
         <entry key="..\:/Group3/app/src/main/res/drawable/box.xml" value="0.2703125" />
         <entry key="..\:/Group3/app/src/main/res/drawable/button_shape.xml" value="0.2703125" />
         <entry key="..\:/Group3/app/src/main/res/drawable/food_shape.xml" value="0.2703125" />
+        <entry key="..\:/Group3/app/src/main/res/drawable/home_page_slideshow.xml" value="0.2703125" />
         <entry key="..\:/Group3/app/src/main/res/drawable/ic_baseline_account_circle_24.xml" value="0.2703125" />
         <entry key="..\:/Group3/app/src/main/res/drawable/ic_dashboard_black_24dp.xml" value="0.2703125" />
         <entry key="..\:/Group3/app/src/main/res/drawable/ic_launcher_background.xml" value="0.2703125" />
@@ -16,7 +17,8 @@
         <entry key="..\:/Group3/app/src/main/res/layout/fragment_dashboard.xml" value="0.18795289855072464" />
         <entry key="..\:/Group3/app/src/main/res/layout/fragment_home.xml" value="0.18795289855072464" />
         <entry key="..\:/Group3/app/src/main/res/layout/fragment_notifications.xml" value="0.16259057971014493" />
-        <entry key="..\:/Group3/app/src/main/res/layout/home_page.xml" value="0.264" />
+        <entry key="..\:/Group3/app/src/main/res/layout/home_page.xml" value="0.1" />
+        <entry key="..\:/Group3/app/src/main/res/layout/item_slider.xml" value="0.1" />
         <entry key="..\:/Group3/app/src/main/res/layout/landing_page.xml" value="0.18206521739130435" />
         <entry key="..\:/Group3/app/src/main/res/layout/search_page.xml" value="0.16259057971014493" />
         <entry key="..\:/Group3/app/src/main/res/layout/test.xml" value="0.18795289855072464" />
