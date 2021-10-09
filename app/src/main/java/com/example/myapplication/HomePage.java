@@ -1,14 +1,24 @@
 package com.example.myapplication;
 
 import android.content.Intent;
+import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.smarteist.autoimageslider.IndicatorView.animation.type.IndicatorAnimationType;
+import com.smarteist.autoimageslider.SliderAnimations;
+import com.smarteist.autoimageslider.SliderView;
+
 public class HomePage extends AppCompatActivity implements View.OnClickListener {
     private Button account1,home1,orderHistory1,cart1;
+    //local variable for slide show
+    SliderView sliderview1;
+    int[] image={R.drawable.rice,R.drawable.dessert,R.drawable.drink};
+    SliderAdp sliderAdp;
     @Override
     public void onClick(View view) {
 
@@ -50,5 +60,21 @@ public class HomePage extends AppCompatActivity implements View.OnClickListener 
 
         cart1= findViewById(R.id.cart1);
         cart1.setOnClickListener(this);
+
+//assign variable
+       sliderview1=findViewById(R.id.slideshow_homepage);
+
+       //initialize adapter
+        sliderAdp=new SliderAdp(image);
+
+        //set adapter
+        sliderview1.setSliderAdapter(sliderAdp);
+        //set indicator aniamtion
+        sliderview1.setIndicatorAnimation(IndicatorAnimationType.WORM);
+        //set transformation animation
+        sliderview1.setSliderTransformAnimation(SliderAnimations.DEPTHTRANSFORMATION);
+        //autocycle
+        sliderview1.startAutoCycle();
+
     }
 }

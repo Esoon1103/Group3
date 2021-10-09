@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">My Application</string>
+    <string name="app_name">inTea Delight</string>
     <string name="title_activity_navigation_bar">navigationBar</string>
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>

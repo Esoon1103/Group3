@@ -48,5 +48,74 @@
 
     </RelativeLayout>
 
+    <!--
+    <SearchView
+        android:id="@+id/searchIc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/layoutTopBar" />
+    //-->
 
+    <EditText
+        android:id="@+id/searchBar"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_below="@id/layoutTopBar"
+        android:layout_marginStart="30dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginBottom="30dp"
+        android:background="@drawable/search_bg"
+        android:drawableStart="@drawable/ic_search"
+        android:ems="10"
+        android:hint="Search food"
+        android:inputType="textPersonName"
+        android:paddingStart="15dp"
+        />
+
+
+
+    <!--
+    <Button
+        android:id="@+id/rice"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_below="@id/searchBar"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/rice"
+        android:text="Rice" />
+
+    <Button
+        android:id="@+id/noodles"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_below="@id/searchBar"
+        android:layout_toRightOf="@id/rice"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginTop="30dp"
+        android:text="Noodles" />
+
+    <Button
+        android:id="@+id/drinks"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_below="@id/rice"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="30dp"
+        android:text="Drinks" />
+
+    <Button
+        android:id="@+id/dessert"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_below="@id/noodles"
+        android:layout_toRightOf="@id/drinks"
+        android:text="Desserts"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="30dp"/>
+     -->
 </RelativeLayout>
