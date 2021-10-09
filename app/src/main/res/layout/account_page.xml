@@ -168,7 +168,6 @@
         android:layout_marginTop="20dp"
         android:gravity="left"
         android:inputType="textPersonName"
-        android:onClick="onPaymentMethod"
         android:text="Change Payment Method"
         android:textColor="@color/black"
         android:textSize="22sp" />
@@ -182,7 +181,6 @@
         android:layout_marginTop="5dp"
         android:gravity="left"
         android:inputType="textPersonName"
-        android:onClick="onChangePass"
         android:text="Change Password"
         android:textColor="@color/black"
         android:textSize="22sp" />
@@ -196,7 +194,6 @@
         android:layout_marginTop="20dp"
         android:gravity="left"
         android:inputType="textPersonName"
-        android:onClick="onLogout"
         android:text="Log Out"
         android:textColor="@color/black"
         android:textSize="22sp" />

@@ -60,7 +60,7 @@
         android:layout_width="match_parent"
         android:layout_height="75dp"
         android:layout_alignParentBottom="true"
-
+android:elevation="4dp"
         android:layout_marginBottom="0dp"
         android:accessibilityHeading="false"
         android:background="#D53C3C"
@@ -93,7 +93,6 @@
             android:layout_marginLeft="225dp"
             android:layout_marginTop="17dp"
             android:background="@drawable/ic_baseline_shopping_cart_24"
-
             app:backgroundTint="#000000"
             tools:layout_editor_absoluteX="112dp"
             tools:layout_editor_absoluteY="236dp" />
@@ -110,134 +109,190 @@
 
     </RelativeLayout>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="548dp"
+        android:layout_above="@+id/bgcolor"
         android:layout_below="@id/layoutTopBar"
-        android:layout_alignParentBottom="true"
-        android:layout_marginTop="143dp"
-        android:layout_marginBottom="70dp">
+        android:layout_marginTop="0dp"
+        android:layout_marginBottom="2dp">
 
-        <ImageButton
-            android:id="@+id/imageButton2"
-            android:layout_width="169dp"
-            android:layout_height="117dp"
-            android:background="@drawable/food_shape"
-            app:layout_constraintBottom_toTopOf="@+id/imageButtonDessert"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.066"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.547"
-            app:srcCompat="@drawable/rice" />
 
-        <TextView
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-            android:id="@+id/textView2"
-            android:layout_width="79dp"
-            android:layout_height="61dp"
-            android:text="Rice"
-            android:textColor="#FFFFFF"
-            android:textSize="35sp"
-            app:layout_constraintBottom_toBottomOf="@+id/imageButton2"
-            app:layout_constraintEnd_toEndOf="@+id/imageButton2"
-            app:layout_constraintStart_toStartOf="@+id/imageButton2"
-            app:layout_constraintTop_toTopOf="@+id/imageButton2" />
 
-        <ImageButton
-            android:id="@+id/imageButtonNoodle"
-            android:layout_width="169dp"
-            android:layout_height="117dp"
-            android:background="@drawable/food_shape"
-            app:layout_constraintBottom_toTopOf="@+id/imageButtonBeverage"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.888"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.543"
-            app:srcCompat="@drawable/noodle" />
+            <com.smarteist.autoimageslider.SliderView
+                android:id="@+id/slideshow_homepage"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_below="@id/layoutTopBar"
+                android:layout_marginTop="50dp"
+                app:sliderAnimationDuration="1000"
+                app:sliderAutoCycleDirection="left"
+                app:sliderIndicatorGravity="center_horizontal|bottom"
+                app:sliderIndicatorOrientation="horizontal"
+                app:sliderIndicatorPadding="4dp"
+                app:sliderIndicatorRadius="1.5dp"
+                app:sliderIndicatorSelectedColor="#636363"
+                app:sliderIndicatorUnselectedColor="#FFFFFF"
+                app:sliderScrollTimeInSec="2"
+                app:sliderStartAutoCycle="true" />
 
-        <TextView
-            android:id="@+id/textView9"
-            android:layout_width="89dp"
-            android:layout_height="61dp"
-            android:text="Noodle"
-            android:textColor="#FFFFFF"
-            android:textSize="24sp"
-            app:layout_constraintBottom_toBottomOf="@+id/imageButtonNoodle"
-            app:layout_constraintEnd_toEndOf="@+id/imageButtonNoodle"
-            app:layout_constraintHorizontal_bias="0.575"
-            app:layout_constraintStart_toStartOf="@+id/imageButtonNoodle"
-            app:layout_constraintTop_toTopOf="@+id/imageButtonNoodle" />
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="32dp" />
 
-        <ImageButton
-            android:id="@+id/imageButtonDessert"
-            android:layout_width="169dp"
-            android:layout_height="117dp"
-            android:background="@drawable/food_shape"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.066"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.77"
-            app:srcCompat="@drawable/dessert" />
+            <LinearLayout
+                android:id="@+id/linear1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
-        <ImageButton
-            android:id="@+id/imageButtonBeverage"
-            android:layout_width="169dp"
-            android:layout_height="117dp"
-            android:background="@drawable/food_shape"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.888"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.77"
-            app:srcCompat="@drawable/drink" />
 
-        <TextView
-            android:id="@+id/textView10"
-            android:layout_width="89dp"
-            android:layout_height="61dp"
-            android:text="Dessert"
-            android:textColor="#FFFFFF"
-            android:textSize="25sp"
-            app:layout_constraintBottom_toBottomOf="@+id/imageButtonDessert"
-            app:layout_constraintEnd_toEndOf="@+id/imageButtonDessert"
-            app:layout_constraintHorizontal_bias="0.45"
-            app:layout_constraintStart_toStartOf="@+id/imageButtonDessert"
-            app:layout_constraintTop_toTopOf="@+id/imageButtonDessert" />
+                <FrameLayout
+                    android:layout_width="173dp"
+                    android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/textView11"
-            android:layout_width="117dp"
-            android:layout_height="63dp"
-            android:text="Beverage"
-            android:textColor="#FFFFFF"
-            android:textSize="25sp"
-            app:layout_constraintBottom_toBottomOf="@+id/imageButtonBeverage"
-            app:layout_constraintEnd_toEndOf="@+id/imageButtonBeverage"
-            app:layout_constraintStart_toStartOf="@+id/imageButtonBeverage"
-            app:layout_constraintTop_toTopOf="@+id/imageButtonBeverage" />
+                    <ImageButton
+                        android:id="@+id/rice_btn_homepage"
+                        android:layout_width="169dp"
+                        android:layout_height="117dp"
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+                        android:background="@null"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/rice"></ImageButton>
 
-    <com.smarteist.autoimageslider.SliderView
-        android:id="@+id/slideshow_homepage"
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:layout_below="@id/layoutTopBar"
-        android:layout_marginTop="29dp"
-        app:sliderAnimationDuration="1000"
-        app:sliderAutoCycleDirection="left"
-        app:sliderIndicatorGravity="center_horizontal|bottom"
-        app:sliderIndicatorOrientation="horizontal"
-        app:sliderIndicatorPadding="4dp"
-        app:sliderIndicatorRadius="1.5dp"
-        app:sliderIndicatorSelectedColor="#636363"
-        app:sliderIndicatorUnselectedColor="#FFFFFF"
-        app:sliderScrollTimeInSec="2"
-        app:sliderStartAutoCycle="true" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:clickable="false"
+                        android:text="Rice"
+                        android:textColor="#FFFFFF"></TextView>
+                </FrameLayout>
+
+                <FrameLayout
+                    android:layout_width="173dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="50dp">
+
+                    <ImageButton
+                        android:id="@+id/noodle_btn_homepage"
+                        android:layout_width="169dp"
+                        android:layout_height="117dp"
+                        android:background="@null"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/noodle"></ImageButton>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:clickable="false"
+                        android:text="noodle"
+                        android:textColor="#FFFFFF"></TextView>
+                </FrameLayout>
+
+
+            </LinearLayout>
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="32dp" />
+
+            <LinearLayout
+                android:id="@+id/linear2"
+                android:layout_width="match_parent"
+                android:layout_height="121dp"
+                android:orientation="horizontal">
+
+                <FrameLayout
+                    android:layout_width="173dp"
+                    android:layout_height="wrap_content">
+
+                    <ImageButton
+                        android:id="@+id/drink_btn_homepage"
+                        android:layout_width="169dp"
+                        android:layout_height="117dp"
+                        android:background="@null"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/drink"></ImageButton>
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:clickable="false"
+                        android:text="Beverage"
+                        android:textColor="#FFFFFF"></TextView>
+                </FrameLayout>
+
+                <FrameLayout
+                    android:layout_width="173dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="50dp">
+
+                    <ImageButton
+                        android:id="@+id/dessert_btn_homepage"
+                        android:layout_width="169dp"
+                        android:layout_height="117dp"
+                        android:background="@null"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/dessert"></ImageButton>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:clickable="false"
+                        android:text="Dessert"
+                        android:textColor="#FFFFFF"></TextView>
+                </FrameLayout>
+            </LinearLayout>
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="28dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"></LinearLayout>
+
+            <FrameLayout
+                android:layout_width="250dp"
+                android:layout_height="117dp"
+                android:layout_marginLeft="70dp">
+
+                <ImageButton
+                    android:id="@+id/temp_btn_homepage"
+                    android:layout_width="247dp"
+                    android:layout_height="117dp"
+
+                    android:background="@null"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/tablereservation_image"></ImageButton>
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:clickable="false"
+                    android:text="Table Reservation"
+                    android:textColor="#FFFFFF"></TextView>
+            </FrameLayout>
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="32dp" />
+
+        </LinearLayout>
+    </ScrollView>
 
 </RelativeLayout>

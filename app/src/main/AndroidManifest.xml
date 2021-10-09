@@ -27,6 +27,7 @@
         <activity android:name=".Account"></activity>
         <activity android:name=".orderHistory"></activity>
         <activity android:name=".cart"></activity>
+        <activity android:name=".changePassword"></activity>
 
     </application>
 
