@@ -1,10 +1,10 @@
 package com.example.myapplication;
 
-public class drink_page {
+public class noodle_page {
     String name;
     double price;
 
-    public drink_page(String name, double price) {
+    public noodle_page(String name, double price) {
         this.name = name;
         this.price = price;
     }
