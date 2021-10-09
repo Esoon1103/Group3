@@ -93,7 +93,6 @@ android:elevation="4dp"
             android:layout_marginLeft="225dp"
             android:layout_marginTop="17dp"
             android:background="@drawable/ic_baseline_shopping_cart_24"
-
             app:backgroundTint="#000000"
             tools:layout_editor_absoluteX="112dp"
             tools:layout_editor_absoluteY="236dp" />

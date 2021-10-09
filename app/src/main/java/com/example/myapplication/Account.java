@@ -7,7 +7,7 @@ import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class Account extends AppCompatActivity implements View.OnClickListener{
-    private Button account1,home1, orderHistory1,cart1;
+    private Button account1,home1, orderHistory1,cart1, Password_Change;
 
     @Override
     public void onClick(View view) {
@@ -28,6 +28,11 @@ public class Account extends AppCompatActivity implements View.OnClickListener{
             case R.id.cart1:
                 Intent toLogin3 = new Intent(this, cart.class);
                 startActivity(toLogin3);
+                break;
+
+            case R.id.Password_Change:
+                Intent changepass = new Intent(this, changePassword.class);
+                startActivity(changepass);
                 break;
         }
 
@@ -51,25 +56,12 @@ public class Account extends AppCompatActivity implements View.OnClickListener{
         cart1= findViewById(R.id.cart1);
         cart1.setOnClickListener(this);
 
-    }
-
-    public void onPaymentMethod(View view){
-        //Link to Payment Method Changing
-        Intent toPayment = new Intent(this, paymentMethod.class);
-        startActivity(toPayment);
-    }
-
-
-    public void onChangePass(View view){
-        //Link to Password Changing
-        Intent toChangePass = new Intent(this, changePassword.class);
-        startActivity(toChangePass);
-    }
-
-    public void onLogout(View view){
-        //Link to Log Out
+        Password_Change= findViewById(R.id.Password_Change);
+        Password_Change.setOnClickListener(this);
 
     }
+
+
 
 } //End Class
 
