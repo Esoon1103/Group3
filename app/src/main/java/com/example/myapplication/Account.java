@@ -55,13 +55,15 @@ public class Account extends AppCompatActivity implements View.OnClickListener{
 
     public void onPaymentMethod(View view){
         //Link to Payment Method Changing
-
+        Intent toPayment = new Intent(this, paymentMethod.class);
+        startActivity(toPayment);
     }
 
 
     public void onChangePass(View view){
         //Link to Password Changing
-
+        Intent toChangePass = new Intent(this, changePassword.class);
+        startActivity(toChangePass);
     }
 
     public void onLogout(View view){
