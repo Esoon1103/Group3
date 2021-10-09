@@ -52,4 +52,25 @@ public class Account extends AppCompatActivity implements View.OnClickListener{
         cart1.setOnClickListener(this);
 
     }
-}
+
+    public void onPaymentMethod(View view){
+        //Link to Payment Method Changing
+
+    }
+
+
+    public void onChangePass(View view){
+        //Link to Password Changing
+
+    }
+
+    public void onLogout(View view){
+        //Link to Log Out
+
+    }
+
+} //End Class
+
+
+
+
