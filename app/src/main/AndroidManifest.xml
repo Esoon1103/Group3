@@ -28,6 +28,7 @@
         <activity android:name=".orderHistory"></activity>
         <activity android:name=".cart"></activity>
         <activity android:name=".changePassword"></activity>
+        <activity android:name=".rice_page"></activity>
 
     </application>
 

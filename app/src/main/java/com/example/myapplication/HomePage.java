@@ -5,6 +5,7 @@ import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,6 +16,7 @@ import com.smarteist.autoimageslider.SliderView;
 
 public class HomePage extends AppCompatActivity implements View.OnClickListener {
     private Button account1,home1,orderHistory1,cart1;
+    private ImageButton rice_btn_homepage;
     //local variable for slide show
     SliderView sliderview1;
     int[] image={R.drawable.rice,R.drawable.dessert,R.drawable.drink};
@@ -39,6 +41,10 @@ public class HomePage extends AppCompatActivity implements View.OnClickListener 
                 Intent toLogin3 = new Intent(this, cart.class);
                 startActivity(toLogin3);
                 break;
+            case R.id.rice_btn_homepage:
+                Intent ricebtn = new Intent(this, rice_page.class);
+                startActivity(ricebtn);
+                break;
         }
 
 
@@ -60,6 +66,9 @@ public class HomePage extends AppCompatActivity implements View.OnClickListener 
 
         cart1= findViewById(R.id.cart1);
         cart1.setOnClickListener(this);
+
+        rice_btn_homepage = findViewById(R.id.rice_btn_homepage);
+        rice_btn_homepage.setOnClickListener(this);
 
 //assign variable
        sliderview1=findViewById(R.id.slideshow_homepage);
