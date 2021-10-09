@@ -8,6 +8,7 @@
     app:cardCornerRadius="10dp">
 
     <RelativeLayout
+        android:gravity="center"
         android:layout_width="match_parent"
         android:layout_marginHorizontal="@dimen/activity_horizontal_margin"
         android:layout_height="match_parent">
@@ -63,13 +64,13 @@
             style="@style/Widget.MaterialComponents.Button.OutlinedButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@id/foodImage"
+            android:layout_marginLeft="200dp"
+            android:layout_marginTop="75dp"
             android:backgroundTint="@color/red"
             android:elevation="10dp"
             android:text="Add to Cart"
-            android:textColor="@color/white"
-            android:layout_below="@id/foodImage"
-            android:layout_marginLeft="200dp"
-            android:layout_marginTop="75dp"/>
+            android:textColor="@color/white" />
 
     </RelativeLayout>
 </androidx.cardview.widget.CardView>
