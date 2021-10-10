@@ -7,8 +7,13 @@ import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.myapplication.model.Rice;
+
+import java.util.List;
+
 public class cart extends AppCompatActivity implements View.OnClickListener {
     private Button account1, home1, orderHistory1, cart1;
+    private List<Rice> riceList;
 
     @Override
     public void onClick(View view) {
