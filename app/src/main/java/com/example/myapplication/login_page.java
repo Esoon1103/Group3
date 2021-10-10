@@ -6,11 +6,18 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-public class login_page extends ActionBarActivity implements View.OnClickListener{
+import androidx.appcompat.app.AppCompatActivity;
+
+public class login_page extends AppCompatActivity implements View.OnClickListener{
      Button buttonBackLanding, buttonForgetPassword, buttonHomePage;
      EditText editTextTextEmailAddress, editTextTextPassword;
 
      @Override
+     public void onClick(View view) {
+
+     }
+
+    /* @Override
      protected void onCreate(Bundle savedInstanceState){
           super.onCreate(savedInstanceState);
           setContentView(R.layout.activity_login);
@@ -36,7 +43,7 @@ public class login_page extends ActionBarActivity implements View.OnClickListene
                     break;
           }
 
-     }
+     }*/
 
 
 }
