@@ -4,7 +4,61 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".orderHistory">
+    tools:context=".changePassword">
+
+    <RelativeLayout
+        android:id="@+id/bgcolor"
+        android:layout_width="match_parent"
+        android:layout_height="75dp"
+        android:layout_alignParentBottom="true"
+        android:accessibilityHeading="false"
+        android:background="#D53C3C"
+        android:visibility="visible"
+        tools:layout_editor_absoluteX="-16dp"
+        tools:layout_editor_absoluteY="655dp">
+
+        <Button
+            android:id="@+id/home1"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/ic_home_black_24dp"
+            app:backgroundTint="#000000" />
+
+        <Button
+            android:id="@+id/orderHistory1"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="130dp"
+            android:layout_marginTop="17dp"
+            android:background="@drawable/ic_baseline_article_24"
+            app:backgroundTint="#FFFFFF"
+            tools:layout_editor_absoluteX="34dp"
+            tools:layout_editor_absoluteY="278dp" />
+
+        <Button
+            android:id="@+id/cart1"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="225dp"
+            android:layout_marginTop="17dp"
+            android:background="@drawable/ic_baseline_shopping_cart_24"
+
+            app:backgroundTint="#000000"
+            tools:layout_editor_absoluteX="112dp"
+            tools:layout_editor_absoluteY="236dp" />
+
+        <Button
+            android:id="@+id/account1"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="320dp"
+            android:layout_marginTop="17dp"
+            android:background="@drawable/ic_baseline_account_circle_24"
+            app:backgroundTint="#000000" />
+
+    </RelativeLayout>
 
     <RelativeLayout
         android:id="@+id/layoutTopBar"
@@ -53,58 +107,53 @@
 
     </RelativeLayout>
 
-    <RelativeLayout
-        android:id="@+id/bgcolor"
-        android:layout_width="match_parent"
-        android:layout_height="75dp"
-        android:layout_alignParentBottom="true"
 
-        android:layout_marginBottom="0dp"
-        android:accessibilityHeading="false"
-        android:background="#D53C3C"
-        android:visibility="visible">
+    <ImageButton
+        android:id="@+id/Back_Button"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/layoutTopBar"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="21dp"
+        android:backgroundTint="@color/white"
+        android:src="@drawable/ic_backspace" />
 
-        <Button
-            android:id="@+id/home1"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginLeft="40dp"
-            android:layout_marginTop="17dp"
-            android:background="@drawable/ic_home_black_24dp"
-            app:backgroundTint="#000000" />
+    <TextView
+        android:id="@+id/order_history_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/layoutTopBar"
+        android:layout_marginLeft="120dp"
+        android:layout_marginTop="25dp"
+        android:text="Order History"
+        android:textColor="@color/black"
+        android:textSize="25sp"
+        android:textStyle="bold" />
 
-        <Button
-            android:id="@+id/orderHistory1"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginLeft="130dp"
-            android:layout_marginTop="17dp"
-            android:background="@drawable/ic_baseline_article_24"
-            app:backgroundTint="#FFFFFF"
-            tools:layout_editor_absoluteX="34dp"
-            tools:layout_editor_absoluteY="278dp" />
+    <Button
+        android:id="@+id/ongoing_button"
+        android:layout_width="290dp"
+        android:layout_height="169dp"
+        android:layout_below="@id/layoutTopBar"
+        android:layout_marginLeft="55dp"
+        android:layout_marginTop="103dp"
+        android:backgroundTint="#EADC81"
+        android:text="On-going
+                      Orders"
+        android:textColor="@color/black"
+        android:textSize="25sp" />
 
-        <Button
-            android:id="@+id/cart1"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginLeft="225dp"
-            android:layout_marginTop="17dp"
-            android:background="@drawable/ic_baseline_shopping_cart_24"
+    <Button
+        android:id="@+id/completed_button"
+        android:layout_width="290dp"
+        android:layout_height="169dp"
+        android:layout_below="@id/layoutTopBar"
+        android:layout_marginLeft="55dp"
+        android:layout_marginTop="319dp"
+        android:backgroundTint="#0CE889"
+        android:text="Completed Orders"
+        android:textColor="@color/black"
 
-            app:backgroundTint="#000000"
-            tools:layout_editor_absoluteX="112dp"
-            tools:layout_editor_absoluteY="236dp" />
+        android:textSize="25sp" />
 
-        <Button
-            android:id="@+id/account1"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginLeft="320dp"
-            android:layout_marginTop="17dp"
-            android:background="@drawable/ic_baseline_account_circle_24"
-            app:backgroundTint="#000000" />
-
-
-    </RelativeLayout>
 </RelativeLayout>
