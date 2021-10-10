@@ -113,87 +113,47 @@
         android:layout_width="50dp"
         android:layout_height="wrap_content"
         android:layout_below="@id/layoutTopBar"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="17dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="21dp"
         android:backgroundTint="@color/white"
         android:src="@drawable/ic_backspace" />
 
     <TextView
-        android:id="@+id/Change_Password_Title"
+        android:id="@+id/order_history_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/layoutTopBar"
-        android:layout_marginLeft="60dp"
-        android:layout_marginTop="20dp"
-        android:text="Change Password"
-        android:textColor="@color/black"
-        android:textSize="24sp"
-        android:textStyle="bold" />
-
-    <TextView
-        android:id="@+id/current_pass_display"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/Change_Password_Title"
-        android:layout_marginLeft="30dp"
+        android:layout_marginLeft="120dp"
         android:layout_marginTop="25dp"
-        android:text="Enter your Current Password"
+        android:text="Order History"
         android:textColor="@color/black"
-        android:textSize="20sp"
+        android:textSize="25sp"
         android:textStyle="bold" />
 
-    <EditText
-        android:id="@+id/current_password"
-        android:layout_width="wrap_content"
-        android:layout_height="30dp"
-        android:layout_below="@id/current_pass_display"
-        android:layout_marginLeft="30dp"
-        android:layout_marginTop="25dp"
-        android:background="@drawable/box"
-        android:ems="10"
-        android:hint="Current Password"
-        android:inputType="textPersonName"
+    <Button
+        android:id="@+id/ongoing_button"
+        android:layout_width="290dp"
+        android:layout_height="169dp"
+        android:layout_below="@id/layoutTopBar"
+        android:layout_marginLeft="55dp"
+        android:layout_marginTop="103dp"
+        android:backgroundTint="#EADC81"
+        android:text="On-going
+                      Orders"
         android:textColor="@color/black"
-        android:textStyle="bold" />
+        android:textSize="25sp" />
 
-    <TextView
-        android:id="@+id/new_password_display"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/current_password"
-        android:layout_marginLeft="30dp"
-        android:layout_marginTop="30dp"
-        android:text="Enter New Password Below"
+    <Button
+        android:id="@+id/completed_button"
+        android:layout_width="290dp"
+        android:layout_height="169dp"
+        android:layout_below="@id/layoutTopBar"
+        android:layout_marginLeft="55dp"
+        android:layout_marginTop="319dp"
+        android:backgroundTint="#0CE889"
+        android:text="Completed Orders"
         android:textColor="@color/black"
-        android:textSize="20sp"
-        android:textStyle="bold" />
 
-    <EditText
-        android:id="@+id/new_password"
-        android:layout_width="wrap_content"
-        android:layout_height="30dp"
-        android:layout_below="@id/new_password_display"
-        android:layout_marginLeft="30dp"
-        android:layout_marginTop="25dp"
-        android:background="@drawable/box"
-        android:ems="10"
-        android:hint="New Password"
-        android:inputType="textPersonName"
-        android:textColor="@color/black"
-        android:textStyle="bold" />
-
-    <EditText
-        android:id="@+id/confirm_password"
-        android:layout_width="wrap_content"
-        android:layout_height="30dp"
-        android:layout_below="@id/new_password"
-        android:layout_marginLeft="30dp"
-        android:layout_marginTop="25dp"
-        android:background="@drawable/box"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:hint="Confirm New Password"
-        android:textColor="@color/black"
-        android:textStyle="bold" />
+        android:textSize="25sp" />
 
 </RelativeLayout>
