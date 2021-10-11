@@ -89,17 +89,17 @@
         android:layout_above="@id/bgcolor"
         android:layout_below="@id/riceTitleLayout"
         android:layout_centerHorizontal="true"
-        android:orientation="vertical"
-        android:gravity="center">
+        android:gravity="center"
+        android:orientation="vertical">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/riceListRecycler"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_centerHorizontal="true"
+            android:scrollbars="vertical"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            android:scrollbars="vertical"/>
+            app:layout_constraintStart_toStartOf="parent" />
     </LinearLayout>
 
     <RelativeLayout

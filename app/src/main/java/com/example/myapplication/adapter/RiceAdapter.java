@@ -29,22 +29,26 @@ public class RiceAdapter extends RecyclerView.Adapter<RiceAdapter.RiceViewHolder
     Context context;
     List<Rice> riceList;
 
+    //Constructor
     public RiceAdapter(Context context, List<Rice> riceList) {
         this.context = context;
         this.riceList = riceList;
     }
 
+    //Display item layout by using the View Holder
     @NonNull
     @Override
     public RiceViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         return new RiceViewHolder(LayoutInflater.from(context).inflate(R.layout.rice_item,parent,false));
     }
 
+
+    //Set the Rice details: Image, Name, Price - To the specific position by using the View Holder
     @Override
     public void onBindViewHolder(@NonNull RiceViewHolder holder, int position) {
         Glide.with(context)
-                .load(riceList.get(position).getImage())
-                .into(holder.foodImage);
+                .load(riceList.get(position).getImage()) //Get image from the position
+                .into(holder.foodImage); //Set into the food Image
         holder.foodPrice.setText(new StringBuilder("RM ").append(riceList.get(position).getPrice()));
         holder.foodName.setText(new StringBuilder().append(riceList.get(position).getName()));
     }
@@ -54,6 +58,8 @@ public class RiceAdapter extends RecyclerView.Adapter<RiceAdapter.RiceViewHolder
         return riceList.size();
     }
 
+
+    //
     public class RiceViewHolder extends RecyclerView.ViewHolder{
 
         @BindView(R.id.foodImage)
