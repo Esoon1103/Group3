@@ -171,7 +171,6 @@
             android:layout_marginTop="5dp"
             android:layout_toRightOf="@id/cart1"
             android:background="@drawable/box"
-            android:backgroundTint="@color/white"
             app:nbMaxTextLength="2" />
 
         <Button
