@@ -1,6 +1,7 @@
 package com.example.myapplication.adapter;
 
 import android.content.Context;
+import android.media.Image;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,11 +11,18 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.myapplication.R;
 import com.example.myapplication.model.Rice;
 import com.example.myapplication.rice_page;
 
+import org.w3c.dom.Text;
+
 import java.util.List;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
 
 public class RiceAdapter extends RecyclerView.Adapter<RiceAdapter.RiceViewHolder>{
 
@@ -34,10 +42,11 @@ public class RiceAdapter extends RecyclerView.Adapter<RiceAdapter.RiceViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull RiceViewHolder holder, int position) {
-
-        holder.foodImage.setImageResource(riceList.get(position).getImage());
-        holder.foodName.setText(riceList.get(position).getName());
-        holder.foodPrice.setText(riceList.get(position).getPrice());
+        Glide.with(context)
+                .load(riceList.get(position).getImage())
+                .into(holder.foodImage);
+        holder.foodPrice.setText(new StringBuilder("RM ").append(riceList.get(position).getPrice()));
+        holder.foodName.setText(new StringBuilder().append(riceList.get(position).getName()));
     }
 
     @Override
@@ -45,17 +54,21 @@ public class RiceAdapter extends RecyclerView.Adapter<RiceAdapter.RiceViewHolder
         return riceList.size();
     }
 
-    public static final class RiceViewHolder extends RecyclerView.ViewHolder{
+    public class RiceViewHolder extends RecyclerView.ViewHolder{
 
+        @BindView(R.id.foodImage)
         ImageView foodImage;
-        TextView foodPrice, foodName;
+        @BindView(R.id.foodName)
+        TextView foodName;
+        @BindView(R.id.foodPrice)
+        TextView foodPrice;
+
+        private Unbinder unbinder;
 
         public RiceViewHolder(@NonNull View itemView) {
             super(itemView);
+            unbinder = ButterKnife.bind(this,itemView);
 
-            foodImage = itemView.findViewById(R.id.foodImage);
-            foodName = itemView.findViewById(R.id.foodName);
-            foodPrice = itemView.findViewById(R.id.foodPrice);
         }
     }
 }

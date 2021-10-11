@@ -1,21 +1,32 @@
 package com.example.myapplication.model;
 
 public class Rice {
-    String name;
-    String price;
-    Integer image;
+    private String key, name, price, image, id;
 
-    public Rice(String name, String price, Integer image) {
-        this.name = name;
-        this.price = price;
-        this.image = image;
+    public Rice() {
     }
 
-    public Integer getImage() {
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getKey() {
+        return key;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
+    }
+
+    public String getImage() {
         return image;
     }
 
-    public void setImage(Integer image) {
+    public void setImage(String image) {
         this.image = image;
     }
 

@@ -1,39 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    app:elevation="10dp"
-    app:cardCornerRadius="10dp">
+    app:cardElevation="10dp"
+    app:cardCornerRadius="10dp"
+    app:contentPadding="10dp">
 
     <RelativeLayout
         android:gravity="center"
         android:layout_width="match_parent"
-        android:layout_marginHorizontal="@dimen/activity_horizontal_margin"
         android:layout_height="match_parent">
 
         <ImageView
             android:id="@+id/foodImage"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="300dp"
+            android:layout_height="150dp"
+            android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
+            android:layout_marginTop="0dp"
             android:src="@drawable/rice"
-            app:layout_constraintBottom_toTopOf="@+id/itemBar"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/itemBar"
-            android:layout_width="350dp"
-            android:layout_height="131dp"
-            android:layout_below="@id/foodImage"
-            android:background="@drawable/box"
-            android:backgroundTint="#FFFFFF"
-            android:breakStrategy="high_quality"
-            android:drawingCacheQuality="auto"
-            android:elevation="10dp" />
 
         <TextView
             android:id="@+id/foodName"
@@ -67,6 +56,8 @@
             android:layout_below="@id/foodImage"
             android:layout_marginLeft="200dp"
             android:layout_marginTop="75dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="10dp"
             android:backgroundTint="@color/red"
             android:elevation="10dp"
             android:text="Add to Cart"
@@ -75,4 +66,4 @@
 
     </RelativeLayout>
 
-</androidx.cardview.widget.CardView>
+</com.google.android.material.card.MaterialCardView>
