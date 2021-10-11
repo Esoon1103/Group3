@@ -1,5 +1,7 @@
 package com.example.myapplication;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -7,7 +9,7 @@ import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class Account extends AppCompatActivity implements View.OnClickListener{
-    private Button account1,home1, orderHistory1,cart1, Password_Change;
+    private Button account1,home1, orderHistory1,cart1, btnChangePass, btnLogout;
 
     @Override
     public void onClick(View view) {
@@ -30,9 +32,9 @@ public class Account extends AppCompatActivity implements View.OnClickListener{
                 startActivity(toLogin3);
                 break;
 
-            case R.id.Password_Change:
-                Intent changepass = new Intent(this, changePassword.class);
-                startActivity(changepass);
+            case R.id.btnChangePass:
+                Intent changePass = new Intent(this, changePassword.class);
+                startActivity(changePass);
                 break;
         }
 
@@ -56,14 +58,44 @@ public class Account extends AppCompatActivity implements View.OnClickListener{
         cart1= findViewById(R.id.cart1);
         cart1.setOnClickListener(this);
 
-        Password_Change= findViewById(R.id.Password_Change);
-        Password_Change.setOnClickListener(this);
+        btnChangePass= findViewById(R.id.btnChangePass);
+        btnChangePass.setOnClickListener(this);
+
+        btnLogout = (Button) findViewById(R.id.btnLogout);
+        btnLogout.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                onBackPressed();
+            }
+        });
+    }
+
+    //Logout Confirmation
+    @Override
+    public void onBackPressed(){
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        builder.setMessage("Are you sure you want to Logout?");
+        builder.setCancelable(false);
+        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                Account.super.onBackPressed();
+            }
+        });
+        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.cancel();
+            }
+        });
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
 
     }
 
-
-
-} //End Class
+} //End Account class
 
 
 

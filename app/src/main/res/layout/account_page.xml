@@ -147,7 +147,7 @@
         android:textSize="22sp" />
 
     <TextView
-        android:id="@+id/Settings_Display"
+        android:id="@+id/txtViewSettings"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/Email_Display"
@@ -160,24 +160,11 @@
         android:textStyle="bold" />
 
     <Button
-        android:id="@+id/Payment_Method"
+        android:id="@+id/btnChangePass"
         style="?attr/materialButtonOutlinedStyle"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:layout_below="@id/Settings_Display"
-        android:layout_marginTop="20dp"
-        android:gravity="left"
-        android:inputType="textPersonName"
-        android:text="Change Payment Method"
-        android:textColor="@color/black"
-        android:textSize="22sp" />
-
-    <Button
-        android:id="@+id/Password_Change"
-        style="?attr/materialButtonOutlinedStyle"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_below="@id/Payment_Method"
+        android:layout_below="@id/txtViewSettings"
         android:layout_marginTop="5dp"
         android:gravity="left"
         android:inputType="textPersonName"
@@ -186,11 +173,11 @@
         android:textSize="22sp" />
 
     <Button
-        android:id="@+id/LogOut_Option"
+        android:id="@+id/btnLogout"
         style="?attr/materialButtonOutlinedStyle"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:layout_below="@id/Password_Change"
+        android:layout_below="@id/btnChangePass"
         android:layout_marginTop="20dp"
         android:gravity="left"
         android:inputType="textPersonName"
