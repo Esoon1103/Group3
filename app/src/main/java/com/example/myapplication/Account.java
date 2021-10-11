@@ -76,15 +76,16 @@ public class Account extends AppCompatActivity implements View.OnClickListener{
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
-        builder.setMessage("Are you sure you want to Logout?");
+        builder.setMessage("Are you sure you want to logout?");
         builder.setCancelable(false);
         builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 Account.super.onBackPressed();
+                //Intent intent = new Intent(Account.this, login_page.class);
+                //startActivity(intent);
             }
-        });
-        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+        }).setNegativeButton("No", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 dialogInterface.cancel();
