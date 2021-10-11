@@ -16,7 +16,7 @@ import com.smarteist.autoimageslider.SliderView;
 
 public class HomePage extends AppCompatActivity implements View.OnClickListener {
     private Button account1,home1,orderHistory1,cart1;
-    private ImageButton rice_btn_homepage;
+    private ImageButton rice_btn_homepage, temp_btn_homepage;
     //local variable for slide show
     SliderView sliderview1;
     int[] image={R.drawable.rice,R.drawable.dessert,R.drawable.drink};
@@ -45,6 +45,11 @@ public class HomePage extends AppCompatActivity implements View.OnClickListener 
                 Intent ricebtn = new Intent(this, rice_page.class);
                 startActivity(ricebtn);
                 break;
+
+            case R.id.temp_btn_homepage:
+                Intent reservation_btn = new Intent(this, Reservation_home.class);
+                startActivity(reservation_btn);
+                break;
         }
 
 
@@ -69,6 +74,9 @@ public class HomePage extends AppCompatActivity implements View.OnClickListener 
 
         rice_btn_homepage = findViewById(R.id.rice_btn_homepage);
         rice_btn_homepage.setOnClickListener(this);
+
+        temp_btn_homepage = findViewById(R.id.temp_btn_homepage);
+        temp_btn_homepage.setOnClickListener(this);
 
 //assign variable
        sliderview1=findViewById(R.id.slideshow_homepage);

@@ -1,6 +1,174 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:context=".Reservation_home">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <RelativeLayout
+        android:id="@+id/layoutTopBar"
+        android:layout_width="match_parent"
+        android:layout_height="110dp"
+        android:background="@color/red"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="2dp">
+
+        <TextView
+            android:id="@+id/appName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="20dp"
+            android:text="inTea Delight"
+            android:textColor="@color/black"
+            android:textSize="28sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/appName"
+            android:layout_alignStart="@+id/appName"
+            android:layout_alignParentRight="true"
+            android:layout_marginStart="1dp"
+            android:layout_marginTop="0dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginRight="71dp"
+            android:text="Bring your joy \nEnjoy your foodies"
+            android:textAlignment="textEnd"
+            android:textColor="@color/white"
+            android:textSize="13sp"
+            android:textStyle="italic" />
+
+        <ImageView
+            android:id="@+id/notification"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="35dp"
+            android:src="@drawable/ic_notifications_black_24dp" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/bgcolor"
+        android:layout_width="match_parent"
+        android:layout_height="75dp"
+        android:layout_alignParentBottom="true"
+        android:elevation="4dp"
+        android:layout_marginBottom="0dp"
+        android:accessibilityHeading="false"
+        android:background="#D53C3C"
+        android:visibility="visible">
+
+        <Button
+            android:id="@+id/home1"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="17dp"
+            android:background="@drawable/ic_home_black_24dp"
+            app:backgroundTint="#FFFFFF" />
+
+        <Button
+            android:id="@+id/orderHistory1"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="130dp"
+            android:layout_marginTop="17dp"
+            android:background="@drawable/ic_baseline_article_24"
+            app:backgroundTint="#000000"
+            tools:layout_editor_absoluteX="34dp"
+            tools:layout_editor_absoluteY="278dp" />
+
+        <Button
+            android:id="@+id/cart1"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="225dp"
+            android:layout_marginTop="17dp"
+            android:background="@drawable/ic_baseline_shopping_cart_24"
+            app:backgroundTint="#000000"
+            tools:layout_editor_absoluteX="112dp"
+            tools:layout_editor_absoluteY="236dp" />
+
+        <Button
+            android:id="@+id/account1"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="320dp"
+            android:layout_marginTop="17dp"
+            android:background="@drawable/ic_baseline_account_circle_24"
+            app:backgroundTint="#000000" />
+
+
+    </RelativeLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="546dp"
+        android:layout_below="@id/layoutTopBar">
+
+        <ImageButton
+            android:id="@+id/rice_btn_homepage"
+            android:layout_width="260dp"
+            android:layout_height="126dp"
+
+            android:layout_marginBottom="324dp"
+            android:background="@null"
+            android:scaleType="fitXY"
+            android:src="@drawable/reserve_pic1"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.503"
+            app:layout_constraintStart_toStartOf="parent"></ImageButton>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:clickable="false"
+            android:text="Reservation"
+            android:textColor="#FFFFFF"
+            app:layout_constraintBottom_toBottomOf="@+id/rice_btn_homepage"
+            app:layout_constraintEnd_toEndOf="@+id/rice_btn_homepage"
+            app:layout_constraintStart_toStartOf="@+id/rice_btn_homepage"
+            app:layout_constraintTop_toTopOf="@+id/rice_btn_homepage"></TextView>
+
+        <ImageButton
+            android:id="@+id/rice_btn_homepage1"
+            android:layout_width="260dp"
+            android:layout_height="126dp"
+
+            android:layout_marginBottom="124dp"
+            android:background="@null"
+            android:scaleType="fitXY"
+            android:src="@drawable/reserve3"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.503"
+            app:layout_constraintStart_toStartOf="parent"></ImageButton>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:clickable="false"
+            android:text="Ongoing"
+
+            android:textColor="#FFFFFF"
+            app:layout_constraintBottom_toBottomOf="@+id/rice_btn_homepage1"
+            app:layout_constraintEnd_toEndOf="@+id/rice_btn_homepage1"
+            app:layout_constraintHorizontal_bias="0.495"
+            app:layout_constraintStart_toStartOf="@+id/rice_btn_homepage1"
+            app:layout_constraintTop_toTopOf="@+id/rice_btn_homepage1"
+            app:layout_constraintVertical_bias="0.616"></TextView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+</RelativeLayout>

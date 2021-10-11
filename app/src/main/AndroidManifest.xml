@@ -30,6 +30,7 @@
         <activity android:name=".cart"></activity>
         <activity android:name=".changePassword"></activity>
         <activity android:name=".rice_page"></activity>
+        <activity android:name=".Reservation_home"></activity>
 
     </application>
 
