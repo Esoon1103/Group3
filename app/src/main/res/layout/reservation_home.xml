@@ -133,16 +133,17 @@
             android:clickable="false"
             android:text="Reservation"
             android:textColor="#FFFFFF"
+            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@+id/rice_btn_homepage"
             app:layout_constraintEnd_toEndOf="@+id/rice_btn_homepage"
             app:layout_constraintStart_toStartOf="@+id/rice_btn_homepage"
             app:layout_constraintTop_toTopOf="@+id/rice_btn_homepage"></TextView>
 
+
         <ImageButton
             android:id="@+id/rice_btn_homepage1"
             android:layout_width="260dp"
             android:layout_height="126dp"
-
             android:layout_marginBottom="124dp"
             android:background="@null"
             android:scaleType="fitXY"
@@ -158,8 +159,8 @@
             android:layout_gravity="center"
             android:clickable="false"
             android:text="Ongoing"
-
             android:textColor="#FFFFFF"
+            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@+id/rice_btn_homepage1"
             app:layout_constraintEnd_toEndOf="@+id/rice_btn_homepage1"
             app:layout_constraintHorizontal_bias="0.495"
