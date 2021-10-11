@@ -10,6 +10,7 @@ import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.style.ForegroundColorSpan;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.myapplication.ui.home.HomeFragment;
 //implements View.OnClickListener
@@ -21,7 +22,7 @@ public class landingPage extends AppCompatActivity implements View.OnClickListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.landing_page);
         buttonLoginLanding = findViewById(R.id.buttonLoginLanding);
-       buttonLoginLanding.setOnClickListener(this);
+        buttonLoginLanding.setOnClickListener(this);
 
     }
 
