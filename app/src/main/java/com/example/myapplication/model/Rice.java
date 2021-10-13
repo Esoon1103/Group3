@@ -58,4 +58,9 @@ public class Rice {
     public void setPrice(String price) {
         this.price = price;
     }
+
+    public boolean to_access(boolean temp1){
+
+        return temp1;
+    }
 }

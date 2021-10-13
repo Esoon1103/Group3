@@ -58,4 +58,9 @@ public class Noodle {
     public void setNoodle(boolean noodle) {
         this.noodle = noodle;
     }
+
+    public boolean to_access1(boolean temp1){
+
+        return temp1;
+    }
 }

@@ -42,7 +42,7 @@ import butterknife.ButterKnife;
 
 public class rice_page extends AppCompatActivity implements IRiceLoadListener, View.OnClickListener{
     private Button account1,home1,orderHistory1;
-
+ boolean temp,temp2,temp3,temp4;
     @BindView(R.id.riceListRecycler)
     RecyclerView riceListRecycler;
     @BindView(R.id.rice_layout)
@@ -55,10 +55,7 @@ public class rice_page extends AppCompatActivity implements IRiceLoadListener, V
     IRiceLoadListener riceLoadListener;
     IRiceLoadListener cartLoadListener;
 
-    conditionRice riceTest = new conditionRice();
-    conditionNoodle noodleTest = new conditionNoodle();
-    conditionDessert dessertTest = new conditionDessert();
-    conditionDrink drinkTest = new conditionDrink();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,23 +87,35 @@ public class rice_page extends AppCompatActivity implements IRiceLoadListener, V
 
         FirebaseDatabase database = FirebaseDatabase.getInstance("https://intea-delight-default-rtdb.asia-southeast1.firebasedatabase.app");
         DatabaseReference reference;
+        HomePage home_takecondition =new HomePage();
 
-        if(riceTest.isRice()) {
+        temp=home_takecondition.onClickRice();
+        temp2=home_takecondition.onClickNoodle();
+
+        if(true) {
+
             reference = database.getReference("Rice");
             referenceRiceAdd(reference, riceModels);
             System.out.println("Rice is TRUE");
+            System.out.println(temp);
+            System.out.println(temp2);
+            System.out.println(temp3);
+            System.out.println(temp4);
+
         }
-        else if (noodleTest.isNoodle()) {
+        else if (temp2) {
+
             reference = database.getReference("Noodle");
             referenceNoodleAdd(reference, noodleModels);
             System.out.println("Noodle is TRUE");
+
         }
-        else if (dessertTest.isDessert()) {
+        else if (temp3) {
             reference = database.getReference("Dessert");
             referenceDessertAdd(reference, dessertModels);
             System.out.println("Dessert is TRUE");
         }
-        else if(drinkTest.isDrinks()){
+        else if(temp4){
             reference = database.getReference("Drinks");
             referenceDrinkAdd(reference, drinkModels);
             System.out.println("Drink is TRUE");
@@ -288,17 +297,6 @@ public class rice_page extends AppCompatActivity implements IRiceLoadListener, V
     }
 
 
-}
-
-class conditionRice extends Rice{
-    boolean bool;
-}
-class conditionNoodle extends Noodle{
 
 }
-class conditionDessert extends Dessert{
 
-}
-class conditionDrink extends  Drinks{
-
-}

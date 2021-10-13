@@ -27,11 +27,13 @@ public class HomePage extends AppCompatActivity implements View.OnClickListener 
     private Button account1,home1,orderHistory1,cart1;
     private ImageButton rice_btn_homepage,
             noodle_btn_homepage, drink_btn_homepage, dessert_btn_homepage, temp_btn_homepage;
+private boolean test_btn=false;
+    private boolean test_btn2=false;
 
-    Rice riceCondition = new Rice(false);
-    Noodle noodleCondition = new Noodle(false);
-    Dessert dessertCondition = new Dessert(false);
-    Drinks drinkCondition = new Drinks(false);
+    Rice riceCondition = new Rice();
+    Noodle noodleCondition = new Noodle();
+    Dessert dessertCondition = new Dessert();
+    Drinks drinkCondition = new Drinks();
 
     //local variable for slide show
     SliderView sliderview1;
@@ -66,12 +68,14 @@ public class HomePage extends AppCompatActivity implements View.OnClickListener 
             case R.id.rice_btn_homepage:
                 Intent riceBtn = new Intent(this, rice_page.class);
                 startActivity(riceBtn);
+                int lj=0;
                 onClickRice();
                 break;
 
             case R.id.noodle_btn_homepage:
                 Intent noodleBtn = new Intent(this, rice_page.class);
                 startActivity(noodleBtn);
+                test_btn=true;
                 onClickNoodle();
                 break;
 
@@ -146,17 +150,17 @@ public class HomePage extends AppCompatActivity implements View.OnClickListener 
     //Determine whether which button is clicked
     //to display the page by using the boolean condition
     //True = display the page, False = Not the page user clicked
-    public void onClickRice(){
-        if(riceCondition == null)
-            System.out.println("Null pointer exception");
-        else
-            riceCondition.setRice(true);
+    public boolean onClickRice(){
+        boolean temp1=true;
+        riceCondition.to_access(true);
+         //riceCondition.to_access(temp1);
+         return temp1;
     }
-    public void onClickNoodle(){
-        if(noodleCondition == null)
-            System.out.println("NULL POINTER EXCEPTION");
-        else
-            noodleCondition.setNoodle(true);
+    public boolean onClickNoodle(){
+        boolean temp1=true;
+
+        noodleCondition.to_access1(true);
+        return temp1;
     }
     public void onClickDrink(){
         drinkCondition.setDrinks(true);
