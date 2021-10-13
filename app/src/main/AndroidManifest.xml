@@ -2,7 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.myapplication">
 
-
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -10,6 +9,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplication">
+        <activity
+            android:name=".ForgotPasswordActivity"
+            android:exported="true" />
         <activity
             android:name=".navigationBar"
             android:exported="true"
@@ -23,16 +25,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity android:name=".HomePage"></activity>
-        <activity android:name=".Account"></activity>
-        <activity android:name=".orderHistory"></activity>
-        <activity android:name=".cart"></activity>
-        <activity android:name=".changePassword"></activity>
-        <activity android:name=".rice_page"></activity>
-        <activity android:name=".Reservation_home"></activity>
-
-
+        <activity android:name=".HomePage" />
+        <activity android:name=".Account" />
+        <activity android:name=".orderHistory" />
+        <activity android:name=".cart" />
+        <activity android:name=".changePassword" />
+        <activity android:name=".rice_page" />
+        <activity android:name=".Reservation_home" />
     </application>
 
 </manifest>
