@@ -1,7 +1,6 @@
 package com.example.myapplication.adapter;
 
 import android.content.Context;
-import android.media.Image;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,11 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.myapplication.R;
-import com.example.myapplication.model.Noodle;
-import com.example.myapplication.model.Rice;
-import com.example.myapplication.rice_page;
-
-import org.w3c.dom.Text;
+import com.example.myapplication.model.Drinks;
 
 import java.util.List;
 
@@ -25,44 +20,44 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
-public class RiceAdapter extends RecyclerView.Adapter<RiceAdapter.RiceViewHolder>{
+public class DrinkAdapter extends RecyclerView.Adapter<DrinkAdapter.DrinkViewHolder>{
 
     Context context;
-    List<Rice> riceList;
+    List<Drinks> drinksList;
 
     //Constructor
-    public RiceAdapter(Context context, List<Rice> riceList) {
+    public DrinkAdapter(Context context, List<Drinks> drinkList) {
         this.context = context;
-        this.riceList = riceList;
+        this.drinksList = drinkList;
     }
 
 
     //Display item layout by using the View Holder
     @NonNull
     @Override
-    public RiceViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new RiceViewHolder(LayoutInflater.from(context).inflate(R.layout.rice_item,parent,false));
+    public DrinkViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        return new DrinkViewHolder(LayoutInflater.from(context).inflate(R.layout.rice_item,parent,false));
     }
 
 
     //Set the Rice details: Image, Name, Price - To the specific position by using the View Holder
     @Override
-    public void onBindViewHolder(@NonNull RiceViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull DrinkViewHolder holder, int position) {
         Glide.with(context)
-                .load(riceList.get(position).getImage()) //Get image from the position
+                .load(drinksList.get(position).getImage()) //Get image from the position
                 .into(holder.foodImage); //Set into the food Image
-        holder.foodPrice.setText(new StringBuilder("RM ").append(riceList.get(position).getPrice()));
-        holder.foodName.setText(new StringBuilder().append(riceList.get(position).getName()));
+        holder.foodPrice.setText(new StringBuilder("RM ").append(drinksList.get(position).getPrice()));
+        holder.foodName.setText(new StringBuilder().append(drinksList.get(position).getName()));
     }
 
     @Override
     public int getItemCount() {
-        return riceList.size();
+        return drinksList.size();
     }
 
 
     //
-    public class RiceViewHolder extends RecyclerView.ViewHolder{
+    public class DrinkViewHolder extends RecyclerView.ViewHolder{
 
         @BindView(R.id.foodImage)
         ImageView foodImage;
@@ -73,7 +68,7 @@ public class RiceAdapter extends RecyclerView.Adapter<RiceAdapter.RiceViewHolder
 
         private Unbinder unbinder;
 
-        public RiceViewHolder(@NonNull View itemView) {
+        public DrinkViewHolder(@NonNull View itemView) {
             super(itemView);
             unbinder = ButterKnife.bind(this,itemView);
 

@@ -2,8 +2,21 @@ package com.example.myapplication.model;
 
 public class Rice {
     private String key, name, price, image, id;
+    private boolean rice;
 
     public Rice() {
+    }
+
+    public Rice(boolean rice) {
+        this.rice = rice;
+    }
+
+    public void setRice(boolean rice) {
+        this.rice = rice;
+    }
+
+    public boolean isRice() {
+        return rice;
     }
 
     public String getId() {
