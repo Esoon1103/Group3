@@ -32,6 +32,7 @@
         <activity android:name=".changePassword" />
         <activity android:name=".rice_page" />
         <activity android:name=".Reservation_home" />
+        <activity android:name=".reservation_page" />
     </application>
 
 </manifest>

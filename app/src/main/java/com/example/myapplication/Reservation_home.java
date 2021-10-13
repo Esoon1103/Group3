@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -12,6 +13,7 @@ import com.smarteist.autoimageslider.SliderAnimations;
 
 public class Reservation_home extends AppCompatActivity implements View.OnClickListener{
     private Button account1,home1,orderHistory1,cart1;
+    ImageButton reservation_btn;
     @Override
     public void onClick(View view) {
         switch(view.getId()){
@@ -30,6 +32,11 @@ public class Reservation_home extends AppCompatActivity implements View.OnClickL
             case R.id.cart1:
                 Intent toLogin3 = new Intent(this, cart.class);
                 startActivity(toLogin3);
+                break;
+
+            case R.id.reservation_btn:
+                Intent toreserve = new Intent(this, reservation_page.class);
+                startActivity(toreserve);
                 break;
 
         }
@@ -51,7 +58,8 @@ public class Reservation_home extends AppCompatActivity implements View.OnClickL
         cart1= findViewById(R.id.cart1);
         cart1.setOnClickListener(this);
 
-
+        reservation_btn= findViewById(R.id.reservation_btn);
+        reservation_btn.setOnClickListener(this);
 
 
 

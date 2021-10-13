@@ -2,17 +2,20 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".reservation_page"
+    android:id="@+id/reservation_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Reservation_home">
+    >
 
     <RelativeLayout
         android:id="@+id/layoutTopBar"
         android:layout_width="match_parent"
         android:layout_height="110dp"
         android:background="@color/red"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="2dp">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <TextView
             android:id="@+id/appName"
@@ -53,34 +56,48 @@
 
     </RelativeLayout>
 
+
     <RelativeLayout
         android:id="@+id/bgcolor"
         android:layout_width="match_parent"
         android:layout_height="75dp"
         android:layout_alignParentBottom="true"
-        android:elevation="4dp"
-        android:layout_marginBottom="0dp"
         android:accessibilityHeading="false"
         android:background="#D53C3C"
-        android:visibility="visible">
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
 
         <Button
             android:id="@+id/home1"
             android:layout_width="40dp"
             android:layout_height="40dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="40dp"
             android:layout_marginLeft="40dp"
             android:layout_marginTop="17dp"
+            android:layout_marginBottom="18dp"
             android:background="@drawable/ic_home_black_24dp"
-            app:backgroundTint="#FFFFFF" />
+            app:backgroundTint="#FFFFFF"
+            tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
 
         <Button
             android:id="@+id/orderHistory1"
             android:layout_width="40dp"
             android:layout_height="40dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="50dp"
             android:layout_marginLeft="130dp"
             android:layout_marginTop="17dp"
+            android:layout_marginBottom="18dp"
+            android:layout_toEndOf="@+id/home1"
             android:background="@drawable/ic_baseline_article_24"
             app:backgroundTint="#000000"
+            tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck"
             tools:layout_editor_absoluteX="34dp"
             tools:layout_editor_absoluteY="278dp" />
 
@@ -88,87 +105,94 @@
             android:id="@+id/cart1"
             android:layout_width="40dp"
             android:layout_height="40dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="55dp"
             android:layout_marginLeft="225dp"
             android:layout_marginTop="17dp"
+            android:layout_marginBottom="18dp"
+            android:layout_toEndOf="@+id/orderHistory1"
             android:background="@drawable/ic_baseline_shopping_cart_24"
             app:backgroundTint="#000000"
+            tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck"
             tools:layout_editor_absoluteX="112dp"
             tools:layout_editor_absoluteY="236dp" />
+
+        <com.nex3z.notificationbadge.NotificationBadge
+            android:id="@+id/cartBadge"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginLeft="-10dp"
+            android:layout_marginTop="5dp"
+            android:layout_toRightOf="@id/cart1"
+            android:background="@drawable/box"
+            app:nbMaxTextLength="2" />
 
         <Button
             android:id="@+id/account1"
             android:layout_width="40dp"
             android:layout_height="40dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="55dp"
             android:layout_marginLeft="320dp"
             android:layout_marginTop="17dp"
+            android:layout_marginEnd="51dp"
+            android:layout_marginBottom="18dp"
+            android:layout_toEndOf="@+id/cart1"
             android:background="@drawable/ic_baseline_account_circle_24"
-            app:backgroundTint="#000000" />
+            app:backgroundTint="#000000"
+            tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
 
 
     </RelativeLayout>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <RelativeLayout
+        android:id="@+id/riceTitleLayout"
         android:layout_width="match_parent"
-        android:layout_height="546dp"
+        android:layout_height="60dp"
         android:layout_below="@id/layoutTopBar">
 
-        <ImageButton
-            android:id="@+id/reservation_btn"
-            android:layout_width="260dp"
-            android:layout_height="126dp"
-
-            android:layout_marginBottom="324dp"
-            android:background="@null"
-            android:scaleType="fitXY"
-            android:src="@drawable/reserve_pic1"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.503"
-            app:layout_constraintStart_toStartOf="parent"></ImageButton>
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_backspace" />
 
         <TextView
+            android:id="@+id/textView12"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:clickable="false"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
             android:text="Reservation"
-            android:textColor="#FFFFFF"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@+id/reservation_btn"
-            app:layout_constraintEnd_toEndOf="@+id/reservation_btn"
-            app:layout_constraintStart_toStartOf="@+id/reservation_btn"
-            app:layout_constraintTop_toTopOf="@+id/reservation_btn"></TextView>
+            android:textSize="30dp" />
 
+    </RelativeLayout>
 
-        <ImageButton
-            android:id="@+id/rice_btn_homepage1"
-            android:layout_width="260dp"
-            android:layout_height="126dp"
-            android:layout_marginBottom="124dp"
-            android:background="@null"
-            android:scaleType="fitXY"
-            android:src="@drawable/reserve3"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.503"
-            app:layout_constraintStart_toStartOf="parent"></ImageButton>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/bgcolor"
+        android:layout_below="@id/riceTitleLayout"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:orientation="vertical">
 
-        <TextView
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/reservationListRecycler"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:clickable="false"
-            android:text="Ongoing"
-            android:textColor="#FFFFFF"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@+id/rice_btn_homepage1"
-            app:layout_constraintEnd_toEndOf="@+id/rice_btn_homepage1"
-            app:layout_constraintHorizontal_bias="0.495"
-            app:layout_constraintStart_toStartOf="@+id/rice_btn_homepage1"
-            app:layout_constraintTop_toTopOf="@+id/rice_btn_homepage1"
-            app:layout_constraintVertical_bias="0.616"></TextView>
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
+            android:layout_height="match_parent"
+            android:layout_centerHorizontal="true"
+            android:scrollbars="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+    </LinearLayout>
 
 
 
