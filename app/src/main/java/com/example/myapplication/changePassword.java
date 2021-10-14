@@ -1,15 +1,28 @@
 package com.example.myapplication;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ProgressBar;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class changePassword extends AppCompatActivity implements View.OnClickListener{
 
     Button forgotPass;
+    EditText e1;
+    FirebaseAuth auth;
+    ProgressDialog dialog;
 
     @Override
     public void onClick(View view) {
@@ -19,6 +32,10 @@ public class changePassword extends AppCompatActivity implements View.OnClickLis
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.change_password);
+        dialog = new ProgressDialog(this);
+
+        e1 = (EditText)findViewById(R.id.new_password);
+        auth = FirebaseAuth.getInstance();
 
         forgotPass = findViewById(R.id.btnForgotPass);
 
@@ -28,5 +45,34 @@ public class changePassword extends AppCompatActivity implements View.OnClickLis
                 startActivity(new Intent(changePassword.this, ForgotPasswordActivity.class));
             }
         });
+    } //onCreate
+
+    public void change(View v)
+    {
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if(user != null){
+            dialog.setMessage("Changing password, please wait");
+            dialog.show();
+
+            user.updatePassword(e1.getText().toString())
+                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if(task.isSuccessful()){
+                                dialog.dismiss();
+                                Toast.makeText(getApplicationContext(), "Your password has been changed",
+                                        Toast.LENGTH_LONG);
+                                auth.signOut();
+                                finish();
+                                Intent i =new Intent(changePassword.this, LoginActivity.class);
+                                startActivity(i);
+                            } else{
+                                dialog.dismiss();
+                                Toast.makeText(getApplicationContext(), "Your password could not be changed",
+                                        Toast.LENGTH_LONG);
+                            }
+                        }
+                    });
+        }
     }
 }
