@@ -39,7 +39,7 @@ public class cart extends AppCompatActivity implements View.OnClickListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.cart);
+        setContentView(R.layout.cart_page);
 
         account1 = findViewById(R.id.account1);
         account1.setOnClickListener(this);

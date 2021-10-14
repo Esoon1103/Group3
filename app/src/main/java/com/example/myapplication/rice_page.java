@@ -4,9 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,7 +15,6 @@ import com.example.myapplication.adapter.DessertAdapter;
 import com.example.myapplication.adapter.DrinkAdapter;
 import com.example.myapplication.adapter.NoodleAdapter;
 import com.example.myapplication.adapter.RiceAdapter;
-import com.example.myapplication.listener.ICartLoadListener;
 import com.example.myapplication.listener.IRiceLoadListener;
 import com.example.myapplication.model.Dessert;
 import com.example.myapplication.model.Drinks;
@@ -32,30 +29,23 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.nex3z.notificationbadge.NotificationBadge;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.BindDimen;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class rice_page extends AppCompatActivity implements IRiceLoadListener, View.OnClickListener{
     private Button account1,home1,orderHistory1;
- boolean temp,temp2,temp3,temp4;
+
     @BindView(R.id.riceListRecycler)
     RecyclerView riceListRecycler;
     @BindView(R.id.rice_layout)
     RelativeLayout rice_layout;
     @BindView(R.id.cart1)
     Button cart1;
-    @BindView(R.id.cartBadge)
-    NotificationBadge cartBadge;
 
     IRiceLoadListener riceLoadListener;
-    IRiceLoadListener cartLoadListener;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,59 +71,41 @@ public class rice_page extends AppCompatActivity implements IRiceLoadListener, V
 
     private void loadFoodFromFirebase() {
         List<Rice> riceModels = new ArrayList<>();
-        List<Noodle> noodleModels = new ArrayList<>();
-        List<Dessert> dessertModels = new ArrayList<>();
-        List<Drinks> drinkModels = new ArrayList<>();
 
         FirebaseDatabase database = FirebaseDatabase.getInstance("https://intea-delight-default-rtdb.asia-southeast1.firebasedatabase.app");
-        DatabaseReference reference;
-        HomePage home_takecondition =new HomePage();
+        DatabaseReference reference = database.getReference("Rice");
 
-        temp=home_takecondition.onClickRice();
-        temp2=home_takecondition.onClickNoodle();
+            reference.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    if(snapshot.exists()){
+                        for(DataSnapshot riceSnapshot:snapshot.getChildren())
+                        {
+                            Rice riceModel = riceSnapshot.getValue(Rice.class);
+                            riceModel.setKey(riceSnapshot.getKey());
+                            riceModels.add(riceModel);
+                        }
+                        riceLoadListener.onRiceLoadSuccess(riceModels);
+                    }
+                    else
+                        riceLoadListener.onRiceLoadFailed("Can't find the Rice");
+                }
 
-        if(true) {
-
-            reference = database.getReference("Rice");
-            referenceRiceAdd(reference, riceModels);
-            System.out.println("Rice is TRUE");
-            System.out.println(temp);
-            System.out.println(temp2);
-            System.out.println(temp3);
-            System.out.println(temp4);
-
-        }
-        else if (temp2) {
-
-            reference = database.getReference("Noodle");
-            referenceNoodleAdd(reference, noodleModels);
-            System.out.println("Noodle is TRUE");
-
-        }
-        else if (temp3) {
-            reference = database.getReference("Dessert");
-            referenceDessertAdd(reference, dessertModels);
-            System.out.println("Dessert is TRUE");
-        }
-        else if(temp4){
-            reference = database.getReference("Drinks");
-            referenceDrinkAdd(reference, drinkModels);
-            System.out.println("Drink is TRUE");
-        }
-
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                    riceLoadListener.onRiceLoadFailed(error.getMessage());
+                }
+            });
     }
 
     private void init(){
         ButterKnife.bind(this);
 
         riceLoadListener = this;
-        cartLoadListener = this;
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, RecyclerView.VERTICAL, false);
         riceListRecycler.setLayoutManager(linearLayoutManager);
         riceListRecycler.addItemDecoration(new SpaceItemDecoration());
-
-
     }
 
     @Override
@@ -144,39 +116,6 @@ public class rice_page extends AppCompatActivity implements IRiceLoadListener, V
 
     @Override
     public void onRiceLoadFailed(String message) {
-        Snackbar.make(rice_layout, message, Snackbar.LENGTH_LONG).show();
-    }
-
-    @Override
-    public void onNoodleLoadSuccess(List<Noodle> noodleModelList) {
-        NoodleAdapter adapter = new NoodleAdapter(this, noodleModelList);
-        riceListRecycler.setAdapter(adapter);
-    }
-
-    @Override
-    public void onNoodleLoadFailed(String message) {
-        Snackbar.make(rice_layout, message, Snackbar.LENGTH_LONG).show();
-    }
-
-    @Override
-    public void onDrinkLoadSuccess(List<Drinks> drinksModelList) {
-        DrinkAdapter adapter = new DrinkAdapter(this, drinksModelList);
-        riceListRecycler.setAdapter(adapter);
-    }
-
-    @Override
-    public void onDrinkLoadFailed(String message) {
-        Snackbar.make(rice_layout, message, Snackbar.LENGTH_LONG).show();
-    }
-
-    @Override
-    public void onDessertLoadSuccess(List<Dessert> dessertModelList) {
-        DessertAdapter adapter= new DessertAdapter(this, dessertModelList);
-        riceListRecycler.setAdapter(adapter);
-    }
-
-    @Override
-    public void onDessertLoadFailed(String message) {
         Snackbar.make(rice_layout, message, Snackbar.LENGTH_LONG).show();
     }
 
@@ -202,101 +141,4 @@ public class rice_page extends AppCompatActivity implements IRiceLoadListener, V
 
         }
     }
-
-    public void referenceRiceAdd(DatabaseReference reference, List<Rice>riceModels){
-        reference.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if(snapshot.exists()){
-                    for(DataSnapshot riceSnapshot:snapshot.getChildren())
-                    {
-                        Rice riceModel = riceSnapshot.getValue(Rice.class);
-                        riceModel.setKey(riceSnapshot.getKey());
-                        riceModels.add(riceModel);
-                    }
-                    riceLoadListener.onRiceLoadSuccess(riceModels);
-                }
-                else
-                    riceLoadListener.onRiceLoadFailed("Can't find the Rice");
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                riceLoadListener.onRiceLoadFailed(error.getMessage());
-            }
-        });
-    }
-    public void referenceNoodleAdd(DatabaseReference reference, List<Noodle>noodleModels){
-        reference.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if(snapshot.exists()){
-                    for(DataSnapshot noodleSnapshot:snapshot.getChildren())
-                    {
-                        Noodle noodleModel = noodleSnapshot.getValue(Noodle.class);
-                        noodleModel.setKey(noodleSnapshot.getKey());
-                        noodleModels.add(noodleModel);
-                    }
-                    riceLoadListener.onNoodleLoadSuccess(noodleModels);
-                }
-                else
-                    riceLoadListener.onNoodleLoadFailed("Can't find the Rice");
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                riceLoadListener.onNoodleLoadFailed(error.getMessage());
-            }
-        });
-    }
-    public void referenceDessertAdd(DatabaseReference reference, List<Dessert>dessertModels){
-        reference.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if(snapshot.exists()){
-                    for(DataSnapshot noodleSnapshot:snapshot.getChildren())
-                    {
-                        Dessert dessertModel = noodleSnapshot.getValue(Dessert.class);
-                        dessertModel.setKey(noodleSnapshot.getKey());
-                        dessertModels.add(dessertModel);
-                    }
-                    riceLoadListener.onDessertLoadSuccess(dessertModels);
-                }
-                else
-                    riceLoadListener.onRiceLoadFailed("Can't find the Rice");
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                riceLoadListener.onRiceLoadFailed(error.getMessage());
-            }
-        });
-    }
-    public void referenceDrinkAdd(DatabaseReference reference, List<Drinks>drinkModels){
-        reference.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if(snapshot.exists()){
-                    for(DataSnapshot drinkSnapshot:snapshot.getChildren())
-                    {
-                        Drinks drinkModel = drinkSnapshot.getValue(Drinks.class);
-                        drinkModel.setKey(drinkSnapshot.getKey());
-                        drinkModels.add(drinkModel);
-                    }
-                    riceLoadListener.onDrinkLoadSuccess(drinkModels);
-                }
-                else
-                    riceLoadListener.onRiceLoadFailed("Can't find the Rice");
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                riceLoadListener.onRiceLoadFailed(error.getMessage());
-            }
-        });
-    }
-
-
-
 }
-

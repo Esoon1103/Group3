@@ -1,22 +1,11 @@
 package com.example.myapplication.model;
 
-public class Rice {
+import com.example.myapplication.HomePage;
+
+public class Rice{
     private String key, name, price, image, id;
-    private boolean rice;
 
     public Rice() {
-    }
-
-    public Rice(boolean rice) {
-        this.rice = rice;
-    }
-
-    public void setRice(boolean rice) {
-        this.rice = rice;
-    }
-
-    public boolean isRice() {
-        return rice;
     }
 
     public String getId() {
@@ -57,10 +46,5 @@ public class Rice {
 
     public void setPrice(String price) {
         this.price = price;
-    }
-
-    public boolean to_access(boolean temp1){
-
-        return temp1;
     }
 }

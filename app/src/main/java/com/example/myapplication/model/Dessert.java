@@ -2,14 +2,8 @@ package com.example.myapplication.model;
 
 public class Dessert {
     private String key, name, price, image, id;
-    private boolean dessert;
 
     public Dessert(){
-
-    }
-
-    public Dessert(boolean dessert) {
-        this.dessert = dessert;
     }
 
     public String getKey() {
@@ -50,13 +44,5 @@ public class Dessert {
 
     public void setId(String id) {
         this.id = id;
-    }
-
-    public boolean isDessert() {
-        return dessert;
-    }
-
-    public void setDessert(boolean dessert) {
-        this.dessert = dessert;
     }
 }

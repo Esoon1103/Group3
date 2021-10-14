@@ -186,12 +186,39 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/reservationListRecycler"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_centerHorizontal="true"
+            android:layout_width="120dp"
+            android:layout_height="200dp"
+            android:layout_marginRight="100dp"
+            android:layout_marginBottom="260dp"
             android:scrollbars="vertical"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
+
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/bgcolor"
+        android:layout_below="@id/riceTitleLayout"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/not_avail_ListRecycler"
+            android:layout_width="120dp"
+            android:layout_height="200dp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginBottom="260dp"
+            android:scrollbars="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+
+
     </LinearLayout>
 
 

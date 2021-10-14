@@ -1,12 +1,10 @@
 package com.example.myapplication;
 
 import android.content.Intent;
-import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -14,37 +12,25 @@ import com.example.myapplication.model.Dessert;
 import com.example.myapplication.model.Drinks;
 import com.example.myapplication.model.Noodle;
 import com.example.myapplication.model.Rice;
-import com.google.android.material.snackbar.Snackbar;
 import com.smarteist.autoimageslider.IndicatorView.animation.type.IndicatorAnimationType;
 import com.smarteist.autoimageslider.SliderAnimations;
 import com.smarteist.autoimageslider.SliderView;
 
-import org.xml.sax.DTDHandler;
-
-import java.sql.SQLOutput;
-
 public class HomePage extends AppCompatActivity implements View.OnClickListener {
-    private Button account1,home1,orderHistory1,cart1;
+    private Button account1, home1, orderHistory1, cart1;
     private ImageButton rice_btn_homepage,
             noodle_btn_homepage, drink_btn_homepage, dessert_btn_homepage, temp_btn_homepage;
-private boolean test_btn=false;
-    private boolean test_btn2=false;
-
-    Rice riceCondition = new Rice();
-    Noodle noodleCondition = new Noodle();
-    Dessert dessertCondition = new Dessert();
-    Drinks drinkCondition = new Drinks();
 
     //local variable for slide show
     SliderView sliderview1;
-    int[] image={R.drawable.rice,R.drawable.dessert,R.drawable.drink};
+    int[] image = {R.drawable.rice, R.drawable.dessert, R.drawable.drink};
     SliderAdp sliderAdp;
 
 
     @Override
     public void onClick(View view) {
 
-        switch(view.getId()){
+        switch (view.getId()) {
             case R.id.account1:
                 Intent toLogin = new Intent(this, Account.class);
                 startActivity(toLogin);
@@ -68,27 +54,21 @@ private boolean test_btn=false;
             case R.id.rice_btn_homepage:
                 Intent riceBtn = new Intent(this, rice_page.class);
                 startActivity(riceBtn);
-                int lj=0;
-                onClickRice();
                 break;
 
             case R.id.noodle_btn_homepage:
-                Intent noodleBtn = new Intent(this, rice_page.class);
+                Intent noodleBtn = new Intent(this, noodle_page.class);
                 startActivity(noodleBtn);
-                test_btn=true;
-                onClickNoodle();
                 break;
 
             case R.id.dessert_btn_homepage:
-                Intent dessertBtn = new Intent(this, rice_page.class);
+                Intent dessertBtn = new Intent(this, dessert_page.class);
                 startActivity(dessertBtn);
-                onClickDessert();
                 break;
 
             case R.id.drink_btn_homepage:
-                Intent drinkBtn = new Intent(this, rice_page.class);
+                Intent drinkBtn = new Intent(this, drink_page.class);
                 startActivity(drinkBtn);
-                onClickDrink();
                 break;
 
             case R.id.temp_btn_homepage:
@@ -109,10 +89,10 @@ private boolean test_btn=false;
         home1 = findViewById(R.id.home1);
         home1.setOnClickListener(this);
 
-        orderHistory1= findViewById(R.id.orderHistory1);
+        orderHistory1 = findViewById(R.id.orderHistory1);
         orderHistory1.setOnClickListener(this);
 
-        cart1= findViewById(R.id.cart1);
+        cart1 = findViewById(R.id.cart1);
         cart1.setOnClickListener(this);
 
         rice_btn_homepage = findViewById(R.id.rice_btn_homepage);
@@ -131,10 +111,10 @@ private boolean test_btn=false;
         temp_btn_homepage.setOnClickListener(this);
 
 //assign variable
-       sliderview1=findViewById(R.id.slideshow_homepage);
+        sliderview1 = findViewById(R.id.slideshow_homepage);
 
-       //initialize adapter
-        sliderAdp=new SliderAdp(image);
+        //initialize adapter
+        sliderAdp = new SliderAdp(image);
 
         //set adapter
         sliderview1.setSliderAdapter(sliderAdp);
@@ -146,27 +126,4 @@ private boolean test_btn=false;
         sliderview1.startAutoCycle();
 
     }
-
-    //Determine whether which button is clicked
-    //to display the page by using the boolean condition
-    //True = display the page, False = Not the page user clicked
-    public boolean onClickRice(){
-        boolean temp1=true;
-        riceCondition.to_access(true);
-         //riceCondition.to_access(temp1);
-         return temp1;
-    }
-    public boolean onClickNoodle(){
-        boolean temp1=true;
-
-        noodleCondition.to_access1(true);
-        return temp1;
-    }
-    public void onClickDrink(){
-        drinkCondition.setDrinks(true);
-    }
-    public void onClickDessert(){
-        dessertCondition.setDessert(true);
-    }
-
 }

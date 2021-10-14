@@ -2,13 +2,8 @@ package com.example.myapplication.model;
 
 public class Noodle {
     private String key, name, price, image, id;
-    private boolean noodle;
 
     public Noodle(){
-    }
-
-    public Noodle(boolean noodle) {
-        this.noodle = noodle;
     }
 
     public String getKey() {
@@ -49,18 +44,5 @@ public class Noodle {
 
     public void setId(String id) {
         this.id = id;
-    }
-
-    public boolean isNoodle() {
-        return noodle;
-    }
-
-    public void setNoodle(boolean noodle) {
-        this.noodle = noodle;
-    }
-
-    public boolean to_access1(boolean temp1){
-
-        return temp1;
     }
 }

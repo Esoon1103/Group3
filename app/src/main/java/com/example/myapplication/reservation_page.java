@@ -108,10 +108,10 @@ public class reservation_page extends AppCompatActivity implements View.OnClickL
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if(snapshot.exists()){
-                    for(DataSnapshot riceSnapshot:snapshot.getChildren())
+                    for(DataSnapshot reservationSnapshot:snapshot.getChildren())
                     {
-                        Reservation reservationModel = riceSnapshot.getValue(Reservation.class);
-                        reservationModel.setKey(riceSnapshot.getKey());
+                        Reservation reservationModel = reservationSnapshot.getValue(Reservation.class);
+                        reservationModel.setKey(reservationSnapshot.getKey());
                         reservationModels.add(reservationModel);
                     }
                     reservationLoadListener.onReservationLoadSuccess(reservationModels);

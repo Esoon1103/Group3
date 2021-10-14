@@ -2,14 +2,9 @@ package com.example.myapplication.model;
 
 public class Drinks {
     private String key, name, price, image, id;
-    private boolean drinks;
 
     public Drinks(){
 
-    }
-
-    public Drinks(boolean drinks) {
-        this.drinks = drinks;
     }
 
     public String getKey() {
@@ -50,13 +45,5 @@ public class Drinks {
 
     public void setId(String id) {
         this.id = id;
-    }
-
-    public boolean isDrinks() {
-        return drinks;
-    }
-
-    public void setDrinks(boolean drinks) {
-        this.drinks = drinks;
     }
 }
