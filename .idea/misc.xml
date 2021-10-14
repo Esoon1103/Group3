@@ -6,8 +6,11 @@
         <entry key="..\:/Group3/app/src/main/res/drawable/box.xml" value="0.2703125" />
         <entry key="..\:/Group3/app/src/main/res/drawable/button_shape.xml" value="0.2703125" />
         <entry key="..\:/Group3/app/src/main/res/drawable/ic_baseline_account_circle_24.xml" value="0.2703125" />
+        <entry key="..\:/Group3/app/src/main/res/layout/account_page.xml" value="0.1381340579710145" />
         <entry key="..\:/Group3/app/src/main/res/layout/activity_bottom_nevigation.xml" value="0.15307971014492755" />
         <entry key="..\:/Group3/app/src/main/res/layout/activity_navigation_bar.xml" value="0.18795289855072464" />
+        <entry key="..\:/Group3/app/src/main/res/layout/demo_login.xml" value="0.2346014492753623" />
+        <entry key="..\:/Group3/app/src/main/res/layout/drink_page.xml" value="0.2346014492753623" />
         <entry key="..\:/Group3/app/src/main/res/layout/fragment_dashboard.xml" value="0.18795289855072464" />
         <entry key="..\:/Group3/app/src/main/res/layout/fragment_home.xml" value="0.18795289855072464" />
         <entry key="..\:/Group3/app/src/main/res/layout/fragment_notifications.xml" value="0.16259057971014493" />
@@ -17,6 +20,8 @@
         <entry key="..\:/Group3/app/src/main/res/layout/order_history.xml" value="0.1" />
         <entry key="..\:/Group3/app/src/main/res/layout/payment_method.xml" value="0.17300724637681159" />
         <entry key="..\:/Group3/app/src/main/res/layout/reservation_home.xml" value="0.4" />
+        <entry key="..\:/Group3/app/src/main/res/layout/reservation_item.xml" value="0.1" />
+        <entry key="..\:/Group3/app/src/main/res/layout/reservation_main_page.xml" value="0.264" />
         <entry key="..\:/Group3/app/src/main/res/layout/rice_item.xml" value="0.1" />
         <entry key="..\:/Group3/app/src/main/res/layout/search_page.xml" value="0.16259057971014493" />
         <entry key="..\:/Group3/app/src/main/res/layout/test.xml" value="0.18795289855072464" />
@@ -37,18 +42,11 @@
         <entry key="..\:/Users/ASUS/Desktop/Android/app/src/main/res/layout/testing.xml" value="0.21920289855072464" />
         <entry key="..\:/Users/ASUS/Desktop/Group3/app/src/main/res/layout/demo_login.xml" value="0.1" />
         <entry key="..\:/Users/ASUS/Desktop/Group3/app/src/main/res/layout/login_page.xml" value="0.13020833333333334" />
-        <entry key="..\:/Users/Ong Jia Jun/StudioProjects/Group3/app/src/main/res/layout/account_page.xml" value="0.11043566362715299" />
-        <entry key="..\:/Users/Ong Jia Jun/StudioProjects/Group3/app/src/main/res/layout/activity_change_pass.xml" value="0.16799999999999998" />
+        <entry key="..\:/Users/ASUS/Desktop/Group3/app/src/main/res/layout/rice_item.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Ong Jia Jun/StudioProjects/Group3/app/src/main/res/layout/activity_forgot_password.xml" value="0.24375" />
-        <entry key="..\:/Users/Ong Jia Jun/StudioProjects/Group3/app/src/main/res/layout/activity_login.xml" value="0.22708333333333333" />
         <entry key="..\:/Users/Ong Jia Jun/StudioProjects/Group3/app/src/main/res/layout/change_password.xml" value="0.2" />
-        <entry key="..\:/Users/Ong Jia Jun/StudioProjects/Group3/app/src/main/res/layout/demo_login.xml" value="0.22708333333333333" />
-        <entry key="..\:/Users/Ong Jia Jun/StudioProjects/Group3/app/src/main/res/layout/fragment_dashboard.xml" value="0.22708333333333333" />
-        <entry key="..\:/Users/Ong Jia Jun/StudioProjects/Group3/app/src/main/res/layout/home_page.xml" value="0.11043566362715299" />
-        <entry key="..\:/Users/Ong Jia Jun/StudioProjects/Group3/app/src/main/res/layout/landing_page.xml" value="0.22708333333333333" />
         <entry key="..\:/Users/Ong Jia Jun/StudioProjects/Group3/app/src/main/res/layout/login_page.xml" value="0.24375" />
         <entry key="..\:/Users/Ong Jia Jun/StudioProjects/Group3/app/src/main/res/layout/order_history.xml" value="0.11018237082066869" />
-        <entry key="..\:/Users/Ong Jia Jun/StudioProjects/Group3/app/src/main/res/layout/payment_method.xml" value="0.11043566362715299" />
         <entry key="..\:/Users/User/StudioProjects/Group3/app/src/main/res/layout/change_password.xml" value="0.14583333333333334" />
         <entry key="..\:/Users/User/StudioProjects/Group3/app/src/main/res/layout/fragment_home.xml" value="0.14583333333333334" />
         <entry key="..\:/Users/User/StudioProjects/Group3/app/src/main/res/layout/home_page.xml" value="0.13858695652173914" />
