@@ -3,6 +3,7 @@ package com.example.myapplication;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ProgressBar;
@@ -50,6 +51,8 @@ public class ForgotPasswordActivity extends AppCompatActivity {
                                 if(task.isSuccessful()){
                                     Toast.makeText(ForgotPasswordActivity.this,
                                             "Password sent to your email", Toast.LENGTH_LONG).show();
+                                    Intent i =new Intent(ForgotPasswordActivity.this, LoginActivity.class);
+                                    startActivity(i);
                                 } else{
                                     Toast.makeText(ForgotPasswordActivity.this,
                                             task.getException().getMessage(), Toast.LENGTH_LONG).show();

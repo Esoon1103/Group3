@@ -18,7 +18,7 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class changePassword extends AppCompatActivity implements View.OnClickListener{
 
-    Button forgotPass;
+    //Button forgotPass;
     Button changePass;
     EditText newPass;
     FirebaseAuth firebaseAuth;
@@ -57,14 +57,14 @@ public class changePassword extends AppCompatActivity implements View.OnClickLis
         newPass = (EditText)findViewById(R.id.new_password);
 
         changePass = findViewById(R.id.btnConfirmChangePass);
-        forgotPass = findViewById(R.id.btnForgotPass);
+        /*forgotPass = findViewById(R.id.btnForgotPass);
 
-        forgotPass.setOnClickListener(new View.OnClickListener() {
+         forgotPass.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(changePassword.this, ForgotPasswordActivity.class));
             }
-        });
+        }); */
 
             firebaseAuth = FirebaseAuth.getInstance();
 
