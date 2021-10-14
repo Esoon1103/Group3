@@ -53,6 +53,8 @@
 
     </RelativeLayout>
 
+
+
     <RelativeLayout
         android:id="@+id/bgcolor"
         android:layout_width="match_parent"
@@ -108,16 +110,22 @@
 
     </RelativeLayout>
 
-    <ImageButton
-        android:id="@+id/button2"
+    <ImageView
+        android:id="@+id/face"
+        android:layout_width="130dp"
+        android:layout_height="130dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/layoutTopBar"
+        android:layout_marginTop="100dp"
+        android:src="@drawable/ic_mood"/>
+
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/layoutTopBar"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="149dp"
-        android:layout_marginEnd="82dp"
+        android:layout_below="@id/face"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:text="Empty Cart"
+        android:textSize="30sp" />
 
-        android:background="@drawable/rice"
-        android:text="Button"
-        app:tint="#E6000000" />
 </RelativeLayout>
