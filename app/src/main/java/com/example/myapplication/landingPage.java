@@ -26,12 +26,11 @@ public class landingPage extends AppCompatActivity implements View.OnClickListen
 
     }
 
-
    @Override
     public void onClick(View view) {
         switch(view.getId()){
             case R.id.buttonLoginLanding:
-                Intent toLogin = new Intent(this, HomePage.class);
+                Intent toLogin = new Intent(this, LoginActivity.class);
                 startActivity(toLogin);
                 break;
         }

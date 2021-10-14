@@ -6,10 +6,20 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
+
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class Account extends AppCompatActivity implements View.OnClickListener{
     private Button account1,home1, orderHistory1,cart1, btnChangePass, btnLogout;
+    TextView userEmail;
+    Button userLogout;
+
+    FirebaseAuth firebaseAuth;
+    FirebaseUser firebaseUser;
 
     @Override
     public void onClick(View view) {
@@ -36,10 +46,8 @@ public class Account extends AppCompatActivity implements View.OnClickListener{
                 Intent changePass = new Intent(this, changePassword.class);
                 startActivity(changePass);
                 break;
-        }
-
-
-    }
+        } //switch
+    } //onClick
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,27 +60,33 @@ public class Account extends AppCompatActivity implements View.OnClickListener{
         home1 = findViewById(R.id.home1);
         home1.setOnClickListener(this);
 
-        orderHistory1= findViewById(R.id.orderHistory1);
+        orderHistory1 = findViewById(R.id.orderHistory1);
         orderHistory1.setOnClickListener(this);
 
-        cart1= findViewById(R.id.cart1);
+        cart1 = findViewById(R.id.cart1);
         cart1.setOnClickListener(this);
 
-        btnChangePass= findViewById(R.id.btnChangePass);
+        btnChangePass = findViewById(R.id.btnChangePass);
         btnChangePass.setOnClickListener(this);
 
-        btnLogout = (Button) findViewById(R.id.btnLogout);
-        btnLogout.setOnClickListener(new View.OnClickListener(){
+        userEmail = findViewById(R.id.tvUserEmail);
+        userLogout = findViewById(R.id.btnLogout);
+
+        firebaseAuth = FirebaseAuth.getInstance();
+        firebaseUser = firebaseAuth.getCurrentUser();
+
+        userEmail.setText(firebaseUser.getEmail());
+
+        userLogout.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view){
+            public void onClick(View view) {
                 onBackPressed();
             }
         });
     }
 
-    //Logout Confirmation
     @Override
-    public void onBackPressed(){
+    public void onBackPressed() {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
@@ -82,8 +96,11 @@ public class Account extends AppCompatActivity implements View.OnClickListener{
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 Account.super.onBackPressed();
-                //Intent intent = new Intent(Account.this, login_page.class);
-                //startActivity(intent);
+                FirebaseAuth.getInstance().signOut();
+                Intent intent = new Intent(Account.this, LoginActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
             }
         }).setNegativeButton("No", new DialogInterface.OnClickListener() {
             @Override
@@ -93,9 +110,7 @@ public class Account extends AppCompatActivity implements View.OnClickListener{
         });
         AlertDialog alertDialog = builder.create();
         alertDialog.show();
-
     }
-
 } //End Account class
 
 
