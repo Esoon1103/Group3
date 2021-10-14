@@ -20,22 +20,41 @@ public class changePassword extends AppCompatActivity implements View.OnClickLis
 
     Button forgotPass;
     Button changePass;
-    EditText e1;
-    FirebaseAuth auth;
+    EditText newPass;
+    FirebaseAuth firebaseAuth;
     ProgressDialog dialog;
 
     @Override
     public void onClick(View view) {
 
+        switch(view.getId()){
+            case R.id.account1:
+                Intent toLogin = new Intent(this, Account.class);
+                startActivity(toLogin);
+                break;
+            case R.id.home1:
+                Intent toLogin1 = new Intent(this, HomePage.class);
+                startActivity(toLogin1);
+                break;
+            case R.id.orderHistory1:
+                Intent toLogin2 = new Intent(this, orderHistory.class);
+                startActivity(toLogin2);
+                break;
+
+            case R.id.cart1:
+                Intent toLogin3 = new Intent(this, cart.class);
+                startActivity(toLogin3);
+                break;
+        }
     }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.change_password);
         dialog = new ProgressDialog(this);
 
-        e1 = (EditText)findViewById(R.id.new_password);
-        auth = FirebaseAuth.getInstance();
+        newPass = (EditText)findViewById(R.id.new_password);
 
         changePass = findViewById(R.id.btnConfirmChangePass);
         forgotPass = findViewById(R.id.btnForgotPass);
@@ -46,37 +65,36 @@ public class changePassword extends AppCompatActivity implements View.OnClickLis
                 startActivity(new Intent(changePassword.this, ForgotPasswordActivity.class));
             }
         });
-    } //onCreate
 
-    public void change(View v) {
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+            firebaseAuth = FirebaseAuth.getInstance();
 
             changePass.setOnClickListener(new View.OnClickListener(){
                 @Override
                 public void onClick(View view) {
+                    FirebaseUser user = firebaseAuth.getCurrentUser();
                     dialog.setMessage("Changing password, Please wait");
                     dialog.show();
-                    user.updatePassword(e1.getText().toString())
+                    user.updatePassword(newPass.getText().toString())
                             .addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
                                     if(task.isSuccessful()){
                                         dialog.dismiss();
-                                        Toast.makeText(getApplicationContext(), "Your password has been changed",
-                                                Toast.LENGTH_LONG);
-                                        auth.signOut();
+                                        Toast.makeText(changePassword.this,
+                                                "Password has been changed", Toast.LENGTH_LONG).show();
+                                        firebaseAuth.signOut();
                                         finish();
                                         Intent i =new Intent(changePassword.this, LoginActivity.class);
                                         startActivity(i);
                                     } else{
                                         dialog.dismiss();
-                                        Toast.makeText(getApplicationContext(), "Your password could not be changed",
-                                                Toast.LENGTH_LONG);
+                                        Toast.makeText(changePassword.this,
+                                                "No input detected.", Toast.LENGTH_LONG).show();
                                     }
                                 }
                             });
                 }
           });
 
-    }
+    } //onCreate
 } //End class
