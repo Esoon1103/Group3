@@ -66,7 +66,7 @@ public class reservation_page extends AppCompatActivity implements View.OnClickL
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.rice_main_page);
+        setContentView(R.layout.reservation_main_page);
 
         account1 = findViewById(R.id.account1);
         account1.setOnClickListener(this);
