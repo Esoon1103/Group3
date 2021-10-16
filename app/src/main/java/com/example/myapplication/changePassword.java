@@ -20,7 +20,7 @@ public class changePassword extends AppCompatActivity implements View.OnClickLis
 
     //Button forgotPass;
     Button changePass;
-    EditText newPass;
+    EditText newPass, confirmPass;
     FirebaseAuth firebaseAuth;
     ProgressDialog dialog;
 
@@ -55,8 +55,9 @@ public class changePassword extends AppCompatActivity implements View.OnClickLis
         dialog = new ProgressDialog(this);
 
         newPass = (EditText)findViewById(R.id.new_password);
-
+        confirmPass = (EditText)findViewById(R.id.confirm_password);
         changePass = findViewById(R.id.btnConfirmChangePass);
+
         /*forgotPass = findViewById(R.id.btnForgotPass);
 
          forgotPass.setOnClickListener(new View.OnClickListener() {
@@ -74,25 +75,43 @@ public class changePassword extends AppCompatActivity implements View.OnClickLis
                     FirebaseUser user = firebaseAuth.getCurrentUser();
                     dialog.setMessage("Changing password, Please wait");
                     dialog.show();
-                    user.updatePassword(newPass.getText().toString())
-                            .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                @Override
-                                public void onComplete(@NonNull Task<Void> task) {
-                                    if(task.isSuccessful()){
-                                        dialog.dismiss();
-                                        Toast.makeText(changePassword.this,
-                                                "Password has been changed", Toast.LENGTH_LONG).show();
-                                        firebaseAuth.signOut();
-                                        finish();
-                                        Intent i =new Intent(changePassword.this, LoginActivity.class);
-                                        startActivity(i);
-                                    } else{
-                                        dialog.dismiss();
-                                        Toast.makeText(changePassword.this,
-                                                "No input detected.", Toast.LENGTH_LONG).show();
+                    if (newPass.getText().toString().equals(confirmPass.getText().toString())) {
+                        user.updatePassword(newPass.getText().toString())
+                                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        if (task.isSuccessful()) {
+                                            dialog.dismiss();
+                                            Toast.makeText(changePassword.this,
+                                                    "Password has been changed", Toast.LENGTH_LONG).show();
+                                            firebaseAuth.signOut();
+                                            finish();
+                                            Intent i = new Intent(changePassword.this, LoginActivity.class);
+                                            startActivity(i);
+                                        } else {
+                                            dialog.dismiss();
+                                            Toast.makeText(changePassword.this,
+                                                    "No input detected.", Toast.LENGTH_LONG).show();
+                                        }
                                     }
-                                }
-                            });
+                                });
+                    } else if (newPass.getText().toString().isEmpty() && confirmPass.getText().toString().isEmpty()){
+                        dialog.dismiss();
+                        Toast.makeText(changePassword.this,
+                                "No input detected.", Toast.LENGTH_LONG).show();
+                    } else if (newPass.getText().toString().isEmpty()){
+                        dialog.dismiss();
+                        Toast.makeText(changePassword.this,
+                                "Please enter your new password.", Toast.LENGTH_LONG).show();
+                    } else if (confirmPass.getText().toString().isEmpty()){
+                        dialog.dismiss();
+                        Toast.makeText(changePassword.this,
+                                "Please confirm your new password.", Toast.LENGTH_LONG).show();
+                    } else {
+                        dialog.dismiss();
+                        Toast.makeText(changePassword.this,
+                                "Password not matched.", Toast.LENGTH_LONG).show();
+                    }
                 }
           });
 
