@@ -25,6 +25,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,6 +48,24 @@ public class noodle_page extends AppCompatActivity implements INoodleLoadListene
 
     INoodleLoadListener noodleLoadListener;
     ICartLoadListener cartLoadListener;
+
+    protected void onStart(){
+        super.onStart();
+        EventBus.getDefault().register(this);
+    }
+
+    protected void onStop(){
+        if(EventBus.getDefault().hasSubscriberForEvent(UpdateCartEvent.class));
+        EventBus.getDefault().removeStickyEvent(UpdateCartEvent.class);
+        EventBus.getDefault().unregister(this);
+        super.onStop();
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN,sticky = true)
+    public void onUpdateCart(UpdateCartEvent event)
+    {
+        countCartItem();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -108,6 +130,8 @@ public class noodle_page extends AppCompatActivity implements INoodleLoadListene
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, RecyclerView.VERTICAL, false);
         riceListRecycler.setLayoutManager(linearLayoutManager);
         riceListRecycler.addItemDecoration(new SpaceItemDecoration());
+
+        cart1.setOnClickListener(view -> startActivity(new Intent(this, CartActivity.class)));
     }
 
 
@@ -146,7 +170,7 @@ public class noodle_page extends AppCompatActivity implements INoodleLoadListene
         List<Cart> cartModels = new ArrayList<>();
         FirebaseDatabase.getInstance("https://intea-delight-default-rtdb.asia-southeast1.firebasedatabase.app")
                 .getReference("Cart")
-                .child("UNIQUE_USER_ID")
+                .child("UNIQUE_USER_ID").child("Noodle")
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {

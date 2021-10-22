@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.myapplication.R;
+import com.example.myapplication.UpdateCartEvent;
 import com.example.myapplication.listener.IAddtoCartClickListener;
 import com.example.myapplication.listener.ICartLoadListener;
 import com.example.myapplication.listener.IAddtoCartClickListener;
@@ -31,6 +32,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import org.greenrobot.eventbus.EventBus;
 import org.w3c.dom.Text;
 
 import java.util.HashMap;
@@ -79,7 +81,7 @@ public class RiceAdapter extends RecyclerView.Adapter<RiceAdapter.RiceViewHolder
     private void addToCart(Rice riceModel) {
         DatabaseReference userCart = FirebaseDatabase.getInstance("https://intea-delight-default-rtdb.asia-southeast1.firebasedatabase.app")
                 .getReference("Cart")
-                .child("UNIQUE_USER_ID");
+                .child("UNIQUE_USER_ID").child("Rice");
 
         userCart.child(riceModel.getKey())
                 .addListenerForSingleValueEvent(new ValueEventListener() {
@@ -118,6 +120,7 @@ public class RiceAdapter extends RecyclerView.Adapter<RiceAdapter.RiceViewHolder
                                     })
                                     .addOnFailureListener(e -> cartLoadListener.onCartLoadFailed(e.getMessage()));
                         }
+                        EventBus.getDefault().postSticky(new UpdateCartEvent());
                     }
 
                     @Override

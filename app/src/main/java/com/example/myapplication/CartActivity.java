@@ -25,6 +25,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -43,6 +47,24 @@ public class CartActivity extends AppCompatActivity implements View.OnClickListe
     TextView txtTotalPrice;
 
     ICartLoadListener cartLoadListener;
+
+    protected void onStart(){
+        super.onStart();
+        EventBus.getDefault().register(this);
+    }
+
+    protected void onStop(){
+        if(EventBus.getDefault().hasSubscriberForEvent(UpdateCartEvent.class));
+        EventBus.getDefault().removeStickyEvent(UpdateCartEvent.class);
+        EventBus.getDefault().unregister(this);
+        super.onStop();
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN,sticky = true)
+    public void onUpdateCart(UpdateCartEvent event)
+    {
+        loadCartFromFirebase();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,33 +94,10 @@ public class CartActivity extends AppCompatActivity implements View.OnClickListe
     private void loadCartFromFirebase() {
         List<Cart> cartModels = new ArrayList<>();
 
-        FirebaseDatabase.getInstance("https://intea-delight-default-rtdb.asia-southeast1.firebasedatabase.app")
-                .getReference("Cart")
-                .child("UNIQUE_USER_ID")
-                .addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        if(snapshot.exists())
-                        {
-                            for(DataSnapshot cartSnapshot:snapshot.getChildren())
-                            {
-                                Cart cartModel = cartSnapshot.getValue(Cart.class);
-                                cartModel.setKey(cartSnapshot.getKey());
-                                cartModels.add(cartModel);
-                            }
-                            cartLoadListener.onCartLoadSuccess(cartModels);
-                        }
-                        else
-                        {
-                            cartLoadListener.onCartLoadFailed("Cart Empty");
-                        }
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-                        cartLoadListener.onCartLoadFailed(error.getMessage());
-                    }
-                });
+        loadRicefromFirebase(cartModels);
+        loadNoodlefromFirebase(cartModels);
+        loadDessertfromFirebase(cartModels);
+        loadDrinkfromFirebase(cartModels);
     }
 
     private void init(){
@@ -150,6 +149,123 @@ public class CartActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onCartLoadFailed(String message) {
         Snackbar.make(cartLayout,message,Snackbar.LENGTH_LONG).show();
+    }
+
+    private void loadRicefromFirebase(List<Cart> cartModels){
+        FirebaseDatabase.getInstance("https://intea-delight-default-rtdb.asia-southeast1.firebasedatabase.app")
+                .getReference("Cart")
+                .child("UNIQUE_USER_ID").child("Rice")
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if(snapshot.exists())
+                        {
+                            for(DataSnapshot cartSnapshot:snapshot.getChildren())
+                            {
+                                Cart cartModel = cartSnapshot.getValue(Cart.class);
+                                cartModel.setKey(cartSnapshot.getKey());
+                                cartModels.add(cartModel);
+                            }
+                            cartLoadListener.onCartLoadSuccess(cartModels);
+                        }
+                        else
+                        {
+                            cartLoadListener.onCartLoadFailed("Cart Empty");
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                        cartLoadListener.onCartLoadFailed(error.getMessage());
+                    }
+                });
+    }
+    private void loadNoodlefromFirebase(List<Cart> cartModels){
+        FirebaseDatabase.getInstance("https://intea-delight-default-rtdb.asia-southeast1.firebasedatabase.app")
+                .getReference("Cart")
+                .child("UNIQUE_USER_ID").child("Noodle")
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if(snapshot.exists())
+                        {
+                            for(DataSnapshot cartSnapshot:snapshot.getChildren())
+                            {
+                                Cart cartModel = cartSnapshot.getValue(Cart.class);
+                                cartModel.setKey(cartSnapshot.getKey());
+                                cartModels.add(cartModel);
+                            }
+                            cartLoadListener.onCartLoadSuccess(cartModels);
+                        }
+                        else
+                        {
+                            cartLoadListener.onCartLoadFailed("Cart Empty");
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                        cartLoadListener.onCartLoadFailed(error.getMessage());
+                    }
+                });
+    }
+    private void loadDessertfromFirebase(List<Cart> cartModels){
+        FirebaseDatabase.getInstance("https://intea-delight-default-rtdb.asia-southeast1.firebasedatabase.app")
+                .getReference("Cart")
+                .child("UNIQUE_USER_ID").child("Dessert")
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if(snapshot.exists())
+                        {
+                            for(DataSnapshot cartSnapshot:snapshot.getChildren())
+                            {
+                                Cart cartModel = cartSnapshot.getValue(Cart.class);
+                                cartModel.setKey(cartSnapshot.getKey());
+                                cartModels.add(cartModel);
+                            }
+                            cartLoadListener.onCartLoadSuccess(cartModels);
+                        }
+                        else
+                        {
+                            cartLoadListener.onCartLoadFailed("Cart Empty");
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                        cartLoadListener.onCartLoadFailed(error.getMessage());
+                    }
+                });
+    }
+    private void loadDrinkfromFirebase(List<Cart> cartModels){
+        FirebaseDatabase.getInstance("https://intea-delight-default-rtdb.asia-southeast1.firebasedatabase.app")
+                .getReference("Cart")
+                .child("UNIQUE_USER_ID").child("Drink")
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if(snapshot.exists())
+                        {
+                            for(DataSnapshot cartSnapshot:snapshot.getChildren())
+                            {
+                                Cart cartModel = cartSnapshot.getValue(Cart.class);
+                                cartModel.setKey(cartSnapshot.getKey());
+                                cartModels.add(cartModel);
+                            }
+                            cartLoadListener.onCartLoadSuccess(cartModels);
+                        }
+                        else
+                        {
+                            cartLoadListener.onCartLoadFailed("Cart Empty");
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                        cartLoadListener.onCartLoadFailed(error.getMessage());
+                    }
+                });
     }
 }
 

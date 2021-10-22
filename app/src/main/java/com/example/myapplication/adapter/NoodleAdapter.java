@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.myapplication.R;
+import com.example.myapplication.UpdateCartEvent;
 import com.example.myapplication.listener.IAddtoCartClickListener;
 import com.example.myapplication.listener.ICartLoadListener;
 import com.example.myapplication.model.Cart;
@@ -25,6 +26,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import org.greenrobot.eventbus.EventBus;
 import org.w3c.dom.Text;
 
 import java.util.HashMap;
@@ -73,7 +75,7 @@ public class NoodleAdapter extends RecyclerView.Adapter<NoodleAdapter.NoodleView
     private void addToCart(Noodle noodleModel) {
         DatabaseReference userCart = FirebaseDatabase.getInstance("https://intea-delight-default-rtdb.asia-southeast1.firebasedatabase.app")
                 .getReference("Cart")
-                .child("UNIQUE_USER_ID");
+                .child("UNIQUE_USER_ID").child("Noodle");
 
         userCart.child(noodleModel.getKey())
                 .addListenerForSingleValueEvent(new ValueEventListener() {
@@ -112,6 +114,7 @@ public class NoodleAdapter extends RecyclerView.Adapter<NoodleAdapter.NoodleView
                                     })
                                     .addOnFailureListener(e -> cartLoadListener.onCartLoadFailed(e.getMessage()));
                         }
+                        EventBus.getDefault().postSticky(new UpdateCartEvent());
                     }
 
                     @Override
