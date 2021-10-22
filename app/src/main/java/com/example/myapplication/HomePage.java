@@ -8,10 +8,6 @@ import android.widget.ImageButton;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.myapplication.model.Dessert;
-import com.example.myapplication.model.Drinks;
-import com.example.myapplication.model.Noodle;
-import com.example.myapplication.model.Rice;
 import com.smarteist.autoimageslider.IndicatorView.animation.type.IndicatorAnimationType;
 import com.smarteist.autoimageslider.SliderAnimations;
 import com.smarteist.autoimageslider.SliderView;
@@ -47,7 +43,7 @@ public class HomePage extends AppCompatActivity implements View.OnClickListener 
                 break;
 
             case R.id.cart1:
-                Intent toLogin3 = new Intent(this, cart.class);
+                Intent toLogin3 = new Intent(this, CartActivity.class);
                 startActivity(toLogin3);
                 break;
 

@@ -69,7 +69,7 @@ public class DessertAdapter extends RecyclerView.Adapter<DessertAdapter.DessertV
     private void addToCart(Dessert dessertModel) {
         DatabaseReference userCart = FirebaseDatabase.getInstance("https://intea-delight-default-rtdb.asia-southeast1.firebasedatabase.app")
                 .getReference("Cart")
-                .child("dessert");
+                .child("UNIQUE_USER_ID");
 
         userCart.child(dessertModel.getKey())
                 .addListenerForSingleValueEvent(new ValueEventListener() {

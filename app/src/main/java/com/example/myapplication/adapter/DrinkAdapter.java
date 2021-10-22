@@ -69,7 +69,7 @@ public class DrinkAdapter extends RecyclerView.Adapter<DrinkAdapter.DrinkViewHol
     private void addToCart(Drinks drinkModel) {
         DatabaseReference userCart = FirebaseDatabase.getInstance("https://intea-delight-default-rtdb.asia-southeast1.firebasedatabase.app")
                 .getReference("Cart")
-                .child("drink");
+                .child("UNIQUE_USER_ID");
 
         userCart.child(drinkModel.getKey())
                 .addListenerForSingleValueEvent(new ValueEventListener() {

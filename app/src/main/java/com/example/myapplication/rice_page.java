@@ -12,17 +12,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.disklrucache.DiskLruCache;
-import com.example.myapplication.adapter.DessertAdapter;
-import com.example.myapplication.adapter.DrinkAdapter;
-import com.example.myapplication.adapter.NoodleAdapter;
 import com.example.myapplication.adapter.RiceAdapter;
 import com.example.myapplication.listener.ICartLoadListener;
 import com.example.myapplication.listener.IRiceLoadListener;
 import com.example.myapplication.model.Cart;
-import com.example.myapplication.model.Dessert;
-import com.example.myapplication.model.Drinks;
-import com.example.myapplication.model.Noodle;
 import com.example.myapplication.model.Rice;
 import com.example.myapplication.utils.SpaceItemDecoration;
 import com.google.android.material.snackbar.Snackbar;
@@ -31,7 +24,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.nex3z.notificationbadge.NotificationBadge;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -73,6 +65,7 @@ public class rice_page extends AppCompatActivity implements IRiceLoadListener, I
         cart1= findViewById(R.id.cart1);
         cart1.setOnClickListener(this);
 
+
         init();
         loadFoodFromFirebase();
         countCartItem();
@@ -87,6 +80,8 @@ public class rice_page extends AppCompatActivity implements IRiceLoadListener, I
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, RecyclerView.VERTICAL, false);
         riceListRecycler.setLayoutManager(linearLayoutManager);
         riceListRecycler.addItemDecoration(new SpaceItemDecoration());
+
+        cart1.setOnClickListener(view -> startActivity(new Intent(this, CartActivity.class)));
     }
 
     private void loadFoodFromFirebase() {
@@ -153,7 +148,7 @@ public class rice_page extends AppCompatActivity implements IRiceLoadListener, I
         List<Cart> cartModels = new ArrayList<>();
         FirebaseDatabase.getInstance("https://intea-delight-default-rtdb.asia-southeast1.firebasedatabase.app")
                 .getReference("Cart")
-                .child("rice")
+                .child("UNIQUE_USER_ID")
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -190,7 +185,7 @@ public class rice_page extends AppCompatActivity implements IRiceLoadListener, I
                 startActivity(toLogin2);
                 break;
             case R.id.cart1:
-                Intent toLogin3 = new Intent(this, cart.class);
+                Intent toLogin3 = new Intent(this, CartActivity.class);
                 startActivity(toLogin3);
                 break;
         }

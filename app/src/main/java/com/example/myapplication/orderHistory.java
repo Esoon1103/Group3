@@ -27,7 +27,7 @@ public class orderHistory extends AppCompatActivity implements View.OnClickListe
                 break;
 
             case R.id.cart1:
-                Intent toLogin3 = new Intent(this, cart.class);
+                Intent toLogin3 = new Intent(this, CartActivity.class);
                 startActivity(toLogin3);
                 break;
         }

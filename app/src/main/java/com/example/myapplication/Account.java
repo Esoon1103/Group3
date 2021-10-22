@@ -38,7 +38,7 @@ public class Account extends AppCompatActivity implements View.OnClickListener{
                 startActivity(toLogin2);
                 break;
             case R.id.cart1:
-                Intent toLogin3 = new Intent(this, cart.class);
+                Intent toLogin3 = new Intent(this, CartActivity.class);
                 startActivity(toLogin3);
                 break;
 

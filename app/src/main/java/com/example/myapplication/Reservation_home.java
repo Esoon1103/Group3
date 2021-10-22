@@ -8,9 +8,6 @@ import android.widget.ImageButton;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.smarteist.autoimageslider.IndicatorView.animation.type.IndicatorAnimationType;
-import com.smarteist.autoimageslider.SliderAnimations;
-
 public class Reservation_home extends AppCompatActivity implements View.OnClickListener{
     private Button account1,home1,orderHistory1,cart1;
     ImageButton reservation_btn;
@@ -30,7 +27,7 @@ public class Reservation_home extends AppCompatActivity implements View.OnClickL
                 startActivity(toLogin2);
                 break;
             case R.id.cart1:
-                Intent toLogin3 = new Intent(this, cart.class);
+                Intent toLogin3 = new Intent(this, CartActivity.class);
                 startActivity(toLogin3);
                 break;
 

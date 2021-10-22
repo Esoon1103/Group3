@@ -12,17 +12,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.myapplication.adapter.DessertAdapter;
 import com.example.myapplication.adapter.DrinkAdapter;
-import com.example.myapplication.adapter.NoodleAdapter;
 import com.example.myapplication.listener.ICartLoadListener;
-import com.example.myapplication.listener.IDessertLoadListener;
 import com.example.myapplication.listener.IDrinkLoadListener;
-import com.example.myapplication.listener.INoodleLoadListener;
 import com.example.myapplication.model.Cart;
-import com.example.myapplication.model.Dessert;
 import com.example.myapplication.model.Drinks;
-import com.example.myapplication.model.Noodle;
 import com.example.myapplication.utils.SpaceItemDecoration;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.database.DataSnapshot;
@@ -153,7 +147,7 @@ public class drink_page extends AppCompatActivity implements IDrinkLoadListener,
         List<Cart> cartModels = new ArrayList<>();
         FirebaseDatabase.getInstance("https://intea-delight-default-rtdb.asia-southeast1.firebasedatabase.app")
                 .getReference("Cart")
-                .child("drink")
+                .child("UNIQUE_USER_ID")
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -190,7 +184,7 @@ public class drink_page extends AppCompatActivity implements IDrinkLoadListener,
                 startActivity(toLogin2);
                 break;
             case R.id.cart1:
-                Intent toLogin3 = new Intent(this, cart.class);
+                Intent toLogin3 = new Intent(this, CartActivity.class);
                 startActivity(toLogin3);
                 break;
 

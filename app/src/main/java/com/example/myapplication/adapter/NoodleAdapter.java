@@ -73,7 +73,7 @@ public class NoodleAdapter extends RecyclerView.Adapter<NoodleAdapter.NoodleView
     private void addToCart(Noodle noodleModel) {
         DatabaseReference userCart = FirebaseDatabase.getInstance("https://intea-delight-default-rtdb.asia-southeast1.firebasedatabase.app")
                 .getReference("Cart")
-                .child("noodle");
+                .child("UNIQUE_USER_ID");
 
         userCart.child(noodleModel.getKey())
                 .addListenerForSingleValueEvent(new ValueEventListener() {

@@ -146,7 +146,7 @@ public class noodle_page extends AppCompatActivity implements INoodleLoadListene
         List<Cart> cartModels = new ArrayList<>();
         FirebaseDatabase.getInstance("https://intea-delight-default-rtdb.asia-southeast1.firebasedatabase.app")
                 .getReference("Cart")
-                .child("noodle")
+                .child("UNIQUE_USER_ID")
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -183,7 +183,7 @@ public class noodle_page extends AppCompatActivity implements INoodleLoadListene
                 startActivity(toLogin2);
                 break;
             case R.id.cart1:
-                Intent toLogin3 = new Intent(this, cart.class);
+                Intent toLogin3 = new Intent(this, CartActivity.class);
                 startActivity(toLogin3);
                 break;
 
