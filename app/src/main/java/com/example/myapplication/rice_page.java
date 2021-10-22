@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import androidx.annotation.NonNull;
@@ -11,11 +12,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.disklrucache.DiskLruCache;
 import com.example.myapplication.adapter.DessertAdapter;
 import com.example.myapplication.adapter.DrinkAdapter;
 import com.example.myapplication.adapter.NoodleAdapter;
 import com.example.myapplication.adapter.RiceAdapter;
+import com.example.myapplication.listener.ICartLoadListener;
 import com.example.myapplication.listener.IRiceLoadListener;
+import com.example.myapplication.model.Cart;
 import com.example.myapplication.model.Dessert;
 import com.example.myapplication.model.Drinks;
 import com.example.myapplication.model.Noodle;
@@ -35,8 +39,9 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class rice_page extends AppCompatActivity implements IRiceLoadListener, View.OnClickListener{
+public class rice_page extends AppCompatActivity implements IRiceLoadListener, ICartLoadListener, View.OnClickListener{
     private Button account1,home1,orderHistory1;
+    private ImageView btnBack;
 
     @BindView(R.id.riceListRecycler)
     RecyclerView riceListRecycler;
@@ -46,11 +51,15 @@ public class rice_page extends AppCompatActivity implements IRiceLoadListener, V
     Button cart1;
 
     IRiceLoadListener riceLoadListener;
+    ICartLoadListener cartLoadListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.rice_main_page);
+
+        btnBack = findViewById(R.id.btnBack);
+        btnBack.setOnClickListener(this);
 
         account1 = findViewById(R.id.account1);
         account1.setOnClickListener(this);
@@ -66,7 +75,18 @@ public class rice_page extends AppCompatActivity implements IRiceLoadListener, V
 
         init();
         loadFoodFromFirebase();
+        countCartItem();
+    }
 
+    private void init(){
+        ButterKnife.bind(this);
+
+        riceLoadListener = this;
+        cartLoadListener = this;
+
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, RecyclerView.VERTICAL, false);
+        riceListRecycler.setLayoutManager(linearLayoutManager);
+        riceListRecycler.addItemDecoration(new SpaceItemDecoration());
     }
 
     private void loadFoodFromFirebase() {
@@ -98,25 +118,59 @@ public class rice_page extends AppCompatActivity implements IRiceLoadListener, V
             });
     }
 
-    private void init(){
-        ButterKnife.bind(this);
-
-        riceLoadListener = this;
-
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, RecyclerView.VERTICAL, false);
-        riceListRecycler.setLayoutManager(linearLayoutManager);
-        riceListRecycler.addItemDecoration(new SpaceItemDecoration());
-    }
-
     @Override
     public void onRiceLoadSuccess(List<Rice> riceModelList) {
-        RiceAdapter adapter = new RiceAdapter(this, riceModelList);
+        RiceAdapter adapter = new RiceAdapter(this, riceModelList, cartLoadListener);
         riceListRecycler.setAdapter(adapter);
     }
 
     @Override
     public void onRiceLoadFailed(String message) {
         Snackbar.make(rice_layout, message, Snackbar.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onCartLoadSuccess(List<Cart> cartModelList) {
+
+        int cartSum = 0;
+        for(Cart cartModel: cartModelList)
+            cartSum+=cartModel.getQuantity();
+
+    }
+
+    @Override
+    public void onCartLoadFailed(String message) {
+        Snackbar.make(rice_layout, message, Snackbar.LENGTH_LONG).show();
+    }
+
+    @Override
+    protected void onResume(){
+        super.onResume();
+        countCartItem();
+    }
+
+    private void countCartItem() {
+        List<Cart> cartModels = new ArrayList<>();
+        FirebaseDatabase.getInstance("https://intea-delight-default-rtdb.asia-southeast1.firebasedatabase.app")
+                .getReference("Cart")
+                .child("rice")
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        for(DataSnapshot cartSnapshot:snapshot.getChildren())
+                        {
+                            Cart cartModel = cartSnapshot.getValue(Cart.class);
+                            cartModel.setKey(cartSnapshot.getKey());
+                            cartModels.add(cartModel);
+                        }
+                        cartLoadListener.onCartLoadSuccess(cartModels);
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                        cartLoadListener.onCartLoadFailed(error.getMessage());
+                    }
+                });
     }
 
     @Override
@@ -127,6 +181,7 @@ public class rice_page extends AppCompatActivity implements IRiceLoadListener, V
                 startActivity(toLogin);
                 break;
             case R.id.home1:
+            case R.id.btnBack:
                 Intent toLogin1 = new Intent(this, HomePage.class);
                 startActivity(toLogin1);
                 break;
@@ -138,7 +193,8 @@ public class rice_page extends AppCompatActivity implements IRiceLoadListener, V
                 Intent toLogin3 = new Intent(this, cart.class);
                 startActivity(toLogin3);
                 break;
-
         }
     }
+
+
 }

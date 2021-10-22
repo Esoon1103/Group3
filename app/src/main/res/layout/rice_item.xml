@@ -5,6 +5,8 @@
     android:layout_height="wrap_content"
     app:cardElevation="10dp"
     app:cardCornerRadius="10dp"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".rice_page"
     app:contentPadding="10dp">
 
     <RelativeLayout
@@ -47,22 +49,6 @@
             android:text="RM 6.00"
             android:textSize="20sp"
             android:textStyle="bold" />
-
-        <Button
-            android:id="@+id/addToCart"
-            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/foodImage"
-            android:layout_marginLeft="200dp"
-            android:layout_marginTop="75dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginBottom="10dp"
-            android:backgroundTint="@color/red"
-            android:elevation="10dp"
-            android:text="Add to Cart"
-            android:textColor="@color/white" />
-
 
     </RelativeLayout>
 
