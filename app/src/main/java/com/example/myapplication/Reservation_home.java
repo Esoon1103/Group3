@@ -13,7 +13,7 @@ import com.smarteist.autoimageslider.SliderAnimations;
 
 public class Reservation_home extends AppCompatActivity implements View.OnClickListener{
     private Button account1,home1,orderHistory1,cart1;
-    ImageButton reservation_btn;
+    ImageButton reservation_btn, Reservation_form_btn;
     @Override
     public void onClick(View view) {
         switch(view.getId()){
@@ -39,6 +39,12 @@ public class Reservation_home extends AppCompatActivity implements View.OnClickL
                 startActivity(toreserve);
                 break;
 
+            case R.id.Reservation_form_btn:
+                Intent toform = new Intent(this, reservation_form.class);
+                startActivity(toform);
+                break;
+
+
         }
     }
     @Override
@@ -61,6 +67,8 @@ public class Reservation_home extends AppCompatActivity implements View.OnClickL
         reservation_btn= findViewById(R.id.reservation_btn);
         reservation_btn.setOnClickListener(this);
 
+        Reservation_form_btn= findViewById(R.id.Reservation_form_btn);
+        Reservation_form_btn.setOnClickListener(this);
 
 
     }

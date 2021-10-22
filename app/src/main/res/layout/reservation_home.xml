@@ -141,7 +141,7 @@
 
 
         <ImageButton
-            android:id="@+id/rice_btn_homepage1"
+            android:id="@+id/Reservation_form_btn"
             android:layout_width="260dp"
             android:layout_height="126dp"
             android:layout_marginBottom="124dp"
@@ -158,14 +158,14 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:clickable="false"
-            android:text="Ongoing"
+            android:text="Form"
             android:textColor="#FFFFFF"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@+id/rice_btn_homepage1"
-            app:layout_constraintEnd_toEndOf="@+id/rice_btn_homepage1"
+            app:layout_constraintBottom_toBottomOf="@+id/Reservation_form_btn"
+            app:layout_constraintEnd_toEndOf="@+id/Reservation_form_btn"
             app:layout_constraintHorizontal_bias="0.495"
-            app:layout_constraintStart_toStartOf="@+id/rice_btn_homepage1"
-            app:layout_constraintTop_toTopOf="@+id/rice_btn_homepage1"
+            app:layout_constraintStart_toStartOf="@+id/Reservation_form_btn"
+            app:layout_constraintTop_toTopOf="@+id/Reservation_form_btn"
             app:layout_constraintVertical_bias="0.616"></TextView>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
