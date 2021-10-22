@@ -42,7 +42,7 @@ public class changePassword extends AppCompatActivity implements View.OnClickLis
                 break;
 
             case R.id.cart1:
-                Intent toLogin3 = new Intent(this, cart.class);
+                Intent toLogin3 = new Intent(this, CartActivity.class);
                 startActivity(toLogin3);
                 break;
         }

@@ -14,7 +14,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.myapplication.adapter.ReservationAdapter;
 import com.example.myapplication.listener.IReservationLoadListener;
 import com.example.myapplication.model.Reservation;
-import com.example.myapplication.model.Rice;
 import com.example.myapplication.utils.SpaceItemDecoration;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.database.DataSnapshot;
@@ -55,7 +54,7 @@ public class reservation_page extends AppCompatActivity implements View.OnClickL
                 startActivity(toLogin2);
                 break;
             case R.id.cart1:
-                Intent toLogin3 = new Intent(this, cart.class);
+                Intent toLogin3 = new Intent(this, CartActivity.class);
                 startActivity(toLogin3);
                 break;
 
