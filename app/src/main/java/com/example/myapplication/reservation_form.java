@@ -16,15 +16,41 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
+import static androidx.core.content.ContextCompat.startActivity;
 
+import android.app.AlertDialog;
+import android.app.DatePickerDialog;
+import android.app.Dialog;
+import android.app.TimePickerDialog;
+import android.content.Context;
+import android.content.Intent;
+import android.media.Image;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.DatePicker;
+import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+import android.widget.TimePicker;
+import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 public class reservation_form  extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemSelectedListener {
-    TextView select_Time;
-    EditText edit_Date;
+    TextView select_Time, select_Date;
+int t1Hour, t1Minutes;
 DatePickerDialog.OnDateSetListener setListener;
 
 
@@ -56,15 +82,15 @@ spinner.setOnItemSelectedListener(this);
        //ArrayAdapter<String>myAdapter=new ArrayAdapter<String>(reservation_form.this, android.R.layout.simple_list_item_1,item);
         //myListView.setAdapter(myAdapter);
 
-        select_Time =findViewById(R.id.select_Time);
-        edit_Date=findViewById(R.id.edit_Date);
+        select_Date =findViewById(R.id.select_Date);
+
 
         Calendar calendar =Calendar.getInstance();
         final int year=calendar.get(Calendar.YEAR);
         final int month=calendar.get(Calendar.MONTH);
         final int day=calendar.get(Calendar.DAY_OF_MONTH);
 
-        select_Time.setOnClickListener(new View.OnClickListener() {
+        select_Date.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 DatePickerDialog datePickerDialog=new DatePickerDialog(reservation_form.this, android.R.style.Theme_Holo_Light_Dialog_MinWidth
@@ -78,26 +104,45 @@ setListener=new DatePickerDialog.OnDateSetListener() {
     public void onDateSet(DatePicker view, int year, int month, int dayofMonth) {
         month=month+1;
         String date = day+"/"+month+"/"+year;
-        select_Time.setText(date);
+        select_Date.setText(date);
     }
 };
-edit_Date.setOnClickListener(new View.OnClickListener() {
+
+        select_Time=findViewById(R.id.select_Time);
+select_Time.setOnClickListener(new View.OnClickListener() {
     @Override
     public void onClick(View v) {
-DatePickerDialog datePickerDialog=new DatePickerDialog(reservation_form.this,
-        new DatePickerDialog.OnDateSetListener() {
+TimePickerDialog timePickerDialog=new TimePickerDialog(
+        reservation_form.this,
+        android.R.style.Theme_Material_Light_Dialog_MinWidth,
+        new TimePickerDialog.OnTimeSetListener() {
             @Override
-            public void onDateSet(DatePicker view, int year, int month, int day) {
-month=month+1;
-String date=day+"/"+month+"/"+year;
-edit_Date.setText(date);
-            }
-        }, year,month,day);
-datePickerDialog.show();
+            public void onTimeSet(TimePicker view, int hourofDay, int minutes) {
+t1Hour=hourofDay;
+t1Minutes=minutes;
+//store in string
+              String time=t1Hour+":"+t1Minutes;
+                SimpleDateFormat f24Hours=new SimpleDateFormat(
+                        "HH:mm"
+                );
+                try {
+                    Date date= f24Hours.parse(time);
+                    SimpleDateFormat f12Hours=new SimpleDateFormat(
+                           "hh:mm aa"
+                    );
+                    select_Time.setText(f12Hours.format(date));
 
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+            }
+        },12,0,false
+);
+timePickerDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+timePickerDialog.updateTime(t1Hour,t1Minutes);
+timePickerDialog.show();
     }
 });
-
 
         }
 
