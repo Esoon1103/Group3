@@ -26,11 +26,11 @@ public class CompletedOrder extends AppCompatActivity {
 
         listView = findViewById(R.id.listView);
 
-        final ArrayList<String> list = new ArrayList<>();
-        final ArrayAdapter adapter = new ArrayAdapter<String>(this, R.layout.activity_completed_order, list);
+        ArrayList<String> list = new ArrayList<>();
+        ArrayAdapter adapter = new ArrayAdapter<String>(this, R.layout.item_list, list);
         listView.setAdapter(adapter);
 
-        DatabaseReference reference = FirebaseDatabase.getInstance()
+        DatabaseReference reference = FirebaseDatabase.getInstance("https://intea-delight-default-rtdb.asia-southeast1.firebasedatabase.app/")
                 .getReference().child("Completed");
 
         reference.addValueEventListener(new ValueEventListener() {
