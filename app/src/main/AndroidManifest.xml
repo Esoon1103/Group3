@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplication">
         <activity
+            android:name=".CompletedOrder"
+            android:exported="false" />
+        <activity
             android:name=".LoginActivity"
             android:exported="true" />
         <activity
@@ -41,7 +44,6 @@
         <activity android:name=".drink_page" />
         <activity android:name=".reservation_form" />
         <activity android:name=".FeedbackPage" />
-
     </application>
 
 </manifest>
