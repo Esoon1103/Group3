@@ -1,10 +1,15 @@
 package com.example.myapplication.model;
 
 public class Reservation {
-    private String key, table_id, date, time;
+     String key, table_id, date, time;
 
     public Reservation(){
 
+    }
+    public Reservation(String table_id, String date, String time){
+this.table_id=table_id;
+this.date=date;
+this.time=time;
     }
 
     public String getTable_id(){return table_id;}

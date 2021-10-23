@@ -32,8 +32,8 @@ public class orderHistory extends AppCompatActivity implements View.OnClickListe
                 break;
 
             case R.id.btnCompletedOrder:
-                Intent i = new Intent(orderHistory.this, FeedbackPage.class);
-                startActivity(i);
+                Intent toLogin4 = new Intent(this, FeedbackPage.class);
+                startActivity(toLogin4);
                 break;
         }
     }

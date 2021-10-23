@@ -2,6 +2,7 @@ package com.example.myapplication;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.app.usage.NetworkStats;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -40,18 +41,38 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.myapplication.listener.ICartLoadListener;
+import com.example.myapplication.listener.IReservationLoadListener;
+import com.example.myapplication.model.Cart;
+import com.example.myapplication.model.Reservation;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
-public class reservation_form  extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemSelectedListener {
+public class reservation_form  extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemSelectedListener, IReservationLoadListener {
     TextView select_Time, select_Date;
 int t1Hour, t1Minutes;
+Button submit_btn;
+
 DatePickerDialog.OnDateSetListener setListener;
+IReservationLoadListener reservationLoadListener;
+    private FirebaseAuth firebaseAuth;
+FirebaseDatabase rootNode;
+DatabaseReference reference;
 
 
     @Override
@@ -65,25 +86,18 @@ DatePickerDialog.OnDateSetListener setListener;
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.reservation_form);
+submit_btn=findViewById(R.id.submit_btn);
 
-Spinner spinner=findViewById(R.id.spinner1);
-ArrayAdapter<CharSequence>adapter=ArrayAdapter.createFromResource(this, R.array.name, android.R.layout.simple_spinner_item);
-adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-spinner.setAdapter(adapter);
-spinner.setOnItemSelectedListener(this);
 
         Spinner spinner1=findViewById(R.id.spinner2);
         ArrayAdapter<CharSequence>adapter1=ArrayAdapter.createFromResource(this, R.array.name1, android.R.layout.simple_spinner_item);
         adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner1.setAdapter(adapter1);
         spinner1.setOnItemSelectedListener(this);
-        //ListView myListView=findViewById(R.id.myList);
-        //String item[]=new String []{"1st item", "2nd item", "3rd item"};
-       //ArrayAdapter<String>myAdapter=new ArrayAdapter<String>(reservation_form.this, android.R.layout.simple_list_item_1,item);
-        //myListView.setAdapter(myAdapter);
+
+
 
         select_Date =findViewById(R.id.select_Date);
-
 
         Calendar calendar =Calendar.getInstance();
         final int year=calendar.get(Calendar.YEAR);
@@ -144,6 +158,21 @@ timePickerDialog.show();
     }
 });
 
+
+submit_btn.setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View view) {
+rootNode=FirebaseDatabase.getInstance();
+reference=rootNode.getReference("Table_Reservation");
+
+String table_id= spinner1.getSelectedItem().toString();
+String date=select_Date.getText().toString();
+String time=select_Time.getText().toString();
+
+reference.setValue("First data set");
+Reservation reservation=new Reservation();
+    }
+});
         }
 
 
@@ -160,6 +189,21 @@ timePickerDialog.show();
 
     @Override
     public void onNothingSelected(AdapterView<?> adapterView) {
+
+    }
+
+
+
+
+
+
+    @Override
+    public void onReservationLoadSuccess(List<Reservation> ReservationModelList) {
+
+    }
+
+    @Override
+    public void onReservationLoadFailed(String message) {
 
     }
 }

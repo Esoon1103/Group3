@@ -40,6 +40,8 @@
         <activity android:name=".dessert_page" />
         <activity android:name=".drink_page" />
         <activity android:name=".reservation_form" />
+        <activity android:name=".FeedbackPage" />
+
     </application>
 
 </manifest>
