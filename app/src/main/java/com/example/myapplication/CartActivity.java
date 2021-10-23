@@ -1,10 +1,14 @@
 package com.example.myapplication;
 
 import android.app.AlertDialog;
+import android.app.Dialog;
+import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -74,6 +78,7 @@ public class CartActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.cart_page);
+
 
         account1 = findViewById(R.id.account1);
         account1.setOnClickListener(this);
@@ -151,8 +156,7 @@ public class CartActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onCartLoadFailed(String message) {
-        Snackbar.make(cartLayout,message,Snackbar.LENGTH_SHORT).show();
-
+        Toast.makeText(CartActivity.this, message, Toast.LENGTH_SHORT).show();
     }
 
     private void loadFoodFromFirebase(List<Cart> cartModels){
@@ -172,6 +176,8 @@ public class CartActivity extends AppCompatActivity implements View.OnClickListe
                                 cartModels.add(cartModel);
                             }
                             cartLoadListener.onCartLoadSuccess(cartModels);
+                            //Validate Place Order
+                            validatePlaceOrder(cartModels);
                         }
                         else
                         {
@@ -187,45 +193,54 @@ public class CartActivity extends AppCompatActivity implements View.OnClickListe
                 });
     }
 
+
+
     public void validatePlaceOrder(List<Cart> cartModelList){
-        if(cartModelList.size() == 0)
+        if(cartModelList.size() == 0) {
             btnOrder.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     Toast.makeText(CartActivity.this, "No item in Cart!", Toast.LENGTH_SHORT).show();
                 }
             });
+        }
+        else if(cartModelList.size() > 0){
+            PlaceOrder(); //Bring user to HOME PAGE
+        }
     }
 
-    private void loadOrderFromFirebase(List<Cart> cartModels){
-        FirebaseDatabase.getInstance("https://intea-delight-default-rtdb.asia-southeast1.firebasedatabase.app")
-                .getReference("Order")
-                .child("UNIQUE_USER_ID").child("Item")
-                .addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        if(snapshot.exists())
-                        {
-                            for(DataSnapshot cartSnapshot:snapshot.getChildren())
-                            {
-                                Cart cartModel = cartSnapshot.getValue(Cart.class);
-                                cartModel.setKey(cartSnapshot.getKey());
-                                cartModels.add(cartModel);
-                            }
-                            cartLoadListener.onCartLoadSuccess(cartModels);
-                        }
-                        else
-                        {
-                            cartLoadListener.onCartLoadFailed("Cart Empty");
-                            validatePlaceOrder(cartModels);
-                        }
-                    }
 
+    private void PlaceOrder(){
+        //Click "Place Order"
+        btnOrder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent backHome = new Intent(view.getContext(), HomePage.class);
+                startActivity(backHome); //Navigate to HOME PAGE
+                alertDialog(); //Alert successful order
+            }
+        });
+        removeFirebaseData();
+
+    }
+
+    private void removeFirebaseData() {
+
+    }
+
+    private void alertDialog(){
+        AlertDialog alert = new AlertDialog.Builder(CartActivity.this)
+                .setTitle("Order Status")
+                .setMessage("Order Placed Successfully")
+                .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                     @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-                        cartLoadListener.onCartLoadFailed(error.getMessage());
+                    public void onClick(DialogInterface dialog, int i) {
+
+                        dialog.dismiss();
                     }
-                });
+                })
+                .create();
+        alert.show();
     }
 
     /*

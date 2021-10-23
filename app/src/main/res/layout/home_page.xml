@@ -154,12 +154,13 @@ android:elevation="4dp"
 
 
                 <FrameLayout
-                    android:layout_width="173dp"
-                    android:layout_height="wrap_content">
+                    android:layout_width="250dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="70dp">
 
                     <ImageButton
                         android:id="@+id/rice_btn_homepage"
-                        android:layout_width="169dp"
+                        android:layout_width="match_parent"
                         android:layout_height="117dp"
 
                         android:background="@null"
@@ -171,31 +172,12 @@ android:elevation="4dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:clickable="false"
-                        android:text="Rice"
+                        android:textSize="25sp"
+                        android:text="Browse Food"
                         android:textColor="#FFFFFF"></TextView>
                 </FrameLayout>
 
-                <FrameLayout
-                    android:layout_width="173dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="50dp">
 
-                    <ImageButton
-                        android:id="@+id/noodle_btn_homepage"
-                        android:layout_width="169dp"
-                        android:layout_height="117dp"
-                        android:background="@null"
-                        android:scaleType="fitXY"
-                        android:src="@drawable/noodle"></ImageButton>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:clickable="false"
-                        android:text="noodle"
-                        android:textColor="#FFFFFF"></TextView>
-                </FrameLayout>
 
 
             </LinearLayout>
@@ -204,56 +186,7 @@ android:elevation="4dp"
                 android:layout_width="match_parent"
                 android:layout_height="32dp" />
 
-            <LinearLayout
-                android:id="@+id/linear2"
-                android:layout_width="match_parent"
-                android:layout_height="121dp"
-                android:orientation="horizontal">
 
-                <FrameLayout
-                    android:layout_width="173dp"
-                    android:layout_height="wrap_content">
-
-                    <ImageButton
-                        android:id="@+id/drink_btn_homepage"
-                        android:layout_width="169dp"
-                        android:layout_height="117dp"
-                        android:background="@null"
-                        android:scaleType="fitXY"
-                        android:src="@drawable/drink"></ImageButton>
-
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:clickable="false"
-                        android:text="Beverage"
-                        android:textColor="#FFFFFF"></TextView>
-                </FrameLayout>
-
-                <FrameLayout
-                    android:layout_width="173dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="50dp">
-
-                    <ImageButton
-                        android:id="@+id/dessert_btn_homepage"
-                        android:layout_width="169dp"
-                        android:layout_height="117dp"
-                        android:background="@null"
-                        android:scaleType="fitXY"
-                        android:src="@drawable/dessert"></ImageButton>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:clickable="false"
-                        android:text="Dessert"
-                        android:textColor="#FFFFFF"></TextView>
-                </FrameLayout>
-            </LinearLayout>
 
             <Space
                 android:layout_width="match_parent"
@@ -283,6 +216,7 @@ android:elevation="4dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
+                    android:textSize="25sp"
                     android:clickable="false"
                     android:text="Table Reservation"
                     android:textColor="#FFFFFF"></TextView>

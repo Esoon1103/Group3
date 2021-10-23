@@ -51,7 +51,7 @@ public class HomePage extends AppCompatActivity implements View.OnClickListener 
                 Intent riceBtn = new Intent(this, rice_page.class);
                 startActivity(riceBtn);
                 break;
-
+            /*
             case R.id.noodle_btn_homepage:
                 Intent noodleBtn = new Intent(this, noodle_page.class);
                 startActivity(noodleBtn);
@@ -66,7 +66,7 @@ public class HomePage extends AppCompatActivity implements View.OnClickListener 
                 Intent drinkBtn = new Intent(this, drink_page.class);
                 startActivity(drinkBtn);
                 break;
-
+                */
             case R.id.temp_btn_homepage:
                 Intent reservation_btn = new Intent(this, Reservation_home.class);
                 startActivity(reservation_btn);
@@ -93,7 +93,7 @@ public class HomePage extends AppCompatActivity implements View.OnClickListener 
 
         rice_btn_homepage = findViewById(R.id.rice_btn_homepage);
         rice_btn_homepage.setOnClickListener(this);
-
+        /*
         noodle_btn_homepage = findViewById(R.id.noodle_btn_homepage);
         noodle_btn_homepage.setOnClickListener(this);
 
@@ -102,7 +102,7 @@ public class HomePage extends AppCompatActivity implements View.OnClickListener 
 
         drink_btn_homepage = findViewById(R.id.drink_btn_homepage);
         drink_btn_homepage.setOnClickListener(this);
-
+        */
         temp_btn_homepage = findViewById(R.id.temp_btn_homepage);
         temp_btn_homepage.setOnClickListener(this);
 
