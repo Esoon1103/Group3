@@ -23,13 +23,18 @@ import com.bumptech.glide.disklrucache.DiskLruCache;
 import com.example.myapplication.adapter.CartAdapter;
 import com.example.myapplication.listener.ICartLoadListener;
 import com.example.myapplication.model.Cart;
+import com.example.myapplication.model.Order;
 import com.example.myapplication.model.Rice;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.FirebaseError;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ServerValue;
 import com.google.firebase.database.ValueEventListener;
 
 import org.greenrobot.eventbus.EventBus;
@@ -37,6 +42,7 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.MissingResourceException;
 
@@ -205,27 +211,69 @@ public class CartActivity extends AppCompatActivity implements View.OnClickListe
             });
         }
         else if(cartModelList.size() > 0){
-            PlaceOrder(); //Bring user to HOME PAGE
+            PlaceOrder(cartModelList); //Bring user to HOME PAGE
         }
     }
 
 
-    private void PlaceOrder(){
+    private void PlaceOrder(List<Cart> cartModelList){
         //Click "Place Order"
+        addOrderFirebaseData(cartModelList); // Copy cart data to Order data
         btnOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent backHome = new Intent(view.getContext(), HomePage.class);
                 startActivity(backHome); //Navigate to HOME PAGE
                 alertDialog(); //Alert successful order
+                deleteCartFirebaseData(); // Order will be set in the Firebase
             }
         });
-        removeFirebaseData();
 
     }
 
-    private void removeFirebaseData() {
+    public void getOrderID(){
 
+    }
+
+    //Get Cart data and store  into a New Path called "Order"
+    private void addOrderFirebaseData(List<Cart> cartModels) {
+
+        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+        FirebaseDatabase cart = FirebaseDatabase.getInstance("https://intea-delight-default-rtdb.asia-southeast1.firebasedatabase.app");
+                cart.getReference("Users")
+                .child(firebaseAuth.getUid())
+                .child("Cart")
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        /*
+                        String orderID = FirebaseDatabase.getInstance("https://intea-delight-default-rtdb.asia-southeast1.firebasedatabase.app")
+                                .getReference("Users").child(firebaseAuth.getUid()).child("01").push().getKey();
+
+                        System.out.println("OrderID IS: "+orderID);
+                        */
+                        FirebaseDatabase order = FirebaseDatabase.getInstance("https://intea-delight-default-rtdb.asia-southeast1.firebasedatabase.app");
+                                order.getReference("Users")
+                                .child(firebaseAuth.getUid())
+                                .child("01")
+                                .setValue(dataSnapshot.getValue());
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                        Toast.makeText(CartActivity.this, "Failed to copy data", Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
+
+    //Delete cart after Place Order
+    private void deleteCartFirebaseData() {
+        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+        FirebaseDatabase firebase = FirebaseDatabase.getInstance("https://intea-delight-default-rtdb.asia-southeast1.firebasedatabase.app");
+        firebase.getReference("Users")
+                .child(firebaseAuth.getUid())
+                .child("Cart")
+                .setValue(null);
     }
 
     private void alertDialog(){
