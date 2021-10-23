@@ -88,9 +88,7 @@ public class rice_page extends AppCompatActivity implements IRiceLoadListener, I
 
         cart1= findViewById(R.id.cart1);
         cart1.setOnClickListener(this);
-
-
-
+        
         init();
         loadFoodFromFirebase();
         countCartItem();
