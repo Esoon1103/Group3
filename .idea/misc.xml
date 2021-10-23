@@ -19,7 +19,6 @@
         <entry key="..\:/Group3/app/src/main/res/layout/login_page.xml" value="0.4" />
         <entry key="..\:/Group3/app/src/main/res/layout/order_history.xml" value="0.1" />
         <entry key="..\:/Group3/app/src/main/res/layout/payment_method.xml" value="0.17300724637681159" />
-        <entry key="..\:/Group3/app/src/main/res/layout/reservation_form.xml" value="0.1" />
         <entry key="..\:/Group3/app/src/main/res/layout/reservation_home.xml" value="0.4" />
         <entry key="..\:/Group3/app/src/main/res/layout/reservation_item.xml" value="0.1" />
         <entry key="..\:/Group3/app/src/main/res/layout/reservation_main_page.xml" value="0.264" />
@@ -44,21 +43,23 @@
         <entry key="..\:/Users/ASUS/Desktop/Group3/app/src/main/res/layout/cart.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/ASUS/Desktop/Group3/app/src/main/res/layout/cart_empty.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/ASUS/Desktop/Group3/app/src/main/res/layout/cart_item.xml" value="0.25416666666666665" />
-        <entry key="..\:/Users/ASUS/Desktop/Group3/app/src/main/res/layout/cart_page.xml" value="0.264" />
-        <entry key="..\:/Users/ASUS/Desktop/Group3/app/src/main/res/layout/change_password.xml" value="0.14010416666666667" />
+        <entry key="..\:/Users/ASUS/Desktop/Group3/app/src/main/res/layout/cart_page.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/ASUS/Desktop/Group3/app/src/main/res/layout/demo_login.xml" value="0.1" />
-        <entry key="..\:/Users/ASUS/Desktop/Group3/app/src/main/res/layout/dessert_page.xml" value="0.14739583333333334" />
-        <entry key="..\:/Users/ASUS/Desktop/Group3/app/src/main/res/layout/drink_page.xml" value="0.14739583333333334" />
-        <entry key="..\:/Users/ASUS/Desktop/Group3/app/src/main/res/layout/home_page.xml" value="0.20364583333333333" />
         <entry key="..\:/Users/ASUS/Desktop/Group3/app/src/main/res/layout/login_page.xml" value="0.13020833333333334" />
-        <entry key="..\:/Users/ASUS/Desktop/Group3/app/src/main/res/layout/rice_item.xml" value="0.1" />
-        <entry key="..\:/Users/ASUS/Desktop/Group3/app/src/main/res/layout/rice_main_page.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/ASUS/Desktop/Group3/app/src/main/res/layout/rice_item.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/Ong Jia Jun/StudioProjects/Group3/app/src/main/res/layout/activity_feedback_page.xml" value="0.22760416666666666" />
         <entry key="..\:/Users/Ong Jia Jun/StudioProjects/Group3/app/src/main/res/layout/activity_forgot_password.xml" value="0.24375" />
+        <entry key="..\:/Users/Ong Jia Jun/StudioProjects/Group3/app/src/main/res/layout/activity_navigation_bar.xml" value="0.21354166666666666" />
+        <entry key="..\:/Users/Ong Jia Jun/StudioProjects/Group3/app/src/main/res/layout/activity_order_history.xml" value="0.22760416666666666" />
+        <entry key="..\:/Users/Ong Jia Jun/StudioProjects/Group3/app/src/main/res/layout/beverage.xml" value="0.22760416666666666" />
+        <entry key="..\:/Users/Ong Jia Jun/StudioProjects/Group3/app/src/main/res/layout/cart_empty.xml" value="0.22760416666666666" />
+        <entry key="..\:/Users/Ong Jia Jun/StudioProjects/Group3/app/src/main/res/layout/cart_item.xml" value="0.22760416666666666" />
+        <entry key="..\:/Users/Ong Jia Jun/StudioProjects/Group3/app/src/main/res/layout/cart_page.xml" value="0.22760416666666666" />
         <entry key="..\:/Users/Ong Jia Jun/StudioProjects/Group3/app/src/main/res/layout/change_password.xml" value="0.2" />
         <entry key="..\:/Users/Ong Jia Jun/StudioProjects/Group3/app/src/main/res/layout/demo_login.xml" value="0.11068895643363728" />
         <entry key="..\:/Users/Ong Jia Jun/StudioProjects/Group3/app/src/main/res/layout/landing_page.xml" value="0.11068895643363728" />
         <entry key="..\:/Users/Ong Jia Jun/StudioProjects/Group3/app/src/main/res/layout/login_page.xml" value="0.24375" />
-        <entry key="..\:/Users/Ong Jia Jun/StudioProjects/Group3/app/src/main/res/layout/order_history.xml" value="0.11018237082066869" />
+        <entry key="..\:/Users/Ong Jia Jun/StudioProjects/Group3/app/src/main/res/layout/order_history.xml" value="0.16799999999999998" />
         <entry key="..\:/Users/Ong Jia Jun/StudioProjects/Group3/app/src/main/res/layout/payment_method.xml" value="0.11068895643363728" />
         <entry key="..\:/Users/Ong Jia Jun/StudioProjects/Group3/app/src/main/res/layout/reservation_item.xml" value="0.22760416666666666" />
         <entry key="..\:/Users/User/StudioProjects/Group3/app/src/main/res/layout/change_password.xml" value="0.14583333333333334" />

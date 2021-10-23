@@ -8,7 +8,7 @@ import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class orderHistory extends AppCompatActivity implements View.OnClickListener{
-    private Button account1,home1,orderHistory1, cart1;
+    private Button account1,home1,orderHistory1, cart1, btnCompletedOrder;
     @Override
     public void onClick(View view) {
 
@@ -30,12 +30,17 @@ public class orderHistory extends AppCompatActivity implements View.OnClickListe
                 Intent toLogin3 = new Intent(this, CartActivity.class);
                 startActivity(toLogin3);
                 break;
+
+            case R.id.btnCompletedOrder:
+                Intent i = new Intent(orderHistory.this, FeedbackPage.class);
+                startActivity(i);
+                break;
         }
     }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.order_history);
+        setContentView(R.layout.activity_order_history);
 
         account1 = findViewById(R.id.account1);
         account1.setOnClickListener(this);
@@ -48,5 +53,9 @@ public class orderHistory extends AppCompatActivity implements View.OnClickListe
 
         cart1= findViewById(R.id.cart1);
         cart1.setOnClickListener(this);
+
+        btnCompletedOrder = findViewById(R.id.btnCompletedOrder);
+        btnCompletedOrder.setOnClickListener(this);
     }
+
 }
