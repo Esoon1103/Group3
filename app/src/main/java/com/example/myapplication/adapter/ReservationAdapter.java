@@ -38,6 +38,7 @@ public class ReservationAdapter extends RecyclerView.Adapter<ReservationAdapter.
     @Override
     public void onBindViewHolder(@NonNull ReservationAdapter.ReservationViewHolder holder, int position) {
      holder.table_id.setText(new StringBuilder().append(reservationList.get(position).getTable_id()));
+     holder.Date_show.setText(new StringBuilder().append(reservationList.get(position).getDate()));
     }
 
     @Override
@@ -50,6 +51,8 @@ public class ReservationAdapter extends RecyclerView.Adapter<ReservationAdapter.
 
         @BindView(R.id.table_id)
         TextView table_id;
+@BindView(R.id.Date_show)
+TextView Date_show;
 
         public ReservationViewHolder(@NonNull View itemView) {
             super(itemView);

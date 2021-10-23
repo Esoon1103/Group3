@@ -56,27 +56,54 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
 public class reservation_form  extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemSelectedListener, IReservationLoadListener {
     TextView select_Time, select_Date;
+    private Button account1, home1, orderHistory1, cart1;
 int t1Hour, t1Minutes;
 Button submit_btn;
-
+ListView show_avail_table;
 DatePickerDialog.OnDateSetListener setListener;
 IReservationLoadListener reservationLoadListener;
     private FirebaseAuth firebaseAuth;
 FirebaseDatabase rootNode;
-DatabaseReference reference;
+    DatabaseReference deleteNode,deleteNode1;
+DatabaseReference reference, reference1;
 
 
     @Override
     public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.account1:
+                Intent toLogin = new Intent(this, Account.class);
+                startActivity(toLogin);
+                break;
+
+            case R.id.home1:
+                Intent toLogin1 = new Intent(this, HomePage.class);
+                startActivity(toLogin1);
+                break;
+
+            case R.id.orderHistory1:
+                Intent toLogin2 = new Intent(this, orderHistory.class);
+                startActivity(toLogin2);
+                break;
+
+            case R.id.cart1:
+                Intent toLogin3 = new Intent(this, CartActivity.class);
+                startActivity(toLogin3);
+                break;
+
+        }
 
 
         }
@@ -162,8 +189,9 @@ timePickerDialog.show();
 submit_btn.setOnClickListener(new View.OnClickListener() {
     @Override
     public void onClick(View view) {
-rootNode=FirebaseDatabase.getInstance();
-reference=rootNode.getReference("Table_Reservation");
+        firebaseAuth=FirebaseAuth.getInstance();
+rootNode=FirebaseDatabase.getInstance("https://intea-delight-default-rtdb.asia-southeast1.firebasedatabase.app");
+reference=rootNode.getReference("Table_Reservation").child(firebaseAuth.getUid()).child("reservation");
 
 String table_id= spinner1.getSelectedItem().toString();
 String date=select_Date.getText().toString();
@@ -172,12 +200,59 @@ String time=select_Time.getText().toString();
         Reservation reservation=new Reservation(table_id, date, time);
 reference.setValue(reservation);
 
+
+deleteTable(table_id);
+
     }
+
 });
+
+        account1 = findViewById(R.id.account1);
+        account1.setOnClickListener(this);
+
+        home1 = findViewById(R.id.home1);
+        home1.setOnClickListener(this);
+
+        orderHistory1 = findViewById(R.id.orderHistory1);
+        orderHistory1.setOnClickListener(this);
+
+        cart1 = findViewById(R.id.cart1);
+        cart1.setOnClickListener(this);
+
+
+        show_avail_table=findViewById(R.id.show_avail_table);
+        ArrayList<String>list=new ArrayList<>();
+        ArrayAdapter adapter_table=new ArrayAdapter<String>(this,R.layout.show_table_item, list);
+        show_avail_table.setAdapter(adapter_table);
+        DatabaseReference reference_table =FirebaseDatabase.getInstance("https://intea-delight-default-rtdb.asia-southeast1.firebasedatabase.app")
+                .getReference().child("Table");
+        reference_table.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                list.clear();
+                for (DataSnapshot Snapshot_table : snapshot.getChildren()){
+                    list.add(Snapshot_table.getValue().toString());
+                }
+                adapter_table.notifyDataSetChanged();
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+
+
         }
 
-
-
+    private void deleteTable(String table_id) {
+        DatabaseReference drTable=FirebaseDatabase.getInstance("https://intea-delight-default-rtdb.asia-southeast1.firebasedatabase.app").getReference("Table")
+                .child(table_id);
+        drTable.removeValue();
+        Toast.makeText(this,"Deleted", Toast.LENGTH_LONG).show();
+    }
 
 
     @Override
@@ -207,4 +282,7 @@ reference.setValue(reservation);
     public void onReservationLoadFailed(String message) {
 
     }
+
+
+
 }

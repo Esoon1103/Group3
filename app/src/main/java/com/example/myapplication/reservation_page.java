@@ -16,6 +16,7 @@ import com.example.myapplication.listener.IReservationLoadListener;
 import com.example.myapplication.model.Reservation;
 import com.example.myapplication.utils.SpaceItemDecoration;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -30,7 +31,7 @@ import butterknife.ButterKnife;
 
 public class reservation_page extends AppCompatActivity implements View.OnClickListener, IReservationLoadListener {
     private Button account1,home1,orderHistory1, cart1;
-
+    private FirebaseAuth firebaseAuth;
     @BindView(R.id.reservationListRecycler)
     RecyclerView reservationListRecycler;
 
@@ -98,9 +99,9 @@ public class reservation_page extends AppCompatActivity implements View.OnClickL
     private void loadReservationFromFirebase() {
 
         List<Reservation> reservationModels = new ArrayList<>();
-
+        firebaseAuth= FirebaseAuth.getInstance();
         FirebaseDatabase database = FirebaseDatabase.getInstance("https://intea-delight-default-rtdb.asia-southeast1.firebasedatabase.app");
-        DatabaseReference reference = database.getReference("Reservation");
+        DatabaseReference reference = database.getReference("Table_Reservation").child(firebaseAuth.getUid()).child("reservation");
 
 
         reference.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -116,7 +117,7 @@ public class reservation_page extends AppCompatActivity implements View.OnClickL
                     reservationLoadListener.onReservationLoadSuccess(reservationModels);
                 }
                 else
-                    reservationLoadListener.onReservationLoadFailed("Can't find the Rice");
+                    reservationLoadListener.onReservationLoadFailed("Empty");
             }
 
             @Override

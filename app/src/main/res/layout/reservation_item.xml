@@ -25,9 +25,17 @@
             android:textSize="20sp"
             android:textStyle="bold" />
 
+        <TextView
+            android:id="@+id/Date_show"
+            android:layout_width="270dp"
+            android:layout_height="60dp"
 
-
-
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="50dp"
+            android:elevation="10dp"
+            android:text="Table1"
+            android:textSize="20sp"
+            android:textStyle="bold" />
 
 
     </RelativeLayout>

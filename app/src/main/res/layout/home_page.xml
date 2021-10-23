@@ -60,10 +60,10 @@
         android:layout_width="match_parent"
         android:layout_height="75dp"
         android:layout_alignParentBottom="true"
-android:elevation="4dp"
         android:layout_marginBottom="0dp"
         android:accessibilityHeading="false"
         android:background="#D53C3C"
+        android:elevation="4dp"
         android:visibility="visible">
 
         <Button
