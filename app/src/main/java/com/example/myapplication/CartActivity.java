@@ -255,7 +255,7 @@ public class CartActivity extends AppCompatActivity implements View.OnClickListe
                         FirebaseDatabase order = FirebaseDatabase.getInstance("https://intea-delight-default-rtdb.asia-southeast1.firebasedatabase.app");
                                 order.getReference("Users")
                                 .child(firebaseAuth.getUid())
-                                .child("01")
+                                .child("1")
                                 .setValue(dataSnapshot.getValue());
                     }
 
