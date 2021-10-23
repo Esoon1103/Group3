@@ -169,8 +169,9 @@ String table_id= spinner1.getSelectedItem().toString();
 String date=select_Date.getText().toString();
 String time=select_Time.getText().toString();
 
-reference.setValue("First data set");
-Reservation reservation=new Reservation();
+        Reservation reservation=new Reservation(table_id, date, time);
+reference.setValue(reservation);
+
     }
 });
         }
