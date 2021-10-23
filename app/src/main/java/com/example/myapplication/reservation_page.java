@@ -111,6 +111,7 @@ public class reservation_page extends AppCompatActivity implements View.OnClickL
                     for(DataSnapshot reservationSnapshot:snapshot.getChildren())
                     {
                         Reservation reservationModel = reservationSnapshot.getValue(Reservation.class);
+                       // reservationModel.getTable_id(reservationSnapshot.child().getValue());
                         reservationModel.setKey(reservationSnapshot.getKey());
                         reservationModels.add(reservationModel);
                     }

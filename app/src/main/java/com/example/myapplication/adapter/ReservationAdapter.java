@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.R;
 import com.example.myapplication.model.Reservation;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.List;
 
@@ -20,6 +21,7 @@ import butterknife.Unbinder;
 public class ReservationAdapter extends RecyclerView.Adapter<ReservationAdapter.ReservationViewHolder>{
     Context context;
     List<Reservation> reservationList;
+    private FirebaseAuth firebaseAuth;
 
     //constructor
     public ReservationAdapter(Context context,List<Reservation> reservationList){
@@ -39,6 +41,7 @@ public class ReservationAdapter extends RecyclerView.Adapter<ReservationAdapter.
     public void onBindViewHolder(@NonNull ReservationAdapter.ReservationViewHolder holder, int position) {
      holder.table_id.setText(new StringBuilder().append(reservationList.get(position).getTable_id()));
      holder.Date_show.setText(new StringBuilder().append(reservationList.get(position).getDate()));
+     holder.Time_show.setText(new StringBuilder().append(reservationList.get(position).getTime()));
     }
 
     @Override
@@ -51,8 +54,10 @@ public class ReservationAdapter extends RecyclerView.Adapter<ReservationAdapter.
 
         @BindView(R.id.table_id)
         TextView table_id;
-@BindView(R.id.Date_show)
-TextView Date_show;
+       @BindView(R.id.Date_show)
+       TextView Date_show;
+       @BindView(R.id.Time_show)
+       TextView Time_show;
 
         public ReservationViewHolder(@NonNull View itemView) {
             super(itemView);
