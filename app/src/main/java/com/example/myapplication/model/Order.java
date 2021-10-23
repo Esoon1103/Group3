@@ -3,18 +3,15 @@ package com.example.myapplication.model;
 public class Order {
     private String orderID, orderPerson, orderPrice, orderTime, orderFeedback;
 
-    private Order(){
+    public Order(){
+    }
+
+    public String getOrderFeedback() {
+        return orderFeedback;
     }
 
     public void setOrderFeedback(String orderFeedback) {
         this.orderFeedback = orderFeedback;
-    }
-
-
-
-
-    public String getOrderFeedback() {
-        return orderFeedback;
     }
 
     public String getOrderID() {
