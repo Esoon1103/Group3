@@ -48,6 +48,7 @@ public class RiceAdapter extends RecyclerView.Adapter<RiceAdapter.RiceViewHolder
     private Context context;
     private List<Rice> riceList;
     private ICartLoadListener cartLoadListener;
+    private FirebaseAuth firebaseAuth;
 
     //Constructor
     public RiceAdapter(Context context, List<Rice> riceList, ICartLoadListener cartLoadListener) {
@@ -79,9 +80,11 @@ public class RiceAdapter extends RecyclerView.Adapter<RiceAdapter.RiceViewHolder
     }
 
     private void addToCart(Rice riceModel) {
+
+        firebaseAuth = FirebaseAuth.getInstance();
+
         DatabaseReference userCart = FirebaseDatabase.getInstance("https://intea-delight-default-rtdb.asia-southeast1.firebasedatabase.app")
-                .getReference("Cart")
-                .child("UNIQUE_USER_ID").child("Food");
+                .getReference("Users").child(firebaseAuth.getUid()).child("Cart");
 
         userCart.child(riceModel.getKey())
                 .addListenerForSingleValueEvent(new ValueEventListener() {

@@ -19,6 +19,7 @@ import com.example.myapplication.model.Cart;
 import com.example.myapplication.model.Rice;
 import com.example.myapplication.utils.SpaceItemDecoration;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -38,6 +39,7 @@ import butterknife.ButterKnife;
 public class rice_page extends AppCompatActivity implements IRiceLoadListener, ICartLoadListener, View.OnClickListener{
     private Button account1,home1,orderHistory1;
     private ImageView btnBack;
+    private FirebaseAuth firebaseAuth;
 
     @BindView(R.id.riceListRecycler)
     RecyclerView riceListRecycler;
@@ -88,6 +90,7 @@ public class rice_page extends AppCompatActivity implements IRiceLoadListener, I
         cart1.setOnClickListener(this);
 
 
+
         init();
         loadFoodFromFirebase();
         countCartItem();
@@ -106,6 +109,7 @@ public class rice_page extends AppCompatActivity implements IRiceLoadListener, I
         cart1.setOnClickListener(view -> startActivity(new Intent(this, CartActivity.class)));
     }
 
+    //Read All Food from Firebase
     private void loadFoodFromFirebase() {
         List<Rice> riceModels = new ArrayList<>();
 
@@ -167,10 +171,12 @@ public class rice_page extends AppCompatActivity implements IRiceLoadListener, I
     }
 
     private void countCartItem() {
+
+        firebaseAuth = FirebaseAuth.getInstance();
         List<Cart> cartModels = new ArrayList<>();
         FirebaseDatabase.getInstance("https://intea-delight-default-rtdb.asia-southeast1.firebasedatabase.app")
-                .getReference("Cart")
-                .child("UNIQUE_USER_ID").child("Food")
+                .getReference("Users")
+                .child(firebaseAuth.getUid()).child("Cart")
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {

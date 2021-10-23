@@ -23,6 +23,7 @@ import com.example.myapplication.HomePage;
 import com.example.myapplication.R;
 import com.example.myapplication.UpdateCartEvent;
 import com.example.myapplication.model.Cart;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
@@ -33,12 +34,14 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.Optional;
 import butterknife.Unbinder;
 
 public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder> {
 
     private Context context;
     private List<Cart> cartModelList;
+    private FirebaseAuth firebaseAuth;
 
     public CartAdapter(Context context, List<Cart> cartModelList) {
         this.context = context;
@@ -90,8 +93,9 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
     }
 
     private void deleteFoodFromFirebase(Cart cart) {
+        firebaseAuth = FirebaseAuth.getInstance();
         FirebaseDatabase.getInstance("https://intea-delight-default-rtdb.asia-southeast1.firebasedatabase.app")
-                .getReference("Cart").child("UNIQUE_USER_ID").child("Food")
+                .getReference("Users").child(firebaseAuth.getUid()).child("Cart") //Users->UID->Cart->Food
                 .child(cart.getKey())
                 .removeValue()
                 .addOnSuccessListener(aVoid-> EventBus.getDefault().postSticky(new UpdateCartEvent()));
@@ -148,8 +152,10 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
     }
 
     private void updateFoodFirebase(Cart cart) {
+        firebaseAuth = FirebaseAuth.getInstance();
+
         FirebaseDatabase.getInstance("https://intea-delight-default-rtdb.asia-southeast1.firebasedatabase.app")
-                .getReference("Cart").child("UNIQUE_USER_ID").child("Food")
+                .getReference("Users").child(firebaseAuth.getUid()).child("Cart")
                 .child(cart.getKey())
                 .setValue(cart)
                 .addOnSuccessListener(aVoid-> EventBus.getDefault().postSticky(new UpdateCartEvent()));
@@ -199,8 +205,8 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
         TextView foodName;
         @BindView(R.id.foodPrice)
         TextView foodPrice;
-        @BindView(R.id.btnOrder)
-        Button btnOrder;
+
+
 
         Unbinder unbinder;
 
