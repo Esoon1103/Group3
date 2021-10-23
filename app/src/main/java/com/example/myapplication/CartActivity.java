@@ -1,11 +1,13 @@
 package com.example.myapplication;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -86,6 +88,7 @@ public class CartActivity extends AppCompatActivity implements View.OnClickListe
         cart1= findViewById(R.id.cart1);
         cart1.setOnClickListener(this);
 
+
         init();
         loadCartFromFirebase();
 
@@ -94,10 +97,10 @@ public class CartActivity extends AppCompatActivity implements View.OnClickListe
     private void loadCartFromFirebase() {
         List<Cart> cartModels = new ArrayList<>();
 
-        loadRicefromFirebase(cartModels);
-        loadNoodlefromFirebase(cartModels);
-        loadDessertfromFirebase(cartModels);
-        loadDrinkfromFirebase(cartModels);
+        loadFoodFromFirebase(cartModels);
+        //loadNoodlefromFirebase(cartModels);
+        //loadDessertfromFirebase(cartModels);
+        //loadDrinkfromFirebase(cartModels);
     }
 
     private void init(){
@@ -107,8 +110,6 @@ public class CartActivity extends AppCompatActivity implements View.OnClickListe
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerCart.setLayoutManager(layoutManager);
         recyclerCart.addItemDecoration(new DividerItemDecoration(this, layoutManager.getOrientation()));
-
-
     }
 
     @Override
@@ -119,7 +120,6 @@ public class CartActivity extends AppCompatActivity implements View.OnClickListe
                 startActivity(toLogin);
                 break;
             case R.id.home1:
-            case R.id.btnOrder:
                 Intent toLogin1 = new Intent(this, HomePage.class);
                 startActivity(toLogin1);
                 break;
@@ -144,17 +144,30 @@ public class CartActivity extends AppCompatActivity implements View.OnClickListe
         txtTotalPrice.setText(new StringBuilder("RM ").append(sum));
         CartAdapter adapter = new CartAdapter(this, cartModelList);
         recyclerCart.setAdapter(adapter);
+
+
+    }
+
+    public void validatePlaceOrder(List<Cart> cartModelList){
+        if(cartModelList.size() == 0)
+            btnOrder.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Toast.makeText(CartActivity.this, "No item in Cart!", Toast.LENGTH_SHORT).show();
+                }
+            });
     }
 
     @Override
     public void onCartLoadFailed(String message) {
-        Snackbar.make(cartLayout,message,Snackbar.LENGTH_LONG).show();
+        Snackbar.make(cartLayout,message,Snackbar.LENGTH_SHORT).show();
+
     }
 
-    private void loadRicefromFirebase(List<Cart> cartModels){
+    private void loadFoodFromFirebase(List<Cart> cartModels){
         FirebaseDatabase.getInstance("https://intea-delight-default-rtdb.asia-southeast1.firebasedatabase.app")
                 .getReference("Cart")
-                .child("UNIQUE_USER_ID").child("Rice")
+                .child("UNIQUE_USER_ID").child("Food")
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -171,6 +184,7 @@ public class CartActivity extends AppCompatActivity implements View.OnClickListe
                         else
                         {
                             cartLoadListener.onCartLoadFailed("Cart Empty");
+                            validatePlaceOrder(cartModels);
                         }
                     }
 
@@ -180,6 +194,7 @@ public class CartActivity extends AppCompatActivity implements View.OnClickListe
                     }
                 });
     }
+    /*
     private void loadNoodlefromFirebase(List<Cart> cartModels){
         FirebaseDatabase.getInstance("https://intea-delight-default-rtdb.asia-southeast1.firebasedatabase.app")
                 .getReference("Cart")
@@ -267,6 +282,8 @@ public class CartActivity extends AppCompatActivity implements View.OnClickListe
                     }
                 });
     }
+     */
+
 }
 
 

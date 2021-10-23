@@ -120,7 +120,7 @@ public class drink_page extends AppCompatActivity implements IDrinkLoadListener,
 
     @Override
     public void onDrinkLoadFailed(String message) {
-        Snackbar.make(rice_layout, message, Snackbar.LENGTH_LONG).show();
+        Snackbar.make(rice_layout, message, Snackbar.LENGTH_SHORT).show();
     }
 
     @Override
@@ -134,7 +134,7 @@ public class drink_page extends AppCompatActivity implements IDrinkLoadListener,
 
     @Override
     public void onCartLoadFailed(String message) {
-        Snackbar.make(rice_layout, message, Snackbar.LENGTH_LONG).show();
+        Snackbar.make(rice_layout, message, Snackbar.LENGTH_SHORT).show();
     }
 
     @Override

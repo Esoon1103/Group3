@@ -143,7 +143,7 @@ public class noodle_page extends AppCompatActivity implements INoodleLoadListene
 
     @Override
     public void onNoodleLoadFailed(String message) {
-        Snackbar.make(rice_layout, message, Snackbar.LENGTH_LONG).show();
+        Snackbar.make(rice_layout, message, Snackbar.LENGTH_SHORT).show();
     }
 
     @Override
@@ -157,7 +157,7 @@ public class noodle_page extends AppCompatActivity implements INoodleLoadListene
 
     @Override
     public void onCartLoadFailed(String message) {
-        Snackbar.make(rice_layout, message, Snackbar.LENGTH_LONG).show();
+        Snackbar.make(rice_layout, message, Snackbar.LENGTH_SHORT).show();
     }
 
     @Override

@@ -3,18 +3,23 @@ package com.example.myapplication.adapter;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.media.Image;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.myapplication.CartActivity;
+import com.example.myapplication.HomePage;
 import com.example.myapplication.R;
 import com.example.myapplication.UpdateCartEvent;
 import com.example.myapplication.model.Cart;
@@ -73,7 +78,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
                         //Temp remove
                         notifyItemRemoved(position);
 
-                        deleteRiceFromFirebase(cartModelList.get(position));
+                        deleteFoodFromFirebase(cartModelList.get(position));
                         //deleteNoodleFromFirebase(cartModelList.get(position));
                         //deleteDessertFromFirebase(cartModelList.get(position));
                         //deleteDrinkFromFirebase(cartModelList.get(position));
@@ -81,15 +86,17 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
                     }).create();
             dialog.show();
         });
+
     }
 
-    private void deleteRiceFromFirebase(Cart cart) {
+    private void deleteFoodFromFirebase(Cart cart) {
         FirebaseDatabase.getInstance("https://intea-delight-default-rtdb.asia-southeast1.firebasedatabase.app")
-                .getReference("Cart").child("UNIQUE_USER_ID").child("Rice")
+                .getReference("Cart").child("UNIQUE_USER_ID").child("Food")
                 .child(cart.getKey())
                 .removeValue()
                 .addOnSuccessListener(aVoid-> EventBus.getDefault().postSticky(new UpdateCartEvent()));
     }
+    /*
     private void deleteNoodleFromFirebase(Cart cart) {
         FirebaseDatabase.getInstance("https://intea-delight-default-rtdb.asia-southeast1.firebasedatabase.app")
                 .getReference("Cart").child("UNIQUE_USER_ID").child("Noodle")
@@ -111,15 +118,13 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
                 .removeValue()
                 .addOnSuccessListener(aVoid-> EventBus.getDefault().postSticky(new UpdateCartEvent()));
     }
-
+    */
     private void plusCartItem(CartViewHolder holder, Cart cart) {
-
-
         cart.setQuantity(cart.getQuantity() + 1);
         cart.setTotalPrice(cart.getQuantity()*Float.parseFloat(cart.getPrice()));
 
         holder.txtQuantity.setText(new StringBuilder().append(cart.getQuantity()));
-        updateRiceFirebase(cart);
+        updateFoodFirebase(cart);
         //updateNoodleFirebase(cart);
         //updateDessertFirebase(cart);
         //updateDrinkFirebase(cart);
@@ -135,21 +140,22 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
             holder.txtQuantity.setText(new StringBuilder().append(cart.getQuantity()));
 
 
-            updateRiceFirebase(cart);
+            updateFoodFirebase(cart);
             //updateNoodleFirebase(cart);
             //updateDessertFirebase(cart);
             //updateDrinkFirebase(cart);
         }
     }
 
-    private void updateRiceFirebase(Cart cart) {
+    private void updateFoodFirebase(Cart cart) {
         FirebaseDatabase.getInstance("https://intea-delight-default-rtdb.asia-southeast1.firebasedatabase.app")
-                .getReference("Cart").child("UNIQUE_USER_ID").child("Rice")
+                .getReference("Cart").child("UNIQUE_USER_ID").child("Food")
                 .child(cart.getKey())
                 .setValue(cart)
                 .addOnSuccessListener(aVoid-> EventBus.getDefault().postSticky(new UpdateCartEvent()));
     }
 
+    /*
     private void updateNoodleFirebase(Cart cart) {
         FirebaseDatabase.getInstance("https://intea-delight-default-rtdb.asia-southeast1.firebasedatabase.app")
                 .getReference("Cart").child("UNIQUE_USER_ID").child("Noodle")
@@ -171,7 +177,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
                 .setValue(cart)
                 .addOnSuccessListener(aVoid-> EventBus.getDefault().postSticky(new UpdateCartEvent()));
     }
-
+    */
     @Override
     public int getItemCount() {
         return cartModelList.size();
@@ -193,6 +199,8 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
         TextView foodName;
         @BindView(R.id.foodPrice)
         TextView foodPrice;
+        @BindView(R.id.btnOrder)
+        Button btnOrder;
 
         Unbinder unbinder;
 
@@ -201,4 +209,5 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
             unbinder = ButterKnife.bind(this,itemView);
         }
     }
+
 }

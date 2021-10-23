@@ -143,7 +143,7 @@ public class rice_page extends AppCompatActivity implements IRiceLoadListener, I
 
     @Override
     public void onRiceLoadFailed(String message) {
-        Snackbar.make(rice_layout, message, Snackbar.LENGTH_LONG).show();
+        Snackbar.make(rice_layout, message, Snackbar.LENGTH_SHORT).show();
     }
 
     @Override
@@ -157,7 +157,7 @@ public class rice_page extends AppCompatActivity implements IRiceLoadListener, I
 
     @Override
     public void onCartLoadFailed(String message) {
-        Snackbar.make(rice_layout, message, Snackbar.LENGTH_LONG).show();
+        Snackbar.make(rice_layout, message, Snackbar.LENGTH_SHORT).show();
     }
 
     @Override
@@ -170,7 +170,7 @@ public class rice_page extends AppCompatActivity implements IRiceLoadListener, I
         List<Cart> cartModels = new ArrayList<>();
         FirebaseDatabase.getInstance("https://intea-delight-default-rtdb.asia-southeast1.firebasedatabase.app")
                 .getReference("Cart")
-                .child("UNIQUE_USER_ID").child("Rice")
+                .child("UNIQUE_USER_ID").child("Food")
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {

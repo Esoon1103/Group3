@@ -120,7 +120,7 @@ public class dessert_page extends AppCompatActivity implements IDessertLoadListe
 
     @Override
     public void onDessertLoadFailed(String message) {
-        Snackbar.make(rice_layout, message, Snackbar.LENGTH_LONG).show();
+        Snackbar.make(rice_layout, message, Snackbar.LENGTH_SHORT).show();
     }
 
     @Override
@@ -134,7 +134,7 @@ public class dessert_page extends AppCompatActivity implements IDessertLoadListe
 
     @Override
     public void onCartLoadFailed(String message) {
-        Snackbar.make(rice_layout, message, Snackbar.LENGTH_LONG).show();
+        Snackbar.make(rice_layout, message, Snackbar.LENGTH_SHORT).show();
     }
 
     @Override
