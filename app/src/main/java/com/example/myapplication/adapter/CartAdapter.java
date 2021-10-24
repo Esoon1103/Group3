@@ -80,11 +80,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
 
                         //Temp remove
                         notifyItemRemoved(position);
-
                         deleteFoodFromFirebase(cartModelList.get(position));
-                        //deleteNoodleFromFirebase(cartModelList.get(position));
-                        //deleteDessertFromFirebase(cartModelList.get(position));
-                        //deleteDrinkFromFirebase(cartModelList.get(position));
                         dialog2.dismiss();
                     }).create();
             dialog.show();
@@ -100,38 +96,14 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
                 .removeValue()
                 .addOnSuccessListener(aVoid-> EventBus.getDefault().postSticky(new UpdateCartEvent()));
     }
-    /*
-    private void deleteNoodleFromFirebase(Cart cart) {
-        FirebaseDatabase.getInstance("https://intea-delight-default-rtdb.asia-southeast1.firebasedatabase.app")
-                .getReference("Cart").child("UNIQUE_USER_ID").child("Noodle")
-                .child(cart.getKey())
-                .removeValue()
-                .addOnSuccessListener(aVoid-> EventBus.getDefault().postSticky(new UpdateCartEvent()));
-    }
-    private void deleteDessertFromFirebase(Cart cart) {
-        FirebaseDatabase.getInstance("https://intea-delight-default-rtdb.asia-southeast1.firebasedatabase.app")
-                .getReference("Cart").child("UNIQUE_USER_ID").child("Dessert")
-                .child(cart.getKey())
-                .removeValue()
-                .addOnSuccessListener(aVoid-> EventBus.getDefault().postSticky(new UpdateCartEvent()));
-    }
-    private void deleteDrinkFromFirebase(Cart cart) {
-        FirebaseDatabase.getInstance("https://intea-delight-default-rtdb.asia-southeast1.firebasedatabase.app")
-                .getReference("Cart").child("UNIQUE_USER_ID").child("Drink")
-                .child(cart.getKey())
-                .removeValue()
-                .addOnSuccessListener(aVoid-> EventBus.getDefault().postSticky(new UpdateCartEvent()));
-    }
-    */
+
     private void plusCartItem(CartViewHolder holder, Cart cart) {
         cart.setQuantity(cart.getQuantity() + 1);
         cart.setTotalPrice(cart.getQuantity()*Float.parseFloat(cart.getPrice()));
 
         holder.txtQuantity.setText(new StringBuilder().append(cart.getQuantity()));
         updateFoodFirebase(cart);
-        //updateNoodleFirebase(cart);
-        //updateDessertFirebase(cart);
-        //updateDrinkFirebase(cart);
+
     }
 
     private void minusCartItem(CartViewHolder holder, Cart cart) {
@@ -143,11 +115,8 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
 
             holder.txtQuantity.setText(new StringBuilder().append(cart.getQuantity()));
 
-
             updateFoodFirebase(cart);
-            //updateNoodleFirebase(cart);
-            //updateDessertFirebase(cart);
-            //updateDrinkFirebase(cart);
+
         }
     }
 
@@ -161,29 +130,6 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
                 .addOnSuccessListener(aVoid-> EventBus.getDefault().postSticky(new UpdateCartEvent()));
     }
 
-    /*
-    private void updateNoodleFirebase(Cart cart) {
-        FirebaseDatabase.getInstance("https://intea-delight-default-rtdb.asia-southeast1.firebasedatabase.app")
-                .getReference("Cart").child("UNIQUE_USER_ID").child("Noodle")
-                .child(cart.getKey())
-                .setValue(cart)
-                .addOnSuccessListener(aVoid-> EventBus.getDefault().postSticky(new UpdateCartEvent()));
-    }
-    private void updateDessertFirebase(Cart cart) {
-        FirebaseDatabase.getInstance("https://intea-delight-default-rtdb.asia-southeast1.firebasedatabase.app")
-                .getReference("Cart").child("UNIQUE_USER_ID").child("Dessert")
-                .child(cart.getKey())
-                .setValue(cart)
-                .addOnSuccessListener(aVoid-> EventBus.getDefault().postSticky(new UpdateCartEvent()));
-    }
-    private void updateDrinkFirebase(Cart cart) {
-        FirebaseDatabase.getInstance("https://intea-delight-default-rtdb.asia-southeast1.firebasedatabase.app")
-                .getReference("Cart").child("UNIQUE_USER_ID").child("Drink")
-                .child(cart.getKey())
-                .setValue(cart)
-                .addOnSuccessListener(aVoid-> EventBus.getDefault().postSticky(new UpdateCartEvent()));
-    }
-    */
     @Override
     public int getItemCount() {
         return cartModelList.size();

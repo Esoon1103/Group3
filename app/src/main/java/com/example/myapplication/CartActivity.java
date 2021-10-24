@@ -110,9 +110,6 @@ public class CartActivity extends AppCompatActivity implements View.OnClickListe
         List<Cart> cartModels = new ArrayList<>();
 
         loadFoodFromFirebase(cartModels);
-        //loadNoodlefromFirebase(cartModels);
-        //loadDessertfromFirebase(cartModels);
-        //loadDrinkfromFirebase(cartModels);
     }
 
     private void init(){
@@ -199,8 +196,6 @@ public class CartActivity extends AppCompatActivity implements View.OnClickListe
                 });
     }
 
-
-
     public void validatePlaceOrder(List<Cart> cartModelList){
         if(cartModelList.size() == 0) {
             btnOrder.setOnClickListener(new View.OnClickListener() {
@@ -215,28 +210,24 @@ public class CartActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-
     private void PlaceOrder(List<Cart> cartModelList){
-        //Click "Place Order"
-        addOrderFirebaseData(cartModelList); // Copy cart data to Order data
         btnOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //Click "Place Order"
+                addOrderFirebaseData(cartModelList); // Copy cart data to Order data
                 Intent backHome = new Intent(view.getContext(), HomePage.class);
                 startActivity(backHome); //Navigate to HOME PAGE
                 alertDialog(); //Alert successful order
                 deleteCartFirebaseData(); // Order will be set in the Firebase
             }
         });
-
-    }
-
-    public void getOrderID(){
-
     }
 
     //Get Cart data and store  into a New Path called "Order"
     private void addOrderFirebaseData(List<Cart> cartModels) {
+
+        String timestamp = ""+System.currentTimeMillis();
 
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
         FirebaseDatabase cart = FirebaseDatabase.getInstance("https://intea-delight-default-rtdb.asia-southeast1.firebasedatabase.app");
@@ -246,19 +237,11 @@ public class CartActivity extends AppCompatActivity implements View.OnClickListe
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        /*
-                        String orderID = FirebaseDatabase.getInstance("https://intea-delight-default-rtdb.asia-southeast1.firebasedatabase.app")
-                                .getReference("Users").child(firebaseAuth.getUid()).child("01").push().getKey();
 
-                        System.out.println("OrderID IS: "+orderID);
-                        */
                         FirebaseDatabase order = FirebaseDatabase.getInstance("https://intea-delight-default-rtdb.asia-southeast1.firebasedatabase.app");
                                 order.getReference("Users")
                                 .child(firebaseAuth.getUid())
-                                .child("1")//order
-                                        // create a child== order number
-                                        //on data change getvalue (order number) convert to integer
-                                        //compare using while loop
+                                .child("Order").child(timestamp)
                                 .setValue(dataSnapshot.getValue());
                     }
 
@@ -293,96 +276,6 @@ public class CartActivity extends AppCompatActivity implements View.OnClickListe
                 .create();
         alert.show();
     }
-
-    /*
-    private void loadNoodlefromFirebase(List<Cart> cartModels){
-        FirebaseDatabase.getInstance("https://intea-delight-default-rtdb.asia-southeast1.firebasedatabase.app")
-                .getReference("Cart")
-                .child("UNIQUE_USER_ID").child("Noodle")
-                .addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        if(snapshot.exists())
-                        {
-                            for(DataSnapshot cartSnapshot:snapshot.getChildren())
-                            {
-                                Cart cartModel = cartSnapshot.getValue(Cart.class);
-                                cartModel.setKey(cartSnapshot.getKey());
-                                cartModels.add(cartModel);
-                            }
-                            cartLoadListener.onCartLoadSuccess(cartModels);
-                        }
-                        else
-                        {
-                            cartLoadListener.onCartLoadFailed("Cart Empty");
-                        }
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-                        cartLoadListener.onCartLoadFailed(error.getMessage());
-                    }
-                });
-    }
-    private void loadDessertfromFirebase(List<Cart> cartModels){
-        FirebaseDatabase.getInstance("https://intea-delight-default-rtdb.asia-southeast1.firebasedatabase.app")
-                .getReference("Cart")
-                .child("UNIQUE_USER_ID").child("Dessert")
-                .addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        if(snapshot.exists())
-                        {
-                            for(DataSnapshot cartSnapshot:snapshot.getChildren())
-                            {
-                                Cart cartModel = cartSnapshot.getValue(Cart.class);
-                                cartModel.setKey(cartSnapshot.getKey());
-                                cartModels.add(cartModel);
-                            }
-                            cartLoadListener.onCartLoadSuccess(cartModels);
-                        }
-                        else
-                        {
-                            cartLoadListener.onCartLoadFailed("Cart Empty");
-                        }
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-                        cartLoadListener.onCartLoadFailed(error.getMessage());
-                    }
-                });
-    }
-    private void loadDrinkfromFirebase(List<Cart> cartModels){
-        FirebaseDatabase.getInstance("https://intea-delight-default-rtdb.asia-southeast1.firebasedatabase.app")
-                .getReference("Cart")
-                .child("UNIQUE_USER_ID").child("Drink")
-                .addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        if(snapshot.exists())
-                        {
-                            for(DataSnapshot cartSnapshot:snapshot.getChildren())
-                            {
-                                Cart cartModel = cartSnapshot.getValue(Cart.class);
-                                cartModel.setKey(cartSnapshot.getKey());
-                                cartModels.add(cartModel);
-                            }
-                            cartLoadListener.onCartLoadSuccess(cartModels);
-                        }
-                        else
-                        {
-                            cartLoadListener.onCartLoadFailed("Cart Empty");
-                        }
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-                        cartLoadListener.onCartLoadFailed(error.getMessage());
-                    }
-                });
-    }
-     */
 
 }
 

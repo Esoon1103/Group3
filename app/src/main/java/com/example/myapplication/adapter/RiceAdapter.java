@@ -65,7 +65,7 @@ public class RiceAdapter extends RecyclerView.Adapter<RiceAdapter.RiceViewHolder
     }
 
 
-    //Set the Rice details: Image, Name, Price - To the specific position by using the View Holder
+    //Set the Food details: Image, Name, Price - To the specific position by using the View Holder
     @Override
     public void onBindViewHolder(@NonNull RiceViewHolder holder, int position) {
         Glide.with(context)
