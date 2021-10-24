@@ -1,14 +1,12 @@
 package com.example.myapplication;
 
 import android.app.AlertDialog;
-import android.app.Dialog;
-import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.format.DateFormat;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -19,32 +17,24 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.disklrucache.DiskLruCache;
 import com.example.myapplication.adapter.CartAdapter;
 import com.example.myapplication.listener.ICartLoadListener;
 import com.example.myapplication.model.Cart;
-import com.example.myapplication.model.Order;
-import com.example.myapplication.model.Rice;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.material.snackbar.Snackbar;
-import com.google.firebase.FirebaseError;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
-import com.google.firebase.database.ServerValue;
 import com.google.firebase.database.ValueEventListener;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import android.text.format.Time;
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
-import java.util.MissingResourceException;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -52,6 +42,7 @@ import butterknife.ButterKnife;
 public class CartActivity extends AppCompatActivity implements View.OnClickListener, ICartLoadListener {
     private Button account1, home1, orderHistory1, cart1, btnOrder;
     private FirebaseAuth firebaseAuth;
+    Calendar cal = Calendar.getInstance();
 
     @BindView(R.id.recyclerCart)
     RecyclerView recyclerCart;
@@ -201,6 +192,7 @@ public class CartActivity extends AppCompatActivity implements View.OnClickListe
             btnOrder.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+
                     Toast.makeText(CartActivity.this, "No item in Cart!", Toast.LENGTH_SHORT).show();
                 }
             });
@@ -229,6 +221,11 @@ public class CartActivity extends AppCompatActivity implements View.OnClickListe
 
         String timestamp = ""+System.currentTimeMillis();
 
+        String date = "" + cal.get(Calendar.DATE) + "-" + (cal.get(Calendar.MONTH)+1) + "-" + cal.get(Calendar.YEAR);
+        String time = "" + cal.get(Calendar.HOUR_OF_DAY) + ":" + cal.get(Calendar.MINUTE);
+        String feedback = "blank";
+
+
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
         FirebaseDatabase cart = FirebaseDatabase.getInstance("https://intea-delight-default-rtdb.asia-southeast1.firebasedatabase.app");
                 cart.getReference("Users")
@@ -239,10 +236,36 @@ public class CartActivity extends AppCompatActivity implements View.OnClickListe
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
                         FirebaseDatabase order = FirebaseDatabase.getInstance("https://intea-delight-default-rtdb.asia-southeast1.firebasedatabase.app");
+
+                                //Write Order Items to database
                                 order.getReference("Users")
                                 .child(firebaseAuth.getUid())
-                                .child("Order").child(timestamp)
+                                .child("Order").child(timestamp).child("Items")
                                 .setValue(dataSnapshot.getValue());
+
+                                //Write orderID to database
+                                order.getReference("Users")
+                                .child(firebaseAuth.getUid())
+                                .child("Order").child(timestamp).child("orderId")
+                                .setValue(timestamp);
+
+                                //Write date to database
+                                order.getReference("Users")
+                                .child(firebaseAuth.getUid())
+                                .child("Order").child(timestamp).child("date")
+                                .setValue(date);
+
+                                //Write time to database
+                                order.getReference("Users")
+                                .child(firebaseAuth.getUid())
+                                .child("Order").child(timestamp).child("time")
+                                .setValue(time);
+
+                                //Write feedback to database
+                                order.getReference("Users")
+                                .child(firebaseAuth.getUid())
+                                .child("Order").child(timestamp).child("feedback")
+                                .setValue(feedback);
                     }
 
                     @Override
