@@ -175,38 +175,21 @@
 
     </RelativeLayout>
 
-    <LinearLayout
+
+    <ListView
+        android:id="@+id/list_reservation_detail"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@id/bgcolor"
-        android:layout_below="@id/riceTitleLayout"
-        android:layout_centerHorizontal="true"
-        android:gravity="center"
-        android:orientation="vertical">
+        android:layout_height="353dp"
+        android:layout_below="@+id/layoutTopBar"
+        android:layout_marginTop="59dp" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/reservationListRecycler"
-            android:layout_width="120dp"
-            android:layout_height="200dp"
-            android:layout_marginRight="100dp"
-            android:layout_marginBottom="260dp"
-            android:scrollbars="vertical"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-
-
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@id/bgcolor"
-        android:layout_below="@id/riceTitleLayout"
-        android:layout_centerHorizontal="true"
-        android:gravity="center"
-        android:orientation="vertical" />
-
+    <Button
+        android:id="@+id/arrived"
+        android:layout_below="@id/list_reservation_detail"
+        android:layout_marginLeft="150dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Arrived" />
 
 
 </RelativeLayout>

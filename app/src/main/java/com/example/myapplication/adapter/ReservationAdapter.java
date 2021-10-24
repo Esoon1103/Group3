@@ -39,9 +39,7 @@ public class ReservationAdapter extends RecyclerView.Adapter<ReservationAdapter.
     //set the rice detail
     @Override
     public void onBindViewHolder(@NonNull ReservationAdapter.ReservationViewHolder holder, int position) {
-     holder.table_id.setText(new StringBuilder().append(reservationList.get(position).getTable_id()));
-     holder.Date_show.setText(new StringBuilder().append(reservationList.get(position).getDate()));
-     holder.Time_show.setText(new StringBuilder().append(reservationList.get(position).getTime()));
+
     }
 
     @Override
@@ -52,12 +50,7 @@ public class ReservationAdapter extends RecyclerView.Adapter<ReservationAdapter.
     public class ReservationViewHolder extends RecyclerView.ViewHolder {
         private Unbinder unbinder;
 
-        @BindView(R.id.table_id)
-        TextView table_id;
-       @BindView(R.id.Date_show)
-       TextView Date_show;
-       @BindView(R.id.Time_show)
-       TextView Time_show;
+
 
         public ReservationViewHolder(@NonNull View itemView) {
             super(itemView);

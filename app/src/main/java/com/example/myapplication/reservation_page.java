@@ -3,7 +3,10 @@ package com.example.myapplication;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
 
 import androidx.annotation.NonNull;
@@ -13,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.adapter.ReservationAdapter;
 import com.example.myapplication.listener.IReservationLoadListener;
+import com.example.myapplication.model.GetTimeAndDate;
 import com.example.myapplication.model.Reservation;
 import com.example.myapplication.utils.SpaceItemDecoration;
 import com.google.android.material.snackbar.Snackbar;
@@ -23,22 +27,22 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class reservation_page extends AppCompatActivity implements View.OnClickListener, IReservationLoadListener {
+public class reservation_page extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemSelectedListener, IReservationLoadListener  {
     private Button account1,home1,orderHistory1, cart1;
     private FirebaseAuth firebaseAuth;
-    @BindView(R.id.reservationListRecycler)
-    RecyclerView reservationListRecycler;
+private ListView list_reservation_detail;
+ private Button arrived;
 
-    @BindView(R.id.reservation_layout)
-    RelativeLayout reservation_layout;
 
-    IReservationLoadListener reservationLoadListener;
     @Override
     public void onClick(View view) {
         switch(view.getId()){
@@ -79,65 +83,98 @@ public class reservation_page extends AppCompatActivity implements View.OnClickL
 
         cart1= findViewById(R.id.cart1);
         cart1.setOnClickListener(this);
+        arrived=findViewById(R.id.arrived);
+        arrived.setOnClickListener(this);
 
-        init();
-        loadReservationFromFirebase();
+        list_reservation_detail=findViewById(R.id.list_reservation_detail);
+        firebaseAuth=FirebaseAuth.getInstance();
+ArrayList<String> list=new ArrayList<>();
+        ArrayAdapter adapter=new ArrayAdapter<String>(this,R.layout.reservation_item, list);
+        list_reservation_detail.setAdapter(adapter);
+
+        DatabaseReference reference=FirebaseDatabase.getInstance("https://intea-delight-default-rtdb.asia-southeast1.firebasedatabase.app").getReference().child("Table_Reservation").child(firebaseAuth.getUid()).child("reservation");
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                list.clear();
+                for (DataSnapshot snapshot1: snapshot.getChildren()){
+
+                    list.add(snapshot1.getValue().toString());
+                }
+                adapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        ArrayList<String> list_date=new ArrayList<>();
+        ArrayList<String> list_time=new ArrayList<>();
+         final String date, time;
+        arrived.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+             DatabaseReference reference1=FirebaseDatabase.getInstance("https://intea-delight-default-rtdb.asia-southeast1.firebasedatabase.app").getReference().child("Table_Reservation")
+                     .child(firebaseAuth.getUid()).child("reservation");
+             reference1.addValueEventListener(new ValueEventListener() {
+                 @Override
+                 public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                     for (DataSnapshot snapshot1: snapshot.getChildren()){
+                         String date, time;
+                         date=snapshot.child("Table_Reservation").child(firebaseAuth.getUid()).child("reservation").child("date").getValue(String.class);
+                          time=snapshot.child("Table_Reservation").child(firebaseAuth.getUid()).child("reservation").child("time").getValue(String.class);
+                         System.out.println(date);
+                         System.out.println(time);
+                     }
+
+
+
+
+                 }
+
+                 @Override
+                 public void onCancelled(@NonNull DatabaseError error) {
+
+                 }
+             });
+            }
+
+        });
+
+    }
+
+
+    @Override
+    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> adapterView) {
 
     }
 
     @Override
     public void onReservationLoadSuccess(List<Reservation> ReservationModelList) {
-        ReservationAdapter adapter=new ReservationAdapter(this,ReservationModelList);
-        reservationListRecycler.setAdapter(adapter);
+
     }
 
     @Override
     public void onReservationLoadFailed(String message) {
-        Snackbar.make(reservation_layout,message,Snackbar.LENGTH_LONG).show();
+
+    }
+    private String getCurrentTime(){
+        return new SimpleDateFormat("hh:mm a", Locale.getDefault()).format(new Date());
     }
 
-    private void loadReservationFromFirebase() {
-
-        List<Reservation> reservationModels = new ArrayList<>();
-        firebaseAuth= FirebaseAuth.getInstance();
-        FirebaseDatabase database = FirebaseDatabase.getInstance("https://intea-delight-default-rtdb.asia-southeast1.firebasedatabase.app");
-        DatabaseReference reference = database.getReference("Table_Reservation").child(firebaseAuth.getUid()).child("reservation");
-
-
-        reference.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if(snapshot.exists()){
-                    for(DataSnapshot reservationSnapshot:snapshot.getChildren())
-                    {
-                        Reservation reservationModel = reservationSnapshot.getValue(Reservation.class);
-                       // reservationModel.getTable_id(reservationSnapshot.child().getValue());
-                        reservationModel.setKey(reservationSnapshot.getKey());
-                        reservationModels.add(reservationModel);
-                    }
-                    reservationLoadListener.onReservationLoadSuccess(reservationModels);
-                }
-                else
-                    reservationLoadListener.onReservationLoadFailed("Empty");
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                reservationLoadListener.onReservationLoadFailed(error.getMessage());
-            }
-        });
+    private String getDate (){
+        return new SimpleDateFormat("dd/LLL/yyyy", Locale.getDefault()).format(new Date());
     }
-
-    private void init(){
-        ButterKnife.bind(this);
-
-
-        reservationLoadListener = this;
-
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, RecyclerView.VERTICAL, false);
-        reservationListRecycler.setLayoutManager(linearLayoutManager);
-        reservationListRecycler.addItemDecoration(new SpaceItemDecoration());
-
-
+    private  void getlist(Reservation list){
+        list.getDate();
+        list.getTime();
     }
 }
