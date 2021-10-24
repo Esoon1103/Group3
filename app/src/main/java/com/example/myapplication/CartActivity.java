@@ -236,21 +236,32 @@ public class CartActivity extends AppCompatActivity implements View.OnClickListe
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
                         FirebaseDatabase order = FirebaseDatabase.getInstance("https://intea-delight-default-rtdb.asia-southeast1.firebasedatabase.app");
+
+                                //Write Order Items to database
                                 order.getReference("Users")
                                 .child(firebaseAuth.getUid())
                                 .child("Order").child(timestamp).child("Items")
                                 .setValue(dataSnapshot.getValue());
 
+                                //Write orderID to database
+                                order.getReference("Users")
+                                .child(firebaseAuth.getUid())
+                                .child("Order").child(timestamp).child("orderId")
+                                .setValue(timestamp);
+
+                                //Write date to database
                                 order.getReference("Users")
                                 .child(firebaseAuth.getUid())
                                 .child("Order").child(timestamp).child("date")
                                 .setValue(date);
 
+                                //Write time to database
                                 order.getReference("Users")
                                 .child(firebaseAuth.getUid())
                                 .child("Order").child(timestamp).child("time")
                                 .setValue(time);
 
+                                //Write feedback to database
                                 order.getReference("Users")
                                 .child(firebaseAuth.getUid())
                                 .child("Order").child(timestamp).child("feedback")
