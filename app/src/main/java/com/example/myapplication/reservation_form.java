@@ -190,19 +190,25 @@ timePickerDialog.show();
 submit_btn.setOnClickListener(new View.OnClickListener() {
     @Override
     public void onClick(View view) {
-        firebaseAuth=FirebaseAuth.getInstance();
-rootNode=FirebaseDatabase.getInstance("https://intea-delight-default-rtdb.asia-southeast1.firebasedatabase.app");
-reference=rootNode.getReference("Table_Reservation").child(firebaseAuth.getUid()).child("reservation");
+        if(!validateDate()|!validateTime()){
+            return;
+        }
 
-String table_id= spinner1.getSelectedItem().toString();
-String date=select_Date.getText().toString();
-String time=select_Time.getText().toString();
+            firebaseAuth=FirebaseAuth.getInstance();
+            rootNode=FirebaseDatabase.getInstance("https://intea-delight-default-rtdb.asia-southeast1.firebasedatabase.app");
+            reference=rootNode.getReference("Table_Reservation").child(firebaseAuth.getUid()).child("reservation");
 
-        Reservation reservation=new Reservation(table_id, date, time);
-reference.setValue(reservation);
+            String table_id= spinner1.getSelectedItem().toString();
+            String date=select_Date.getText().toString();
+            String time=select_Time.getText().toString();
+
+            Reservation reservation=new Reservation(table_id, date, time);
+            reference.setValue(reservation);
 
 
-deleteTable(table_id);
+            deleteTable(table_id);
+
+
 
     }
 
@@ -246,6 +252,7 @@ deleteTable(table_id);
 
 
 
+
         }
 
     private void deleteTable(String table_id) {
@@ -283,7 +290,30 @@ deleteTable(table_id);
     public void onReservationLoadFailed(String message) {
 
     }
-
+public Boolean validateDate(){
+        String val =select_Date.getText().toString();
+    if (val.isEmpty()
+    ) {
+        select_Date.setError("Cannot Empty");
+return false;
+    }
+    else{
+        select_Date.setError(null);
+        return  true;
+    }
+}
+    public Boolean validateTime(){
+        String val =select_Time.getText().toString();
+        if (val.isEmpty()
+        ) {
+            select_Time.setError("Cannot Empty");
+            return false;
+        }
+        else{
+            select_Time.setError(null);
+            return  true;
+        }
+    }
 
 
 }
