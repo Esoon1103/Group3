@@ -2,12 +2,15 @@ package com.example.myapplication;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -32,6 +35,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -43,6 +48,7 @@ private ListView list_reservation_detail;
  private Button arrived;
 DatabaseReference reference1;
 private String time, date;
+TextView timer_text;
 
     @Override
     public void onClick(View view) {
@@ -88,6 +94,7 @@ private String time, date;
         arrived.setOnClickListener(this);
 
         list_reservation_detail=findViewById(R.id.list_reservation_detail);
+        timer_text=findViewById(R.id.timer_text);
         firebaseAuth=FirebaseAuth.getInstance();
 ArrayList<String> list=new ArrayList<>();
         ArrayAdapter adapter=new ArrayAdapter<String>(this,R.layout.reservation_item, list);
@@ -126,19 +133,37 @@ ArrayList<String> list=new ArrayList<>();
                      for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                           time = dataSnapshot.child("time").getValue(String.class);
                           date=dataSnapshot.child("date").getValue(String.class);
-
-
-
-
                      }
 
                      if(time.equalsIgnoreCase(getCurrentTime())||date.equalsIgnoreCase(getDate())){
-                         System.out.println("ok");
+                         //duration
+                         long duration = TimeUnit.MINUTES.toMillis(120);
+
+                         //countdown timer
+                         new CountDownTimer(duration, 1000) {
+                             @Override
+                             public void onTick(long l) {
+                                 String sDuration=String.format(Locale.ENGLISH,"%2d: %02d", TimeUnit.MILLISECONDS.toMinutes(l),
+                                         TimeUnit.MILLISECONDS.toSeconds(l)-TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(l)));
+                                 //set converted string on text view
+                                 timer_text.setText(sDuration);
+                             }
+
+                             @Override
+                             public void onFinish() {
+//when finish
+                                 //hide text view
+                                 timer_text.setVisibility(View.GONE);
+                                 Toast.makeText(getApplicationContext(), "Countdown timer has ended", Toast.LENGTH_LONG).show();
+                             }
+                         }.start();
 
 
                      }
                      else{
                          System.out.println("not ok");
+                         //timer_text.setVisibility(View.GONE);
+                         Toast.makeText(getApplicationContext(), "Time not correct", Toast.LENGTH_LONG).show();
                      }
 
 
@@ -156,6 +181,10 @@ ArrayList<String> list=new ArrayList<>();
             }
 
         });
+
+
+
+
 
     }
 
