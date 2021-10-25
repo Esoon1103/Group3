@@ -144,12 +144,11 @@ public class CartActivity extends AppCompatActivity implements View.OnClickListe
         txtTotalPrice.setText(new StringBuilder("RM ").append(sum));
         CartAdapter adapter = new CartAdapter(this, cartModelList);
         recyclerCart.setAdapter(adapter);
-
-
     }
 
     @Override
     public void onCartLoadFailed(String message) {
+        refreshPage();
         Toast.makeText(CartActivity.this, message, Toast.LENGTH_SHORT).show();
     }
 
@@ -212,6 +211,7 @@ public class CartActivity extends AppCompatActivity implements View.OnClickListe
                 startActivity(backHome); //Navigate to HOME PAGE
                 alertDialog(); //Alert successful order
                 deleteCartFirebaseData(); // Order will be set in the Firebase
+                refreshPage();
             }
         });
     }
@@ -291,6 +291,11 @@ public class CartActivity extends AppCompatActivity implements View.OnClickListe
                 .child(firebaseAuth.getUid())
                 .child("Cart")
                 .setValue(null);
+
+        finish();
+        overridePendingTransition(0, 0);
+        startActivity(getIntent());
+        overridePendingTransition(0, 0);
     }
 
     private void alertDialog(){
@@ -308,6 +313,13 @@ public class CartActivity extends AppCompatActivity implements View.OnClickListe
         alert.show();
     }
 
+    private void refreshPage(){
+            finish();
+            overridePendingTransition(0, 0);
+            startActivity(getIntent());
+            overridePendingTransition(0, 0);
+
+    }
 }
 
 
