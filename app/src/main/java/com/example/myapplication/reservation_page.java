@@ -41,7 +41,8 @@ public class reservation_page extends AppCompatActivity implements View.OnClickL
     private FirebaseAuth firebaseAuth;
 private ListView list_reservation_detail;
  private Button arrived;
-
+DatabaseReference reference1;
+private String time, date;
 
     @Override
     public void onClick(View view) {
@@ -112,23 +113,33 @@ ArrayList<String> list=new ArrayList<>();
 
         ArrayList<String> list_date=new ArrayList<>();
         ArrayList<String> list_time=new ArrayList<>();
-         final String date, time;
+
         arrived.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-             DatabaseReference reference1=FirebaseDatabase.getInstance("https://intea-delight-default-rtdb.asia-southeast1.firebasedatabase.app").getReference().child("Table_Reservation")
-                     .child(firebaseAuth.getUid()).child("reservation");
+              reference1=FirebaseDatabase.getInstance("https://intea-delight-default-rtdb.asia-southeast1.firebasedatabase.app")
+                     .getReference("Table_Reservation")
+                     .child(firebaseAuth.getUid());
              reference1.addValueEventListener(new ValueEventListener() {
                  @Override
                  public void onDataChange(@NonNull DataSnapshot snapshot) {
+                     for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                          time = dataSnapshot.child("time").getValue(String.class);
+                          date=dataSnapshot.child("date").getValue(String.class);
 
-                     for (DataSnapshot snapshot1: snapshot.getChildren()){
-                         String date, time;
-                         date=snapshot.child("Table_Reservation").child(firebaseAuth.getUid()).child("reservation").child("date").getValue(String.class);
-                          time=snapshot.child("Table_Reservation").child(firebaseAuth.getUid()).child("reservation").child("time").getValue(String.class);
-                         System.out.println(date);
-                         System.out.println(time);
+
+
+
                      }
+
+                     if(time.equalsIgnoreCase(getCurrentTime())){
+                         System.out.println("ok");
+                     }
+                     else{
+                         System.out.println("not ok");
+                     }
+
+
 
 
 
