@@ -240,7 +240,7 @@ public class CartActivity extends AppCompatActivity implements View.OnClickListe
                                 //Write Order Items to database
                                 order.getReference("Users")
                                 .child(firebaseAuth.getUid())
-                                .child("Order").child(timestamp).child("Items")
+                                .child("Items").child(timestamp)
                                 .setValue(dataSnapshot.getValue());
 
                                 //Write orderID to database
@@ -261,17 +261,19 @@ public class CartActivity extends AppCompatActivity implements View.OnClickListe
                                 .child("Order").child(timestamp).child("time")
                                 .setValue(time);
 
+                                /*
                                 //Write feedback to database
                                 order.getReference("Users")
                                 .child(firebaseAuth.getUid())
                                 .child("Order").child(timestamp).child("feedback")
                                 .setValue(feedback);
 
+
                                 //Write orderID to database
                                 order.getReference("Users")
                                 .child(firebaseAuth.getUid())
                                 .child("Order").child("Feedback").child(timestamp)
-                                .setValue(timestamp);
+                                .setValue(timestamp);*/
                     }
 
                     @Override
