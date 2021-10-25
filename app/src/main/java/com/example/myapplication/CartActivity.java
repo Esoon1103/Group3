@@ -266,6 +266,12 @@ public class CartActivity extends AppCompatActivity implements View.OnClickListe
                                 .child(firebaseAuth.getUid())
                                 .child("Order").child(timestamp).child("feedback")
                                 .setValue(feedback);
+
+                                //Write orderID to database
+                                order.getReference("Users")
+                                .child(firebaseAuth.getUid())
+                                .child("Order").child("Feedback").child(timestamp)
+                                .setValue(timestamp);
                     }
 
                     @Override

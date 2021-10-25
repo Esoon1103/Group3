@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -145,7 +146,7 @@ public class rice_page extends AppCompatActivity implements IRiceLoadListener, I
 
     @Override
     public void onRiceLoadFailed(String message) {
-        Snackbar.make(rice_layout, message, Snackbar.LENGTH_SHORT).show();
+        Toast.makeText(rice_page.this, message, Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -159,7 +160,7 @@ public class rice_page extends AppCompatActivity implements IRiceLoadListener, I
 
     @Override
     public void onCartLoadFailed(String message) {
-        Snackbar.make(rice_layout, message, Snackbar.LENGTH_SHORT).show();
+        Toast.makeText(rice_page.this, message, Toast.LENGTH_SHORT).show();
     }
 
     @Override
