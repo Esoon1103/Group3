@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplication">
         <activity
-            android:name=".CompletedOrder"
+            android:name=".ViewOrderActivity"
             android:exported="false" />
         <activity
             android:name=".LoginActivity"
