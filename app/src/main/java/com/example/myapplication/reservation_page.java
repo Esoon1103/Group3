@@ -132,8 +132,10 @@ ArrayList<String> list=new ArrayList<>();
 
                      }
 
-                     if(time.equalsIgnoreCase(getCurrentTime())){
+                     if(time.equalsIgnoreCase(getCurrentTime())||date.equalsIgnoreCase(getDate())){
                          System.out.println("ok");
+
+
                      }
                      else{
                          System.out.println("not ok");
