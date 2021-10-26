@@ -20,76 +20,36 @@
             android:layout_height="76dp"
             android:src="@drawable/common_google_signin_btn_icon_dark" />
 
-        <TextView
-            android:id="@+id/txtOrderID2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="start"
-            android:layout_marginLeft="100dp"
-            android:layout_marginTop="3dp"
-            android:text="ORDER ID"
-            android:textSize="15sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/txtDate2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/txtOrderID2"
-            android:layout_marginLeft="100dp"
-            android:layout_marginTop="0dp"
-            android:text="DATE"
-            android:textSize="10sp" />
-
-        <TextView
-            android:id="@+id/txtTime2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/txtDate2"
-            android:layout_marginLeft="100dp"
-            android:layout_marginTop="0dp"
-            android:text="TIME"
-            android:textSize="10sp" />
 
         <TextView
             android:id="@+id/txtfoodName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/txtTime2"
             android:layout_marginLeft="100dp"
-            android:layout_marginTop="0dp"
+            android:layout_marginTop="25dp"
             android:text="FOOD NAME"
-            android:textSize="10sp" />
-
-        <TextView
-            android:id="@+id/txtfoodPrice"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/txtfoodName"
-            android:layout_marginLeft="100dp"
-            android:layout_marginTop="0dp"
-            android:text="FOOD PRICE"
-            android:textSize="10sp" />
+            android:textSize="15dp" />
 
         <TextView
             android:id="@+id/txtfoodQty"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/txtfoodPrice"
-            android:layout_marginLeft="100dp"
-            android:layout_marginTop="0dp"
+            android:layout_marginLeft="50dp"
+            android:layout_marginTop="15dp"
+            android:layout_toRightOf="@id/txtfoodName"
             android:text="FOODQTY"
-            android:textSize="10sp" />
+            android:textSize="13sp" />
 
         <TextView
-            android:id="@+id/txtfoodTotal"
+            android:id="@+id/txtfoodPrice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/txtfoodQty"
-            android:layout_marginLeft="100dp"
-            android:layout_marginTop="0dp"
-            android:text="TOTAL PRICE"
-            android:textSize="10sp" />
+            android:layout_below="@id/txtfoodQty"
+            android:layout_marginLeft="50dp"
+            android:layout_marginTop="5dp"
+            android:layout_toRightOf="@id/txtfoodName"
+            android:text="FOOD PRICE"
+            android:textSize="13sp" />
 
     </RelativeLayout>
 

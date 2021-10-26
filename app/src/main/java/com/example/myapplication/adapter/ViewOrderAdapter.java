@@ -52,10 +52,10 @@ public class ViewOrderAdapter extends RecyclerView.Adapter<ViewOrderAdapter.View
     //Set the Order details: OrderID, Date, Price - To the specific position by using the View Holder
     @Override
     public void onBindViewHolder(@NonNull ViewOrderViewHolder holder, int position) {
-      /*  Glide.with(context)
+        /* Glide.with(context)
                 .load(viewOrderModelList.get(position).getImage()) //Get image from the position
-                .into(holder.imageView); */
-        holder.txtOrderID.setText(new StringBuilder("#").append(viewOrderModelList.get(position).getOrderId()));
+                .into(holder.imageView1); */
+        holder.txtOrderID.setText(new StringBuilder("Order #").append(viewOrderModelList.get(position).getOrderId()));
         holder.txtDate.setText(new StringBuilder().append(viewOrderModelList.get(position).getDate()));
         holder.txtTime.setText(new StringBuilder().append(viewOrderModelList.get(position).getTime()));
     }
@@ -66,8 +66,8 @@ public class ViewOrderAdapter extends RecyclerView.Adapter<ViewOrderAdapter.View
     }
 
     public class ViewOrderViewHolder extends RecyclerView.ViewHolder {
-        @BindView(R.id.imageView1)
-        ImageView imageView;
+        //@BindView(R.id.imageView)
+        //ImageView imageView1;
         @BindView(R.id.txtOrderID)
         TextView txtOrderID;
         @BindView(R.id.txtDate)

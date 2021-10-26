@@ -59,6 +59,8 @@
         android:id="@+id/Title_Order_Display"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="25dp"
         android:layout_below="@id/layoutTopBar"
         android:text="@string/your_order"
         android:textColor="@color/button_background_color"

@@ -43,13 +43,9 @@ public class OrderSummaryAdapter extends RecyclerView.Adapter<OrderSummaryAdapte
         Glide.with(context)
                 .load(orderSummaryModelList.get(position).getImage()) //Get image from the position
                 .into(holder.imageView2);
-        holder.txtOrderID2.setText(new StringBuilder("#").append(orderSummaryModelList.get(position).getOrderId()));
-        holder.txtDate2.setText(new StringBuilder().append(orderSummaryModelList.get(position).getDate()));
-        holder.txtTime2.setText(new StringBuilder().append(orderSummaryModelList.get(position).getTime()));
-        holder.txtfoodName.setText(new StringBuilder().append(orderSummaryModelList.get(position).getOrderId()));
-        holder.txtfoodPrice.setText(new StringBuilder("$").append(orderSummaryModelList.get(position).getDate()));
-        holder.txtfoodQty.setText(new StringBuilder().append(orderSummaryModelList.get(position).getTime()));
-        holder.txtfoodTotal.setText(new StringBuilder("$").append(orderSummaryModelList.get(position).getOrderId()));
+        holder.txtfoodName.setText(new StringBuilder().append(orderSummaryModelList.get(position).getName()));
+        holder.txtfoodPrice.setText(new StringBuilder("$").append(orderSummaryModelList.get(position).getPrice()));
+        holder.txtfoodQty.setText(new StringBuilder("x").append(orderSummaryModelList.get(position).getQuantity()));
     }
 
     @Override
@@ -66,14 +62,7 @@ public class OrderSummaryAdapter extends RecyclerView.Adapter<OrderSummaryAdapte
         TextView txtfoodPrice;
         @BindView(R.id.txtfoodQty)
         TextView txtfoodQty;
-        @BindView(R.id.txtfoodTotal)
-        TextView txtfoodTotal;
-        @BindView(R.id.txtOrderID2)
-        TextView txtOrderID2;
-        @BindView(R.id.txtDate2)
-        TextView txtDate2;
-        @BindView(R.id.txtTime2)
-        TextView txtTime2;
+
 
         private Unbinder unbinder;
 

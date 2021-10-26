@@ -3,6 +3,7 @@ package com.example.myapplication;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
@@ -52,7 +53,7 @@ public class OrderSummaryActivity extends AppCompatActivity implements IOrderSum
         //List<OrderSummaryModel> orderSummaryModels = new ArrayList<>();
         FirebaseDatabase database = FirebaseDatabase.getInstance("https://intea-delight-default-rtdb.asia-southeast1.firebasedatabase.app/");
         DatabaseReference reference = database.getReference("Users")
-                .child(firebaseAuth.getUid()).child("Order");
+                .child(firebaseAuth.getUid()).child("Items");
 
         reference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -93,12 +94,10 @@ public class OrderSummaryActivity extends AppCompatActivity implements IOrderSum
 
         orderSummaryLoadListener = this;
 
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 2);
-        recycler_order_summary.setLayoutManager(gridLayoutManager);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, RecyclerView.VERTICAL, false);
+        recycler_order_summary.setLayoutManager(linearLayoutManager);
         recycler_order_summary.addItemDecoration(new SpaceItemDecoration());
     }
-
-
 
 }
 

@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
@@ -72,7 +73,7 @@ public class ViewOrderActivity extends AppCompatActivity implements IViewOrderLo
                                 ViewOrderModel viewOrderModel = viewOrderSnapshot.getValue(ViewOrderModel.class);
                                 viewOrderModel.setKey(viewOrderSnapshot.getKey());
                                 viewOrderModels.add(viewOrderModel);
-                              /*  String testing = viewOrderModel.getOrderId();
+                               /* String testing = viewOrderModel.getOrderId();
                                 System.out.println(testing);*/
                             }
                             viewOrderLoadListener.onViewOrderLoadSuccess(viewOrderModels);
@@ -93,8 +94,8 @@ public class ViewOrderActivity extends AppCompatActivity implements IViewOrderLo
 
         viewOrderLoadListener = this;
 
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 2);
-        recycler_view_order.setLayoutManager(gridLayoutManager);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, RecyclerView.VERTICAL, false);
+        recycler_view_order.setLayoutManager(linearLayoutManager);
         recycler_view_order.addItemDecoration(new SpaceItemDecoration());
 
     }
