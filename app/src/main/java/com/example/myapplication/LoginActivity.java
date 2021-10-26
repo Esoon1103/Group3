@@ -55,7 +55,7 @@ public class LoginActivity extends AppCompatActivity {
 
         firebaseAuth = firebaseAuth.getInstance();
         reference = FirebaseDatabase.getInstance("https://intea-delight-default-rtdb.asia-southeast1.firebasedatabase.app/")
-                .getReference().child("CurrentPass");
+                .getReference().child("Password");
 
         userLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -67,7 +67,7 @@ public class LoginActivity extends AppCompatActivity {
 
                             String currentPass = userPass.getText().toString();
                             HashMap hashMap = new HashMap();
-                            hashMap.put("Current", currentPass);
+                            hashMap.put("CurrentPass", currentPass);
 
                             reference.updateChildren(hashMap).addOnSuccessListener(new OnSuccessListener() {
                                 @Override
