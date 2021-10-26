@@ -47,6 +47,7 @@ public class reservation_page extends AppCompatActivity implements View.OnClickL
 private ListView list_reservation_detail;
 String temp;
  private Button arrived;
+
 DatabaseReference reference1, reference2;
 private String time, date, compare_time, time1, date1, table,table1;
 int Reser_time  =0;
@@ -99,7 +100,7 @@ TextView timer_text;
         list_reservation_detail=findViewById(R.id.list_reservation_detail);
         timer_text=findViewById(R.id.timer_text);
         firebaseAuth=FirebaseAuth.getInstance();
-ArrayList<String> list=new ArrayList<>();
+        ArrayList<String> list=new ArrayList<>();
         ArrayAdapter adapter=new ArrayAdapter<String>(this,R.layout.reservation_item, list);
         list_reservation_detail.setAdapter(adapter);
 
@@ -131,17 +132,6 @@ ArrayList<String> list=new ArrayList<>();
         });
 
 
-        //int Reser_time=Integer.parseInt(compare_time);
-       // int curr_time=Integer.parseInt(getCurrentTime_compare());
-
-         //if (curr_time-Reser_time==1){
-        //     Toast.makeText(getApplicationContext(), "late 1 hour", Toast.LENGTH_LONG).show();
-        // }
-
-   
-   
-   
-
 
 
         arrived.setOnClickListener(new View.OnClickListener() {
@@ -160,13 +150,14 @@ ArrayList<String> list=new ArrayList<>();
                           time = dataSnapshot.child("time").getValue(String.class);
                           date=dataSnapshot.child("date").getValue(String.class);
                            compare_time  =dataSnapshot.child("compare_time").getValue(String.class);
-                          // System.out.println(compare_time);
+
                           temp=table;
                           
                      }
 if(time == null){
     Toast.makeText(getApplicationContext(), "No Reservation", Toast.LENGTH_LONG).show();
 }
+
 //current time -booking time >=1 then trigger this function
 else if(Integer.parseInt(getCurrentTime_compare())-Integer.parseInt(compare_time)>=1||date.equalsIgnoreCase(getDate())){
          
@@ -181,7 +172,7 @@ else if(Integer.parseInt(getCurrentTime_compare())-Integer.parseInt(compare_time
                  @Override
                  public void onDataChange(@NonNull DataSnapshot snapshot) {
                      
-                        reference3.setValue(temp);
+                      //  reference3.setValue(temp);
                  }
 
                  @Override
@@ -193,9 +184,9 @@ else if(Integer.parseInt(getCurrentTime_compare())-Integer.parseInt(compare_time
 }
 else{
 
-    if(time.equalsIgnoreCase(getCurrentTime())||date.equalsIgnoreCase(getDate())){
+    if(Integer.parseInt(getCurrentTime_compare())-Integer.parseInt(compare_time)>=0 &&Integer.parseInt(getCurrentTime_compare())-Integer.parseInt(compare_time)<1 ||date.equalsIgnoreCase(getDate())){
         //duration
-        long duration = TimeUnit.MINUTES.toMillis(120);
+        long duration = TimeUnit.MINUTES.toMillis(1);
 
         //countdown timer
         new CountDownTimer(duration, 1000) {
@@ -212,7 +203,11 @@ else{
 //when finish
                 //hide text view
                 timer_text.setVisibility(View.GONE);
-                Toast.makeText(getApplicationContext(), "Countdown timer has ended", Toast.LENGTH_LONG).show();
+                DatabaseReference drTable1=FirebaseDatabase.getInstance("https://intea-delight-default-rtdb.asia-southeast1.firebasedatabase.app").getReference("Table_Reservation")
+                        .child(firebaseAuth.getUid()).child("reservation");
+                drTable1.removeValue();
+                Toast.makeText(reservation_page.this,"Time Up", Toast.LENGTH_LONG).show();
+
                 FirebaseDatabase add_table = FirebaseDatabase.getInstance("https://intea-delight-default-rtdb.asia-southeast1.firebasedatabase.app");
 
                 DatabaseReference reference4 =add_table.getReference("Table").child(temp);
@@ -220,7 +215,7 @@ else{
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-                        reference4.setValue(temp);
+                      //  reference4.setValue(temp);
                     }
 
                     @Override
@@ -228,6 +223,10 @@ else{
 
                     }
                 }) ;
+
+                Toast.makeText(getApplicationContext(), "Countdown timer has ended", Toast.LENGTH_LONG).show();
+
+
 
             }
         }.start();
