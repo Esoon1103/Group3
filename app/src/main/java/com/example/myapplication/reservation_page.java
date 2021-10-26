@@ -142,7 +142,7 @@ TextView timer_text;
               reference1=FirebaseDatabase.getInstance("https://intea-delight-default-rtdb.asia-southeast1.firebasedatabase.app")
                      .getReference("Table_Reservation")
                      .child(firebaseAuth.getUid());
-             reference1.addValueEventListener(new ValueEventListener() {
+             reference1.addListenerForSingleValueEvent(new ValueEventListener() {
                  @Override
                  public void onDataChange(@NonNull DataSnapshot snapshot) {
 
@@ -152,7 +152,7 @@ TextView timer_text;
                           date=dataSnapshot.child("date").getValue(String.class);
                            compare_time  =dataSnapshot.child("compare_time").getValue(String.class);
 
-                          temp=table;
+                          temp=time;
                           
                      }
 if(time == null){
@@ -160,13 +160,13 @@ if(time == null){
 }
 
 //current time -booking time >=1 then trigger this function
-else if(Integer.parseInt(getCurrentTime_compare())-Integer.parseInt(compare_time)>=1||date.equalsIgnoreCase(getDate())){
+else if(Integer.parseInt(getCurrentTime_compare())-Integer.parseInt(compare_time)>=1 ||date.equalsIgnoreCase(getDate())){
 
     DatabaseReference drTable2=FirebaseDatabase.getInstance("https://intea-delight-default-rtdb.asia-southeast1.firebasedatabase.app").getReference("Table_Reservation")
-            .child(firebaseAuth.getUid()).child("reservation");
-           // drTable1.removeValue();
-                   drTable2.setValue(null);
-            Toast.makeText(reservation_page.this,"Time up", Toast.LENGTH_LONG).show();
+            .child(firebaseAuth.getUid());
+           drTable2.removeValue();
+                  // drTable2.setValue(null);
+            Toast.makeText(reservation_page.this,compare_time, Toast.LENGTH_LONG).show();
 
             /*FirebaseDatabase add_table = FirebaseDatabase.getInstance("https://intea-delight-default-rtdb.asia-southeast1.firebasedatabase.app");
             DatabaseReference reference3 =add_table.getReference("Table").child(temp);
