@@ -79,26 +79,10 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
                     .setNegativeButton("CANCEL", (dialog1, which) -> dialog1.dismiss())
                     .setPositiveButton("OK", (dialog2, which) -> {
 
-
-
                         //Temp remove
-                        //notifyItemRemoved(position);
-                        System.out.println("Before geitemcount:" + getItemCount());
-
+                        notifyItemRemoved(position);
                         deleteFoodFromFirebase(cartModelList.get(position));
-
-                        System.out.println("After geitemcount:" + getItemCount());
-
-                        if (getItemCount() == 1) {
-                            //System.out.println("Inside geitemcount:" + getItemCount());
-                            //cartModelList.remove(position);
-                            notifyItemRemoved(position);
-                            notifyItemRangeChanged(position, cartModelList.size());
-                        }
-                        else if(getItemCount() == 0)
-                            Toast.makeText(context,"Unable to notify adapter" ,Toast.LENGTH_SHORT).show();
-
-                        //System.out.println("After geitemcount:" + getItemCount());
+                        notifyDataSetChanged();
 
                         dialog2.dismiss();
                     }).create();
