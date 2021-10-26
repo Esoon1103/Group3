@@ -39,7 +39,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class CartActivity extends AppCompatActivity implements View.OnClickListener, ICartLoadListener {
+public class CartActivity extends AppCompatActivity implements View.OnClickListener, ICartLoadListener{
     private Button account1, home1, orderHistory1, cart1, btnOrder;
     private FirebaseAuth firebaseAuth;
     Calendar cal = Calendar.getInstance();
@@ -75,7 +75,6 @@ public class CartActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.cart_page);
-
 
         account1 = findViewById(R.id.account1);
         account1.setOnClickListener(this);
@@ -144,11 +143,13 @@ public class CartActivity extends AppCompatActivity implements View.OnClickListe
         txtTotalPrice.setText(new StringBuilder("RM ").append(sum));
         CartAdapter adapter = new CartAdapter(this, cartModelList);
         recyclerCart.setAdapter(adapter);
+
+        adapter.notifyDataSetChanged();
     }
 
     @Override
     public void onCartLoadFailed(String message) {
-        refreshPage();
+
         Toast.makeText(CartActivity.this, message, Toast.LENGTH_SHORT).show();
     }
 
@@ -197,27 +198,56 @@ public class CartActivity extends AppCompatActivity implements View.OnClickListe
             });
         }
         else if(cartModelList.size() > 0){
-            PlaceOrder(cartModelList); //Bring user to HOME PAGE
+            btnOrder.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    alertConfirmation();
+                }
+            });
         }
     }
 
-    private void PlaceOrder(List<Cart> cartModelList){
+    public void alertConfirmation(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Order Confirmation");
+        builder.setMessage("Do you sure to place your order?");
+        builder.setCancelable(false);
+        builder.setPositiveButton("Order Now", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                addOrderFirebaseData(); // Copy cart data to Order data
+
+                alertSuccessDialog(); //Alert successful order
+                deleteCartFirebaseData(); // Order will be set in the Firebase
+                dialogInterface.dismiss();
+            }
+        }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+            }
+        });
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+    }
+
+
+    public void PlaceOrder(){
         btnOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //Click "Place Order"
-                addOrderFirebaseData(cartModelList); // Copy cart data to Order data
+                addOrderFirebaseData(); // Copy cart data to Order data
                 Intent backHome = new Intent(view.getContext(), HomePage.class);
                 startActivity(backHome); //Navigate to HOME PAGE
-                alertDialog(); //Alert successful order
+                alertSuccessDialog(); //Alert successful order
                 deleteCartFirebaseData(); // Order will be set in the Firebase
-                refreshPage();
             }
         });
     }
 
     //Get Cart data and store  into a New Path called "Order"
-    private void addOrderFirebaseData(List<Cart> cartModels) {
+    public void addOrderFirebaseData() {
 
         String timestamp = ""+System.currentTimeMillis();
 
@@ -228,7 +258,7 @@ public class CartActivity extends AppCompatActivity implements View.OnClickListe
 
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
         FirebaseDatabase cart = FirebaseDatabase.getInstance("https://intea-delight-default-rtdb.asia-southeast1.firebasedatabase.app");
-                cart.getReference("Users")
+        cart.getReference("Users")
                 .child(firebaseAuth.getUid())
                 .child("Cart")
                 .addListenerForSingleValueEvent(new ValueEventListener() {
@@ -237,26 +267,26 @@ public class CartActivity extends AppCompatActivity implements View.OnClickListe
 
                         FirebaseDatabase order = FirebaseDatabase.getInstance("https://intea-delight-default-rtdb.asia-southeast1.firebasedatabase.app");
 
-                                //Write Order Items to database
-                                order.getReference("Users")
+                        //Write Order Items to database
+                        order.getReference("Users")
                                 .child(firebaseAuth.getUid())
                                 .child("Items").child(timestamp)
                                 .setValue(dataSnapshot.getValue());
 
-                                //Write orderID to database
-                                order.getReference("Users")
+                        //Write orderID to database
+                        order.getReference("Users")
                                 .child(firebaseAuth.getUid())
                                 .child("Order").child(timestamp).child("orderId")
                                 .setValue(timestamp);
 
-                                //Write date to database
-                                order.getReference("Users")
+                        //Write date to database
+                        order.getReference("Users")
                                 .child(firebaseAuth.getUid())
                                 .child("Order").child(timestamp).child("date")
                                 .setValue(date);
 
-                                //Write time to database
-                                order.getReference("Users")
+                        //Write time to database
+                        order.getReference("Users")
                                 .child(firebaseAuth.getUid())
                                 .child("Order").child(timestamp).child("time")
                                 .setValue(time);
@@ -284,42 +314,33 @@ public class CartActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     //Delete cart after Place Order
-    private void deleteCartFirebaseData() {
+    public void deleteCartFirebaseData() {
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
         FirebaseDatabase firebase = FirebaseDatabase.getInstance("https://intea-delight-default-rtdb.asia-southeast1.firebasedatabase.app");
         firebase.getReference("Users")
                 .child(firebaseAuth.getUid())
                 .child("Cart")
                 .setValue(null);
-
-        finish();
-        overridePendingTransition(0, 0);
-        startActivity(getIntent());
-        overridePendingTransition(0, 0);
     }
 
-    private void alertDialog(){
+    public void alertSuccessDialog(){
         AlertDialog alert = new AlertDialog.Builder(CartActivity.this)
                 .setTitle("Order Status")
                 .setMessage("Order Placed Successfully")
-                .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int i) {
+                .setNegativeButton("CANCEL", (dialog1, which) -> dialog1.dismiss())
+                .setPositiveButton("Ok", (dialog2, which) -> {
 
-                        dialog.dismiss();
-                    }
+                    refreshPage();
+                    dialog2.dismiss();
                 })
                 .create();
         alert.show();
     }
 
-    private void refreshPage(){
-            finish();
-            overridePendingTransition(0, 0);
-            startActivity(getIntent());
-            overridePendingTransition(0, 0);
-
+    public void refreshPage(){
+        finish();
+        overridePendingTransition(0, 0);
+        startActivity(getIntent());
+        overridePendingTransition(0, 0);
     }
 }
-
-

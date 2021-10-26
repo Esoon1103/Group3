@@ -1,15 +1,24 @@
 package com.example.myapplication.model;
 
 public class Reservation {
-     String key, table_id, date, time;
+     String key, table_id, date, time, compare_time;
 
     public Reservation(){
 
     }
-    public Reservation(String table_id, String date, String time){
+    public Reservation(String table_id, String date, String time, String compare_time){
 this.table_id=table_id;
 this.date=date;
 this.time=time;
+this.compare_time=compare_time;
+    }
+
+    public String getCompare_time() {
+        return compare_time;
+    }
+
+    public void setCompare_time(String compare_time) {
+        this.compare_time = compare_time;
     }
 
     public String getTable_id(){return table_id;}

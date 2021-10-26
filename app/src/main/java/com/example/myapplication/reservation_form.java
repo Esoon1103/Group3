@@ -58,6 +58,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.lang.reflect.Member;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -70,13 +71,17 @@ import java.util.Locale;
 public class reservation_form  extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemSelectedListener, IReservationLoadListener {
     TextView select_Time, select_Date;
     private Button account1, home1, orderHistory1, cart1;
+    String date1, time1, table, table1, temp;
+    ArrayList<String>list=new ArrayList<>();
 int t1Hour, t1Minutes;
 Button submit_btn;
+
 ListView show_avail_table;
 DatePickerDialog.OnDateSetListener setListener;
 IReservationLoadListener reservationLoadListener;
     private FirebaseAuth firebaseAuth;
 FirebaseDatabase rootNode;
+String compare_time="";
     DatabaseReference deleteNode,deleteNode1;
 DatabaseReference reference, reference1;
 
@@ -120,8 +125,10 @@ submit_btn=findViewById(R.id.submit_btn);
         Spinner spinner1=findViewById(R.id.spinner2);
         ArrayAdapter<CharSequence>adapter1=ArrayAdapter.createFromResource(this, R.array.name1, android.R.layout.simple_spinner_item);
         adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner1.setAdapter(adapter1);
+       spinner1.setAdapter(adapter1);
         spinner1.setOnItemSelectedListener(this);
+
+
 
 
 
@@ -164,6 +171,7 @@ t1Hour=hourofDay;
 t1Minutes=minutes;
 //store in string
               String time=t1Hour+":"+t1Minutes;
+                compare_time=t1Hour+"";
                 SimpleDateFormat f24Hours=new SimpleDateFormat(
                         "HH:mm"
                 );
@@ -173,6 +181,7 @@ t1Minutes=minutes;
                            "hh:mm aa"
                     );
                     select_Time.setText(f12Hours.format(date));
+                    String.format(compare_time, f24Hours);
 
                 } catch (ParseException e) {
                     e.printStackTrace();
@@ -188,6 +197,7 @@ timePickerDialog.show();
 
 
 submit_btn.setOnClickListener(new View.OnClickListener() {
+
     @Override
     public void onClick(View view) {
         if(!validateDate()|!validateTime()){
@@ -201,14 +211,15 @@ submit_btn.setOnClickListener(new View.OnClickListener() {
             String table_id= spinner1.getSelectedItem().toString();
             String date=select_Date.getText().toString();
             String time=select_Time.getText().toString();
+            String compare_Time=compare_time;
 
-            Reservation reservation=new Reservation(table_id, date, time);
+        Reservation reservation=new Reservation(table_id, date, time,compare_Time );
             reference.setValue(reservation);
 
 
-            deleteTable(table_id);
+          //  deleteTable(table_id);
 
-
+        Toast.makeText(getApplicationContext(), "Reserved", Toast.LENGTH_LONG).show();
 
     }
 
@@ -227,8 +238,10 @@ submit_btn.setOnClickListener(new View.OnClickListener() {
         cart1.setOnClickListener(this);
 
 
-        show_avail_table=findViewById(R.id.show_avail_table);
-        ArrayList<String>list=new ArrayList<>();
+
+        //show_avail_table=findViewById(R.id.show_avail_table);
+
+/*
         ArrayAdapter adapter_table=new ArrayAdapter<String>(this,R.layout.show_table_item, list);
         show_avail_table.setAdapter(adapter_table);
         DatabaseReference reference_table =FirebaseDatabase.getInstance("https://intea-delight-default-rtdb.asia-southeast1.firebasedatabase.app")
@@ -239,6 +252,7 @@ submit_btn.setOnClickListener(new View.OnClickListener() {
                 list.clear();
                 for (DataSnapshot Snapshot_table : snapshot.getChildren()){
                     list.add(Snapshot_table.getValue().toString());
+
                 }
                 adapter_table.notifyDataSetChanged();
 
@@ -248,19 +262,21 @@ submit_btn.setOnClickListener(new View.OnClickListener() {
             public void onCancelled(@NonNull DatabaseError error) {
 
             }
-        });
+        });*/
+
+
 
 
 
 
         }
 
-    private void deleteTable(String table_id) {
+   /* private void deleteTable(String table_id) {
         DatabaseReference drTable=FirebaseDatabase.getInstance("https://intea-delight-default-rtdb.asia-southeast1.firebasedatabase.app").getReference("Table")
                 .child(table_id);
         drTable.removeValue();
-        Toast.makeText(this,"Deleted", Toast.LENGTH_LONG).show();
-    }
+
+    }*/
 
 
     @Override
@@ -315,5 +331,26 @@ return false;
         }
     }
 
+/*public Boolean validate_Table(){
+   reference1=FirebaseDatabase.getInstance("https://intea-delight-default-rtdb.asia-southeast1.firebasedatabase.app")
+            .getReference("Table_Reservation")
+            .child(firebaseAuth.getUid());
+    reference1.addValueEventListener(new ValueEventListener() {
+        @Override
+        public void onDataChange(@NonNull DataSnapshot snapshot) {
+            for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                table1=dataSnapshot.child("table_id").getValue(String.class);
+                temp=table;
+
+            }
+        }
+
+        @Override
+        public void onCancelled(@NonNull DatabaseError error) {
+            Toast.makeText(getApplicationContext(), "can", Toast.LENGTH_LONG).show();
+        }
+    });
+    return true;}*/
 
 }
+

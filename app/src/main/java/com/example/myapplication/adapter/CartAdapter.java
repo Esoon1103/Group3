@@ -22,6 +22,7 @@ import com.example.myapplication.CartActivity;
 import com.example.myapplication.HomePage;
 import com.example.myapplication.R;
 import com.example.myapplication.UpdateCartEvent;
+import com.example.myapplication.databinding.CartItemBinding;
 import com.example.myapplication.model.Cart;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
@@ -79,8 +80,11 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
                     .setPositiveButton("OK", (dialog2, which) -> {
 
                         //Temp remove
-                        notifyItemRemoved(position);
+
                         deleteFoodFromFirebase(cartModelList.get(position));
+                        notifyItemRemoved(position);
+                        notifyItemRangeChanged(position, cartModelList.size());
+
                         dialog2.dismiss();
                     }).create();
             dialog.show();
