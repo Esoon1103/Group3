@@ -45,8 +45,9 @@ public class reservation_page extends AppCompatActivity implements View.OnClickL
     private Button account1,home1,orderHistory1, cart1;
     private FirebaseAuth firebaseAuth;
 private ListView list_reservation_detail;
-String temp;
+String temp, table_Number1, temp2;
  private Button arrived;
+ int temp1;
 
 DatabaseReference reference1, reference2;
 private String time, date, compare_time, time1, date1, table,table1;
@@ -105,6 +106,9 @@ TextView timer_text;
         ArrayAdapter adapter=new ArrayAdapter<String>(this,R.layout.reservation_item, list);
         list_reservation_detail.setAdapter(adapter);
 
+
+
+
         DatabaseReference reference=FirebaseDatabase.getInstance("https://intea-delight-default-rtdb.asia-southeast1.firebasedatabase.app").getReference().child("Table_Reservation").child(firebaseAuth.getUid());
         reference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -132,12 +136,40 @@ TextView timer_text;
             }
         });
 
+        DatabaseReference reference_table3 =FirebaseDatabase.getInstance("https://intea-delight-default-rtdb.asia-southeast1.firebasedatabase.app")
+                .getReference("Table_Number");
+
+        reference_table3.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+
+                table_Number1 = snapshot.child("table_Num").getValue(String.class);
+
+                temp1=Integer.valueOf(table_Number1);
+
+
+
+
+            }
+
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
 
 
         arrived.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+
+
+
+
 
               reference1=FirebaseDatabase.getInstance("https://intea-delight-default-rtdb.asia-southeast1.firebasedatabase.app")
                      .getReference("Table_Reservation")
@@ -162,26 +194,35 @@ if(time == null){
 //current time -booking time >=1 then trigger this function
 else if(Integer.parseInt(getCurrentTime_compare())-Integer.parseInt(compare_time)>=1 ||date.equalsIgnoreCase(getDate())){
 
+    temp1=temp1+1;
+    temp2=String.valueOf(temp1);
+
+
     DatabaseReference drTable2=FirebaseDatabase.getInstance("https://intea-delight-default-rtdb.asia-southeast1.firebasedatabase.app").getReference("Table_Reservation")
             .child(firebaseAuth.getUid());
            drTable2.removeValue();
-                  // drTable2.setValue(null);
-            Toast.makeText(reservation_page.this,compare_time, Toast.LENGTH_LONG).show();
 
-            /*FirebaseDatabase add_table = FirebaseDatabase.getInstance("https://intea-delight-default-rtdb.asia-southeast1.firebasedatabase.app");
-            DatabaseReference reference3 =add_table.getReference("Table").child(temp);
-             reference3.addValueEventListener(new ValueEventListener() {
-                 @Override
-                 public void onDataChange(@NonNull DataSnapshot snapshot) {
-                     
-                      //  reference3.setValue(temp);
-                 }
 
-                 @Override
-                 public void onCancelled(@NonNull DatabaseError error) {
 
-                 }
-             }) ;*/
+    FirebaseDatabase add_table5 = FirebaseDatabase.getInstance("https://intea-delight-default-rtdb.asia-southeast1.firebasedatabase.app");
+
+    DatabaseReference reference5 =add_table5.getReference("Table_Number").child("table_Num");
+    reference5.addListenerForSingleValueEvent(new ValueEventListener() {
+        @Override
+        public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+
+            reference5.setValue(temp2);
+        }
+
+        @Override
+        public void onCancelled(@NonNull DatabaseError error) {
+
+        }
+    });
+
+            Toast.makeText(reservation_page.this,"Thank You", Toast.LENGTH_LONG).show();
+
 
 }
 else{
@@ -202,6 +243,8 @@ else{
 
             @Override
             public void onFinish() {
+                temp1=temp1+1;
+                temp2=String.valueOf(temp1);
 //when finish
                 //hide text view
                 timer_text.setVisibility(View.GONE);
@@ -209,23 +252,41 @@ else{
                         .child(firebaseAuth.getUid()).child("reservation");
                // drTable1.removeValue();
                 drTable1.setValue(null);
-              //  Toast.makeText(reservation_page.this,"Time Up", Toast.LENGTH_LONG).show();
+               // Toast.makeText(reservation_page.this,"Time Up", Toast.LENGTH_LONG).show();
+                FirebaseDatabase add_table5 = FirebaseDatabase.getInstance("https://intea-delight-default-rtdb.asia-southeast1.firebasedatabase.app");
 
-              //  FirebaseDatabase add_table = FirebaseDatabase.getInstance("https://intea-delight-default-rtdb.asia-southeast1.firebasedatabase.app");
+                DatabaseReference reference5 =add_table5.getReference("Table_Number").child("table_Num");
+                reference5.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-               // DatabaseReference reference4 =add_table.getReference("Table").child(temp);
-               // reference4.addValueEventListener(new ValueEventListener() {
-                  //  @Override
-                   // public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-                      //  reference4.setValue(temp);
-                  //  }
+                        reference5.setValue(temp2);
+                    }
 
-                   // @Override
-                   // public void onCancelled(@NonNull DatabaseError error) {
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
 
-                 //   }
-              //  }) ;
+                    }
+                });
+
+
+
+              /*  FirebaseDatabase add_table = FirebaseDatabase.getInstance("https://intea-delight-default-rtdb.asia-southeast1.firebasedatabase.app");
+
+                DatabaseReference reference4 =add_table.getReference("Table_Number").child("table_Num");
+               reference4.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                   public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                       reference4.setValue(temp2);
+                    }
+
+                   @Override
+                   public void onCancelled(@NonNull DatabaseError error) {
+
+                   }
+               }); */
 
                 Toast.makeText(getApplicationContext(), "Countdown timer has ended", Toast.LENGTH_LONG).show();
 

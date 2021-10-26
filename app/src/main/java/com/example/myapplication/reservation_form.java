@@ -71,15 +71,18 @@ import java.util.Locale;
 public class reservation_form  extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemSelectedListener, IReservationLoadListener {
     TextView select_Time, select_Date;
     private Button account1, home1, orderHistory1, cart1;
-    String date1, time1, table, table1, temp;
+    String table_validate, time1, table, table1;
+    int temp=0;
     ArrayList<String>list=new ArrayList<>();
 int t1Hour, t1Minutes;
 Button submit_btn;
+String table_Number, temp1;
 
 ListView show_avail_table;
 DatePickerDialog.OnDateSetListener setListener;
 IReservationLoadListener reservationLoadListener;
     private FirebaseAuth firebaseAuth;
+
 FirebaseDatabase rootNode;
 String compare_time="";
     DatabaseReference deleteNode,deleteNode1;
@@ -116,7 +119,7 @@ DatabaseReference reference, reference1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
+        firebaseAuth =FirebaseAuth.getInstance();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.reservation_form);
 submit_btn=findViewById(R.id.submit_btn);
@@ -148,6 +151,7 @@ datePickerDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANS
 datePickerDialog.show();
             }
         });
+
 setListener=new DatePickerDialog.OnDateSetListener() {
     @Override
     public void onDateSet(DatePicker view, int year, int month, int dayofMonth) {
@@ -195,31 +199,121 @@ timePickerDialog.show();
     }
 });
 
+        DatabaseReference reference_table1 =FirebaseDatabase.getInstance("https://intea-delight-default-rtdb.asia-southeast1.firebasedatabase.app")
+                .getReference("Table_Number");
+        reference_table1.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
 
+
+                    table_Number = snapshot.child("table_Num").getValue(String.class);
+
+                    temp=Integer.valueOf(table_Number);
+
+
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        DatabaseReference reference60 = FirebaseDatabase.getInstance("https://intea-delight-default-rtdb.asia-southeast1.firebasedatabase.app")
+                .getReference("Table_Reservation")
+                .child(firebaseAuth.getUid());
+
+        reference60.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                    table_validate=dataSnapshot.child("table_id").getValue(String.class);
+
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(getApplicationContext(), "Error", Toast.LENGTH_LONG).show();
+            }
+        });
+
+
+        //temp=Integer.parseInt(table_Number);
 submit_btn.setOnClickListener(new View.OnClickListener() {
 
     @Override
     public void onClick(View view) {
+        System.out.println(table_validate);
         if(!validateDate()|!validateTime()){
             return;
         }
+if (table_validate==null){
 
-            firebaseAuth=FirebaseAuth.getInstance();
-            rootNode=FirebaseDatabase.getInstance("https://intea-delight-default-rtdb.asia-southeast1.firebasedatabase.app");
-            reference=rootNode.getReference("Table_Reservation").child(firebaseAuth.getUid()).child("reservation");
 
-            String table_id= spinner1.getSelectedItem().toString();
-            String date=select_Date.getText().toString();
-            String time=select_Time.getText().toString();
-            String compare_Time=compare_time;
+
+    if(temp==0){//table num
+        Toast.makeText(reservation_form.this,"No More Table", Toast.LENGTH_LONG).show();
+
+    }
+    else{
+
+        firebaseAuth=FirebaseAuth.getInstance();
+        rootNode=FirebaseDatabase.getInstance("https://intea-delight-default-rtdb.asia-southeast1.firebasedatabase.app");
+        reference=rootNode.getReference("Table_Reservation").child(firebaseAuth.getUid()).child("reservation");
+
+        String table_id= spinner1.getSelectedItem().toString();
+        String date=select_Date.getText().toString();
+        String time=select_Time.getText().toString();
+        String compare_Time=compare_time;
 
         Reservation reservation=new Reservation(table_id, date, time,compare_Time );
-            reference.setValue(reservation);
+        reference.setValue(reservation);
 
 
-          //  deleteTable(table_id);
+        //  deleteTable(table_id);
 
         Toast.makeText(getApplicationContext(), "Reserved", Toast.LENGTH_LONG).show();
+
+
+
+        temp=temp-1;
+        temp1=String.valueOf(temp);
+        FirebaseDatabase add_table = FirebaseDatabase.getInstance("https://intea-delight-default-rtdb.asia-southeast1.firebasedatabase.app");
+        DatabaseReference reference3 =add_table.getReference("Table_Number").child("table_Num");
+        reference3.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                reference3.setValue(temp1);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+
+    }
+    refreshPage_Reservation();
+
+}
+else {
+    Toast.makeText(reservation_form.this,"You Already Have Reservation", Toast.LENGTH_LONG).show();
+    refreshPage_Reservation();
+
+}
+
+
+
+
+
+
+
 
     }
 
@@ -263,7 +357,6 @@ submit_btn.setOnClickListener(new View.OnClickListener() {
 
             }
         });*/
-
 
 
 
@@ -329,6 +422,13 @@ return false;
             select_Time.setError(null);
             return  true;
         }
+    }
+
+    public void refreshPage_Reservation(){
+        finish();
+        overridePendingTransition(0, 0);
+        startActivity(getIntent());
+        overridePendingTransition(0, 0);
     }
 
 /*public Boolean validate_Table(){
