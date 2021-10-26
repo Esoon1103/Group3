@@ -47,9 +47,9 @@ public class OrderSummaryAdapter extends RecyclerView.Adapter<OrderSummaryAdapte
         holder.txtDate2.setText(new StringBuilder().append(orderSummaryModelList.get(position).getDate()));
         holder.txtTime2.setText(new StringBuilder().append(orderSummaryModelList.get(position).getTime()));
         holder.txtfoodName.setText(new StringBuilder().append(orderSummaryModelList.get(position).getOrderId()));
-        holder.txtfoodPrice.setText(new StringBuilder().append(orderSummaryModelList.get(position).getDate()));
+        holder.txtfoodPrice.setText(new StringBuilder("$").append(orderSummaryModelList.get(position).getDate()));
         holder.txtfoodQty.setText(new StringBuilder().append(orderSummaryModelList.get(position).getTime()));
-        holder.txtfoodTotal.setText(new StringBuilder("#").append(orderSummaryModelList.get(position).getOrderId()));
+        holder.txtfoodTotal.setText(new StringBuilder("$").append(orderSummaryModelList.get(position).getOrderId()));
     }
 
     @Override

@@ -12,10 +12,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.myapplication.R;
+import com.example.myapplication.listener.IAddtoCartClickListener;
 import com.example.myapplication.listener.ICartLoadListener;
 import com.example.myapplication.listener.IViewOrderLoadListener;
+import com.example.myapplication.listener.RecyclerViewClickInterface;
 import com.example.myapplication.model.Rice;
 import com.example.myapplication.model.ViewOrderModel;
+import com.smarteist.autoimageslider.SliderViewAdapter;
 
 import java.util.List;
 
@@ -28,25 +31,27 @@ public class ViewOrderAdapter extends RecyclerView.Adapter<ViewOrderAdapter.View
     private Context context;
     private List<ViewOrderModel> viewOrderModelList;
     private IViewOrderLoadListener viewOrderLoadListener;
+    private RecyclerViewClickInterface recyclerViewClickInterface;
 
     //Constructor
-    public ViewOrderAdapter(Context context, List<ViewOrderModel> viewOrderModelList, IViewOrderLoadListener viewOrderLoadListener) {
+    public ViewOrderAdapter(Context context, List<ViewOrderModel> viewOrderModelList, IViewOrderLoadListener viewOrderLoadListener, RecyclerViewClickInterface recyclerViewClickInterface) {
         this.context = context;
         this.viewOrderModelList = viewOrderModelList;
         this.viewOrderLoadListener = viewOrderLoadListener;
+        this.recyclerViewClickInterface = recyclerViewClickInterface;
     }
 
     //Display item layout by using the View Holder
     @NonNull
     @Override
-    public ViewOrderViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType){
-        return new ViewOrderViewHolder(LayoutInflater.from(context)
-                .inflate(R.layout.layout_view_order,parent,false));
+    public ViewOrderViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        return new ViewOrderAdapter.ViewOrderViewHolder(LayoutInflater.from(context)
+                .inflate(R.layout.layout_view_order, parent, false));
     }
 
     //Set the Order details: OrderID, Date, Price - To the specific position by using the View Holder
     @Override
-    public void onBindViewHolder(@NonNull ViewOrderViewHolder holder, int position){
+    public void onBindViewHolder(@NonNull ViewOrderViewHolder holder, int position) {
       /*  Glide.with(context)
                 .load(viewOrderModelList.get(position).getImage()) //Get image from the position
                 .into(holder.imageView); */
@@ -56,7 +61,7 @@ public class ViewOrderAdapter extends RecyclerView.Adapter<ViewOrderAdapter.View
     }
 
     @Override
-    public int getItemCount(){
+    public int getItemCount() {
         return viewOrderModelList.size();
     }
 
@@ -74,7 +79,14 @@ public class ViewOrderAdapter extends RecyclerView.Adapter<ViewOrderAdapter.View
 
         public ViewOrderViewHolder(@NonNull View itemView) {
             super(itemView);
-            unbinder = ButterKnife.bind(this,itemView);
+            unbinder = ButterKnife.bind(this, itemView);
+
+            itemView.setOnClickListener(new View.OnClickListener(){
+                @Override
+                public void onClick(View view){
+                    recyclerViewClickInterface.onItemClick(getAbsoluteAdapterPosition());
+                }
+            });
         }
     }
 }

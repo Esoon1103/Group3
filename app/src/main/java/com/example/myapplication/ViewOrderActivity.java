@@ -6,14 +6,17 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.view.View;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.example.myapplication.adapter.RiceAdapter;
 import com.example.myapplication.adapter.ViewOrderAdapter;
 import com.example.myapplication.listener.IViewOrderLoadListener;
+import com.example.myapplication.listener.RecyclerViewClickInterface;
 import com.example.myapplication.model.ViewOrderModel;
 import com.example.myapplication.utils.SpaceItemDecoration;
 import com.google.android.material.snackbar.Snackbar;
@@ -32,7 +35,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.reactivex.rxjava3.disposables.CompositeDisposable;
 
-public class ViewOrderActivity extends AppCompatActivity implements IViewOrderLoadListener {
+public class ViewOrderActivity extends AppCompatActivity implements IViewOrderLoadListener, RecyclerViewClickInterface {
 
     @BindView(R.id.recycler_view_order)
     RecyclerView recycler_view_order;
@@ -41,6 +44,8 @@ public class ViewOrderActivity extends AppCompatActivity implements IViewOrderLo
 
     IViewOrderLoadListener viewOrderLoadListener;
     FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+    List<ViewOrderModel> viewOrderModels = new ArrayList<>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +57,6 @@ public class ViewOrderActivity extends AppCompatActivity implements IViewOrderLo
     }
 
     private void loadOrderFromFirebase() {
-        List<ViewOrderModel> viewOrderModels = new ArrayList<>();
 
         FirebaseDatabase database = FirebaseDatabase.getInstance("https://intea-delight-default-rtdb.asia-southeast1.firebasedatabase.app/");
         DatabaseReference reference = database.getReference("Users")
@@ -68,6 +72,8 @@ public class ViewOrderActivity extends AppCompatActivity implements IViewOrderLo
                                 ViewOrderModel viewOrderModel = viewOrderSnapshot.getValue(ViewOrderModel.class);
                                 viewOrderModel.setKey(viewOrderSnapshot.getKey());
                                 viewOrderModels.add(viewOrderModel);
+                              /*  String testing = viewOrderModel.getOrderId();
+                                System.out.println(testing);*/
                             }
                             viewOrderLoadListener.onViewOrderLoadSuccess(viewOrderModels);
                         } else {
@@ -90,16 +96,24 @@ public class ViewOrderActivity extends AppCompatActivity implements IViewOrderLo
         GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 2);
         recycler_view_order.setLayoutManager(gridLayoutManager);
         recycler_view_order.addItemDecoration(new SpaceItemDecoration());
+
     }
 
     @Override
     public void onViewOrderLoadSuccess(List<ViewOrderModel> viewOrderModelList) {
-        ViewOrderAdapter adapter = new ViewOrderAdapter(this,viewOrderModelList, viewOrderLoadListener);
+        ViewOrderAdapter adapter = new ViewOrderAdapter(this,viewOrderModelList, viewOrderLoadListener, this);
         recycler_view_order.setAdapter(adapter);
     }
 
     @Override
     public void onViewOrderLoadFailed(String message) {
         Snackbar.make(viewOrderLayout,message,Snackbar.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onItemClick(int position) {
+        //Toast.makeText(this,"test", Toast.LENGTH_SHORT).show();
+        Intent i = new Intent(ViewOrderActivity.this, OrderSummaryActivity.class);
+        startActivity(i);
     }
 }

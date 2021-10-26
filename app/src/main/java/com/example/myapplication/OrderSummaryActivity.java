@@ -38,19 +38,18 @@ public class OrderSummaryActivity extends AppCompatActivity implements IOrderSum
 
     IOrderSummaryLoadListener orderSummaryLoadListener;
     FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+    List<OrderSummaryModel> orderSummaryModels = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_summary);
-
         init();
         loadOrderFromFirebase();
     }
 
     private void loadOrderFromFirebase() {
-        List<OrderSummaryModel> orderSummaryModels = new ArrayList<>();
-
+        //List<OrderSummaryModel> orderSummaryModels = new ArrayList<>();
         FirebaseDatabase database = FirebaseDatabase.getInstance("https://intea-delight-default-rtdb.asia-southeast1.firebasedatabase.app/");
         DatabaseReference reference = database.getReference("Users")
                 .child(firebaseAuth.getUid()).child("Order");
@@ -63,6 +62,7 @@ public class OrderSummaryActivity extends AppCompatActivity implements IOrderSum
                         OrderSummaryModel orderSummaryModel = orderSummarySnapshot.getValue(OrderSummaryModel.class);
                         orderSummaryModel.setKey(orderSummarySnapshot.getKey());
                         orderSummaryModels.add(orderSummaryModel);
+                        //OrderIds.add(orderSummaryModel.getOrderId().toString());
                     }
                     orderSummaryLoadListener.onOrderSummaryLoadSuccess(orderSummaryModels);
                 } else {

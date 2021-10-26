@@ -12,13 +12,13 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
         <ImageView
             android:id="@+id/imageView2"
-            android:src="@drawable/common_google_signin_btn_icon_dark"
-            android:layout_width="100dp"
-            android:layout_height="100dp"/>
+            android:layout_width="84dp"
+            android:layout_height="76dp"
+            android:src="@drawable/common_google_signin_btn_icon_dark" />
 
         <TextView
             android:id="@+id/txtOrderID2"
@@ -35,9 +35,9 @@
             android:id="@+id/txtDate2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/txtOrderID2"
             android:layout_marginLeft="100dp"
             android:layout_marginTop="0dp"
-            android:layout_below="@+id/txtOrderID2"
             android:text="DATE"
             android:textSize="10sp" />
 
