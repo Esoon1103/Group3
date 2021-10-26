@@ -45,9 +45,12 @@ public class reservation_page extends AppCompatActivity implements View.OnClickL
     private Button account1,home1,orderHistory1, cart1;
     private FirebaseAuth firebaseAuth;
 private ListView list_reservation_detail;
+String temp;
  private Button arrived;
-DatabaseReference reference1;
-private String time, date;
+DatabaseReference reference1, reference2;
+private String time, date, compare_time, time1, date1, table,table1;
+int Reser_time  =0;
+int curr_time    =0;
 TextView timer_text;
 
     @Override
@@ -100,16 +103,25 @@ ArrayList<String> list=new ArrayList<>();
         ArrayAdapter adapter=new ArrayAdapter<String>(this,R.layout.reservation_item, list);
         list_reservation_detail.setAdapter(adapter);
 
-        DatabaseReference reference=FirebaseDatabase.getInstance("https://intea-delight-default-rtdb.asia-southeast1.firebasedatabase.app").getReference().child("Table_Reservation").child(firebaseAuth.getUid()).child("reservation");
+        DatabaseReference reference=FirebaseDatabase.getInstance("https://intea-delight-default-rtdb.asia-southeast1.firebasedatabase.app").getReference().child("Table_Reservation").child(firebaseAuth.getUid());
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 list.clear();
                 for (DataSnapshot snapshot1: snapshot.getChildren()){
 
-                    list.add(snapshot1.getValue().toString());
+                   // list.add(snapshot1.getValue().toString());
+                    time1 = snapshot1.child("time").getValue(String.class);
+                    date1=snapshot1.child("date").getValue(String.class);
+                    table=snapshot1.child("table_id").getValue(String.class);
+
+                    list.add(time1);
+                    list.add(date1);
+                    list.add(table);
+
                 }
                 adapter.notifyDataSetChanged();
+
             }
 
             @Override
@@ -118,53 +130,118 @@ ArrayList<String> list=new ArrayList<>();
             }
         });
 
-        ArrayList<String> list_date=new ArrayList<>();
-        ArrayList<String> list_time=new ArrayList<>();
+
+        //int Reser_time=Integer.parseInt(compare_time);
+       // int curr_time=Integer.parseInt(getCurrentTime_compare());
+
+         //if (curr_time-Reser_time==1){
+        //     Toast.makeText(getApplicationContext(), "late 1 hour", Toast.LENGTH_LONG).show();
+        // }
+
+   
+   
+   
+
+
 
         arrived.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
               reference1=FirebaseDatabase.getInstance("https://intea-delight-default-rtdb.asia-southeast1.firebasedatabase.app")
                      .getReference("Table_Reservation")
                      .child(firebaseAuth.getUid());
              reference1.addValueEventListener(new ValueEventListener() {
                  @Override
                  public void onDataChange(@NonNull DataSnapshot snapshot) {
+
                      for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                         table=dataSnapshot.child("table_id").getValue(String.class);
                           time = dataSnapshot.child("time").getValue(String.class);
                           date=dataSnapshot.child("date").getValue(String.class);
+                           compare_time  =dataSnapshot.child("compare_time").getValue(String.class);
+                          // System.out.println(compare_time);
+                          temp=table;
+                          
                      }
+if(time == null){
+    Toast.makeText(getApplicationContext(), "No Reservation", Toast.LENGTH_LONG).show();
+}
+//current time -booking time >=1 then trigger this function
+else if(Integer.parseInt(getCurrentTime_compare())-Integer.parseInt(compare_time)>=1||date.equalsIgnoreCase(getDate())){
+         
+     DatabaseReference drTable1=FirebaseDatabase.getInstance("https://intea-delight-default-rtdb.asia-southeast1.firebasedatabase.app").getReference("Table_Reservation")
+                    .child(firebaseAuth.getUid()).child("reservation");
+            drTable1.removeValue();
+            Toast.makeText(reservation_page.this,"Deleted", Toast.LENGTH_LONG).show();
 
-                     if(time.equalsIgnoreCase(getCurrentTime())||date.equalsIgnoreCase(getDate())){
-                         //duration
-                         long duration = TimeUnit.MINUTES.toMillis(120);
+            FirebaseDatabase add_table = FirebaseDatabase.getInstance("https://intea-delight-default-rtdb.asia-southeast1.firebasedatabase.app");
+            DatabaseReference reference3 =add_table.getReference("Table").child(temp);
+             reference3.addValueEventListener(new ValueEventListener() {
+                 @Override
+                 public void onDataChange(@NonNull DataSnapshot snapshot) {
+                     
+                        reference3.setValue(temp);
+                 }
 
-                         //countdown timer
-                         new CountDownTimer(duration, 1000) {
-                             @Override
-                             public void onTick(long l) {
-                                 String sDuration=String.format(Locale.ENGLISH,"%2d: %02d", TimeUnit.MILLISECONDS.toMinutes(l),
-                                         TimeUnit.MILLISECONDS.toSeconds(l)-TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(l)));
-                                 //set converted string on text view
-                                 timer_text.setText(sDuration);
-                             }
+                 @Override
+                 public void onCancelled(@NonNull DatabaseError error) {
 
-                             @Override
-                             public void onFinish() {
+                 }
+             }) ;
+
+}
+else{
+
+    if(time.equalsIgnoreCase(getCurrentTime())||date.equalsIgnoreCase(getDate())){
+        //duration
+        long duration = TimeUnit.MINUTES.toMillis(120);
+
+        //countdown timer
+        new CountDownTimer(duration, 1000) {
+            @Override
+            public void onTick(long l) {
+                String sDuration=String.format(Locale.ENGLISH,"%2d: %02d", TimeUnit.MILLISECONDS.toMinutes(l),
+                        TimeUnit.MILLISECONDS.toSeconds(l)-TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(l)));
+                //set converted string on text view
+                timer_text.setText(sDuration);
+            }
+
+            @Override
+            public void onFinish() {
 //when finish
-                                 //hide text view
-                                 timer_text.setVisibility(View.GONE);
-                                 Toast.makeText(getApplicationContext(), "Countdown timer has ended", Toast.LENGTH_LONG).show();
-                             }
-                         }.start();
+                //hide text view
+                timer_text.setVisibility(View.GONE);
+                Toast.makeText(getApplicationContext(), "Countdown timer has ended", Toast.LENGTH_LONG).show();
+                FirebaseDatabase add_table = FirebaseDatabase.getInstance("https://intea-delight-default-rtdb.asia-southeast1.firebasedatabase.app");
+
+                DatabaseReference reference4 =add_table.getReference("Table").child(temp);
+                reference4.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                        reference4.setValue(temp);
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                }) ;
+
+            }
+        }.start();
 
 
-                     }
-                     else{
-                         System.out.println("not ok");
-                         //timer_text.setVisibility(View.GONE);
-                         Toast.makeText(getApplicationContext(), "Time not correct", Toast.LENGTH_LONG).show();
-                     }
+    }
+    else{
+
+        //timer_text.setVisibility(View.GONE);
+        Toast.makeText(getApplicationContext(), "Time not correct", Toast.LENGTH_LONG).show();
+    }
+
+}
+
 
 
 
@@ -218,5 +295,10 @@ ArrayList<String> list=new ArrayList<>();
     private  void getlist(Reservation list){
         list.getDate();
         list.getTime();
+    }
+    private String getCurrentTime_compare(){
+
+       return new SimpleDateFormat("HH", Locale.getDefault()).format(new Date());
+        
     }
 }
