@@ -80,9 +80,10 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
                     .setPositiveButton("OK", (dialog2, which) -> {
 
                         //Temp remove
-                        notifyItemRemoved(position);
+
                         deleteFoodFromFirebase(cartModelList.get(position));
-                        notifyDataSetChanged();
+                        notifyItemRemoved(position);
+                        notifyItemRangeChanged(position, cartModelList.size());
 
                         dialog2.dismiss();
                     }).create();

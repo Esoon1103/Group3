@@ -143,6 +143,8 @@ public class CartActivity extends AppCompatActivity implements View.OnClickListe
         txtTotalPrice.setText(new StringBuilder("RM ").append(sum));
         CartAdapter adapter = new CartAdapter(this, cartModelList);
         recyclerCart.setAdapter(adapter);
+
+        adapter.notifyDataSetChanged();
     }
 
     @Override
