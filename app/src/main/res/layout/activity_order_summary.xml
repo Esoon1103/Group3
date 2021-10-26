@@ -56,6 +56,28 @@
     </RelativeLayout>
 
     <TextView
+        android:id="@+id/display_orderId"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_below="@id/layoutTopBar"
+        android:layout_centerInParent="true"
+        android:text="Order ID #"
+        android:textSize="20dp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/display_totalPrice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="-160dp"
+        android:layout_below="@id/recycler_order_summary"
+        android:layout_centerInParent="true"
+        android:text="Total Price"
+        android:textSize="20dp"
+        android:textStyle="bold" />
+
+    <TextView
         android:id="@+id/Title_Order_Display"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -68,7 +90,8 @@
         android:id="@+id/recycler_order_summary"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:layout_below="@id/Title_Order_Display"
+        android:layout_marginTop="15dp"
+        android:layout_below="@id/display_orderId"
         android:layout_centerHorizontal="true"
         android:scrollbars="vertical"
         app:layout_constraintEnd_toEndOf="parent"
