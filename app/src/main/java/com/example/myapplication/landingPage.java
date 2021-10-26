@@ -13,6 +13,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.myapplication.ui.home.HomeFragment;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 //implements View.OnClickListener
 public class landingPage extends AppCompatActivity implements View.OnClickListener{
     private Button buttonLoginLanding;
@@ -24,6 +27,16 @@ public class landingPage extends AppCompatActivity implements View.OnClickListen
         buttonLoginLanding = findViewById(R.id.buttonLoginLanding);
         buttonLoginLanding.setOnClickListener(this);
 
+        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+        FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
+
+        if(firebaseUser != null){
+            //If there is user logged in, go to homepage
+            startActivity(new Intent(this, HomePage.class));
+        } else {
+            //If not, bring user to login page
+            startActivity(new Intent(this, LoginActivity.class));
+        }
     }
 
    @Override
