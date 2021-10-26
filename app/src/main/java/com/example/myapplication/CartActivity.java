@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.text.format.DateFormat;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -75,7 +76,6 @@ public class CartActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.cart_page);
-
 
         account1 = findViewById(R.id.account1);
         account1.setOnClickListener(this);
@@ -148,7 +148,6 @@ public class CartActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onCartLoadFailed(String message) {
-        refreshPage();
         Toast.makeText(CartActivity.this, message, Toast.LENGTH_SHORT).show();
     }
 
@@ -197,7 +196,7 @@ public class CartActivity extends AppCompatActivity implements View.OnClickListe
             });
         }
         else if(cartModelList.size() > 0){
-            PlaceOrder(cartModelList); //Bring user to HOME PAGE
+            PlaceOrder(cartModelList);
         }
     }
 
@@ -205,13 +204,10 @@ public class CartActivity extends AppCompatActivity implements View.OnClickListe
         btnOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                alertPlaceOrder();
                 //Click "Place Order"
                 addOrderFirebaseData(cartModelList); // Copy cart data to Order data
-                Intent backHome = new Intent(view.getContext(), HomePage.class);
-                startActivity(backHome); //Navigate to HOME PAGE
-                alertDialog(); //Alert successful order
                 deleteCartFirebaseData(); // Order will be set in the Firebase
-                refreshPage();
             }
         });
     }
@@ -291,26 +287,19 @@ public class CartActivity extends AppCompatActivity implements View.OnClickListe
                 .child(firebaseAuth.getUid())
                 .child("Cart")
                 .setValue(null);
-
-        finish();
-        overridePendingTransition(0, 0);
-        startActivity(getIntent());
-        overridePendingTransition(0, 0);
     }
 
-    private void alertDialog(){
-        AlertDialog alert = new AlertDialog.Builder(CartActivity.this)
-                .setTitle("Order Status")
-                .setMessage("Order Placed Successfully")
-                .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int i) {
+    private void alertPlaceOrder(){
+        AlertDialog dialog = new AlertDialog.Builder(CartActivity.this)
+                .setTitle("Order")
+                .setMessage("Confirm to place the order?")
+                .setNegativeButton("CANCEL", (dialog1, which) -> dialog1.dismiss())
+                .setPositiveButton("OK", (dialog2, which) -> {
 
-                        dialog.dismiss();
-                    }
-                })
-                .create();
-        alert.show();
+                    //Temp remove
+                    dialog2.dismiss();
+                }).create();
+        dialog.show();
     }
 
     private void refreshPage(){
