@@ -1,6 +1,9 @@
 package com.example.myapplication;
 
 import android.app.AlertDialog;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,6 +16,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -100,6 +104,8 @@ public class CartActivity extends AppCompatActivity implements View.OnClickListe
         List<Cart> cartModels = new ArrayList<>();
 
         loadFoodFromFirebase(cartModels);
+
+
     }
 
     private void init(){
@@ -189,6 +195,8 @@ public class CartActivity extends AppCompatActivity implements View.OnClickListe
 
     public void validatePlaceOrder(List<Cart> cartModelList){
         if(cartModelList.size() == 0) {
+            recyclerCart.setVisibility(View.GONE);
+
             btnOrder.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -206,6 +214,30 @@ public class CartActivity extends AppCompatActivity implements View.OnClickListe
             });
         }
     }
+    public void notificationShowOrder() {
+        String message = "Your order is completed";
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(CartActivity.this, "My Notification")
+                .setSmallIcon(R.drawable.ic_baseline_local_dining_24)
+                .setContentTitle("inTea Delight Order")
+                .setContentText(message)
+                .setAutoCancel(true);
+
+        Intent intent = new Intent(CartActivity.this, NotificationOrderActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.putExtra("message", message);
+
+        PendingIntent pendingIntent = PendingIntent.getActivity(CartActivity.this,
+                0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        builder.setContentIntent(pendingIntent);
+        NotificationManager notificationManager = (NotificationManager) getSystemService(
+                Context.NOTIFICATION_SERVICE
+
+        );
+        notificationManager.notify(0, builder.build());
+
+    }
+
+
 
     public void alertConfirmation(){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -216,7 +248,7 @@ public class CartActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 addOrderFirebaseData(); // Copy cart data to Order data
-
+                notificationShowOrder();
                 alertSuccessDialog(); //Alert successful order
                 deleteCartFirebaseData(); // Order will be set in the Firebase
                 dialogInterface.dismiss();
@@ -327,7 +359,7 @@ public class CartActivity extends AppCompatActivity implements View.OnClickListe
         AlertDialog alert = new AlertDialog.Builder(CartActivity.this)
                 .setTitle("Order Status")
                 .setMessage("Order Placed Successfully")
-                .setNegativeButton("CANCEL", (dialog1, which) -> dialog1.dismiss())
+                .setNegativeButton("", (dialog1, which) -> dialog1.dismiss())
                 .setPositiveButton("Ok", (dialog2, which) -> {
 
                     refreshPage();
