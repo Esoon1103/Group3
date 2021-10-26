@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.text.format.DateFormat;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -76,7 +77,6 @@ public class CartActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.cart_page);
 
-
         account1 = findViewById(R.id.account1);
         account1.setOnClickListener(this);
 
@@ -144,8 +144,6 @@ public class CartActivity extends AppCompatActivity implements View.OnClickListe
         txtTotalPrice.setText(new StringBuilder("RM ").append(sum));
         CartAdapter adapter = new CartAdapter(this, cartModelList);
         recyclerCart.setAdapter(adapter);
-
-
     }
 
     @Override
@@ -198,7 +196,7 @@ public class CartActivity extends AppCompatActivity implements View.OnClickListe
             });
         }
         else if(cartModelList.size() > 0){
-            PlaceOrder(cartModelList); //Bring user to HOME PAGE
+            PlaceOrder(cartModelList);
         }
     }
 
@@ -206,11 +204,9 @@ public class CartActivity extends AppCompatActivity implements View.OnClickListe
         btnOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                alertPlaceOrder();
                 //Click "Place Order"
                 addOrderFirebaseData(cartModelList); // Copy cart data to Order data
-                Intent backHome = new Intent(view.getContext(), HomePage.class);
-                startActivity(backHome); //Navigate to HOME PAGE
-                alertDialog(); //Alert successful order
                 deleteCartFirebaseData(); // Order will be set in the Firebase
             }
         });
@@ -240,7 +236,7 @@ public class CartActivity extends AppCompatActivity implements View.OnClickListe
                                 //Write Order Items to database
                                 order.getReference("Users")
                                 .child(firebaseAuth.getUid())
-                                .child("Order").child(timestamp).child("Items")
+                                .child("Items").child(timestamp)
                                 .setValue(dataSnapshot.getValue());
 
                                 //Write orderID to database
@@ -261,17 +257,19 @@ public class CartActivity extends AppCompatActivity implements View.OnClickListe
                                 .child("Order").child(timestamp).child("time")
                                 .setValue(time);
 
+                                /*
                                 //Write feedback to database
                                 order.getReference("Users")
                                 .child(firebaseAuth.getUid())
                                 .child("Order").child(timestamp).child("feedback")
                                 .setValue(feedback);
 
+
                                 //Write orderID to database
                                 order.getReference("Users")
                                 .child(firebaseAuth.getUid())
                                 .child("Order").child("Feedback").child(timestamp)
-                                .setValue(timestamp);
+                                .setValue(timestamp);*/
                     }
 
                     @Override
@@ -291,21 +289,26 @@ public class CartActivity extends AppCompatActivity implements View.OnClickListe
                 .setValue(null);
     }
 
-    private void alertDialog(){
-        AlertDialog alert = new AlertDialog.Builder(CartActivity.this)
-                .setTitle("Order Status")
-                .setMessage("Order Placed Successfully")
-                .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int i) {
+    private void alertPlaceOrder(){
+        AlertDialog dialog = new AlertDialog.Builder(CartActivity.this)
+                .setTitle("Order")
+                .setMessage("Confirm to place the order?")
+                .setNegativeButton("CANCEL", (dialog1, which) -> dialog1.dismiss())
+                .setPositiveButton("OK", (dialog2, which) -> {
 
-                        dialog.dismiss();
-                    }
-                })
-                .create();
-        alert.show();
+                    //Temp remove
+                    dialog2.dismiss();
+                }).create();
+        dialog.show();
     }
 
+    private void refreshPage(){
+            finish();
+            overridePendingTransition(0, 0);
+            startActivity(getIntent());
+            overridePendingTransition(0, 0);
+
+    }
 }
 
 

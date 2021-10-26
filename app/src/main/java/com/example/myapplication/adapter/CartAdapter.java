@@ -22,6 +22,7 @@ import com.example.myapplication.CartActivity;
 import com.example.myapplication.HomePage;
 import com.example.myapplication.R;
 import com.example.myapplication.UpdateCartEvent;
+import com.example.myapplication.databinding.CartItemBinding;
 import com.example.myapplication.model.Cart;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
@@ -78,9 +79,27 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
                     .setNegativeButton("CANCEL", (dialog1, which) -> dialog1.dismiss())
                     .setPositiveButton("OK", (dialog2, which) -> {
 
+
+
                         //Temp remove
-                        notifyItemRemoved(position);
+                        //notifyItemRemoved(position);
+                        System.out.println("Before geitemcount:" + getItemCount());
+
                         deleteFoodFromFirebase(cartModelList.get(position));
+
+                        System.out.println("After geitemcount:" + getItemCount());
+
+                        if (getItemCount() == 1) {
+                            //System.out.println("Inside geitemcount:" + getItemCount());
+                            //cartModelList.remove(position);
+                            notifyItemRemoved(position);
+                            notifyItemRangeChanged(position, cartModelList.size());
+                        }
+                        else if(getItemCount() == 0)
+                            Toast.makeText(context,"Unable to notify adapter" ,Toast.LENGTH_SHORT).show();
+
+                        //System.out.println("After geitemcount:" + getItemCount());
+
                         dialog2.dismiss();
                     }).create();
             dialog.show();
