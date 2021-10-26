@@ -87,7 +87,7 @@
 
     <RelativeLayout
         android:id="@+id/cashpayment"
-        android:layout_width="match_parent"
+        android:layout_width="210dp"
         android:layout_height="wrap_content"
         android:layout_above="@id/pricetotallayout"
         android:background="#A9A9A9"
@@ -96,16 +96,65 @@
         <ImageView
             android:layout_width="50dp"
             android:layout_height="50dp"
+            android:layout_marginTop="10dp"
             android:src="@drawable/ic_baseline_money_24" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="80dp"
-            android:layout_marginTop="10dp"
-            android:text="Payment Method: Cash Only"
+            android:layout_marginLeft="60dp"
+            android:text="Payment:"
             android:textColor="@color/white"
+            android:textSize="20sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="60dp"
+            android:layout_marginTop="30dp"
+            android:text="Cash Only"
+            android:textColor="@color/teal_200"
+            android:textSize="20sp" />
+
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/orderTypeLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/pricetotallayout"
+        android:layout_below="@id/layoutrecycler"
+        android:layout_toRightOf="@id/cashpayment"
+        android:background="@color/teal_200">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="80dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="20dp"
+            android:text="Order Type:"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/orderType"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="80dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="45dp"
+            android:text="Order Now"
+            android:textColor="@color/red"
             android:textSize="22sp" />
+
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="20dp"
+            android:src="@drawable/ic_baseline_breakfast_dining_24" />
 
 
     </RelativeLayout>
