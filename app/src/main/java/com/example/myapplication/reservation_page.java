@@ -80,6 +80,7 @@ TextView timer_text;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.reservation_main_page);
 
@@ -160,13 +161,14 @@ if(time == null){
 
 //current time -booking time >=1 then trigger this function
 else if(Integer.parseInt(getCurrentTime_compare())-Integer.parseInt(compare_time)>=1||date.equalsIgnoreCase(getDate())){
-         
-     DatabaseReference drTable1=FirebaseDatabase.getInstance("https://intea-delight-default-rtdb.asia-southeast1.firebasedatabase.app").getReference("Table_Reservation")
-                    .child(firebaseAuth.getUid()).child("reservation");
-            drTable1.removeValue();
-            Toast.makeText(reservation_page.this,"Deleted", Toast.LENGTH_LONG).show();
 
-            FirebaseDatabase add_table = FirebaseDatabase.getInstance("https://intea-delight-default-rtdb.asia-southeast1.firebasedatabase.app");
+    DatabaseReference drTable2=FirebaseDatabase.getInstance("https://intea-delight-default-rtdb.asia-southeast1.firebasedatabase.app").getReference("Table_Reservation")
+            .child(firebaseAuth.getUid()).child("reservation");
+           // drTable1.removeValue();
+                   drTable2.setValue(null);
+            Toast.makeText(reservation_page.this,"Time up", Toast.LENGTH_LONG).show();
+
+            /*FirebaseDatabase add_table = FirebaseDatabase.getInstance("https://intea-delight-default-rtdb.asia-southeast1.firebasedatabase.app");
             DatabaseReference reference3 =add_table.getReference("Table").child(temp);
              reference3.addValueEventListener(new ValueEventListener() {
                  @Override
@@ -179,7 +181,7 @@ else if(Integer.parseInt(getCurrentTime_compare())-Integer.parseInt(compare_time
                  public void onCancelled(@NonNull DatabaseError error) {
 
                  }
-             }) ;
+             }) ;*/
 
 }
 else{
@@ -205,24 +207,25 @@ else{
                 timer_text.setVisibility(View.GONE);
                 DatabaseReference drTable1=FirebaseDatabase.getInstance("https://intea-delight-default-rtdb.asia-southeast1.firebasedatabase.app").getReference("Table_Reservation")
                         .child(firebaseAuth.getUid()).child("reservation");
-                drTable1.removeValue();
-                Toast.makeText(reservation_page.this,"Time Up", Toast.LENGTH_LONG).show();
+               // drTable1.removeValue();
+                drTable1.setValue(null);
+              //  Toast.makeText(reservation_page.this,"Time Up", Toast.LENGTH_LONG).show();
 
-                FirebaseDatabase add_table = FirebaseDatabase.getInstance("https://intea-delight-default-rtdb.asia-southeast1.firebasedatabase.app");
+              //  FirebaseDatabase add_table = FirebaseDatabase.getInstance("https://intea-delight-default-rtdb.asia-southeast1.firebasedatabase.app");
 
-                DatabaseReference reference4 =add_table.getReference("Table").child(temp);
-                reference4.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+               // DatabaseReference reference4 =add_table.getReference("Table").child(temp);
+               // reference4.addValueEventListener(new ValueEventListener() {
+                  //  @Override
+                   // public void onDataChange(@NonNull DataSnapshot snapshot) {
 
                       //  reference4.setValue(temp);
-                    }
+                  //  }
 
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
+                   // @Override
+                   // public void onCancelled(@NonNull DatabaseError error) {
 
-                    }
-                }) ;
+                 //   }
+              //  }) ;
 
                 Toast.makeText(getApplicationContext(), "Countdown timer has ended", Toast.LENGTH_LONG).show();
 
@@ -283,9 +286,6 @@ else{
     @Override
     public void onReservationLoadFailed(String message) {
 
-    }
-    private String getCurrentTime(){
-        return new SimpleDateFormat("hh:mm a", Locale.getDefault()).format(new Date());
     }
 
     private String getDate (){

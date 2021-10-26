@@ -212,14 +212,14 @@ submit_btn.setOnClickListener(new View.OnClickListener() {
             String date=select_Date.getText().toString();
             String time=select_Time.getText().toString();
             String compare_Time=compare_time;
-        System.out.println(compare_Time);
+
         Reservation reservation=new Reservation(table_id, date, time,compare_Time );
             reference.setValue(reservation);
 
 
           //  deleteTable(table_id);
 
-
+        Toast.makeText(getApplicationContext(), "Reserved", Toast.LENGTH_LONG).show();
 
     }
 
@@ -239,7 +239,8 @@ submit_btn.setOnClickListener(new View.OnClickListener() {
 
 
 
-        show_avail_table=findViewById(R.id.show_avail_table);
+        //show_avail_table=findViewById(R.id.show_avail_table);
+
 /*
         ArrayAdapter adapter_table=new ArrayAdapter<String>(this,R.layout.show_table_item, list);
         show_avail_table.setAdapter(adapter_table);
@@ -270,12 +271,12 @@ submit_btn.setOnClickListener(new View.OnClickListener() {
 
         }
 
-    private void deleteTable(String table_id) {
+   /* private void deleteTable(String table_id) {
         DatabaseReference drTable=FirebaseDatabase.getInstance("https://intea-delight-default-rtdb.asia-southeast1.firebasedatabase.app").getReference("Table")
                 .child(table_id);
         drTable.removeValue();
-        Toast.makeText(this,"Reserved", Toast.LENGTH_LONG).show();
-    }
+
+    }*/
 
 
     @Override
@@ -330,7 +331,7 @@ return false;
         }
     }
 
-public Boolean validate_Table(){
+/*public Boolean validate_Table(){
    reference1=FirebaseDatabase.getInstance("https://intea-delight-default-rtdb.asia-southeast1.firebasedatabase.app")
             .getReference("Table_Reservation")
             .child(firebaseAuth.getUid());
@@ -349,7 +350,7 @@ public Boolean validate_Table(){
             Toast.makeText(getApplicationContext(), "can", Toast.LENGTH_LONG).show();
         }
     });
-    return true;}
+    return true;}*/
 
 }
 
