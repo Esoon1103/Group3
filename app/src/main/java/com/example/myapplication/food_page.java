@@ -13,13 +13,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.myapplication.adapter.RiceAdapter;
+import com.example.myapplication.adapter.FoodAdapter;
 import com.example.myapplication.listener.ICartLoadListener;
-import com.example.myapplication.listener.IRiceLoadListener;
+import com.example.myapplication.listener.IFoodLoadListener;
 import com.example.myapplication.model.Cart;
-import com.example.myapplication.model.Rice;
+import com.example.myapplication.model.Food;
 import com.example.myapplication.utils.SpaceItemDecoration;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -37,7 +36,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class rice_page extends AppCompatActivity implements IRiceLoadListener, ICartLoadListener, View.OnClickListener{
+public class food_page extends AppCompatActivity implements IFoodLoadListener, ICartLoadListener, View.OnClickListener{
     private Button account1,home1,orderHistory1;
     private ImageView btnBack;
     private FirebaseAuth firebaseAuth;
@@ -49,7 +48,7 @@ public class rice_page extends AppCompatActivity implements IRiceLoadListener, I
     @BindView(R.id.cart1)
     Button cart1;
 
-    IRiceLoadListener riceLoadListener;
+    IFoodLoadListener riceLoadListener;
     ICartLoadListener cartLoadListener;
 
     protected void onStart(){
@@ -110,10 +109,10 @@ public class rice_page extends AppCompatActivity implements IRiceLoadListener, I
 
     //Read All Food from Firebase
     private void loadFoodFromFirebase() {
-        List<Rice> riceModels = new ArrayList<>();
+        List<Food> foodModels = new ArrayList<>();
 
         FirebaseDatabase database = FirebaseDatabase.getInstance("https://intea-delight-default-rtdb.asia-southeast1.firebasedatabase.app");
-        DatabaseReference reference = database.getReference("Rice");
+        DatabaseReference reference = database.getReference("Food");
 
             reference.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
@@ -121,11 +120,11 @@ public class rice_page extends AppCompatActivity implements IRiceLoadListener, I
                     if(snapshot.exists()){
                         for(DataSnapshot riceSnapshot:snapshot.getChildren())
                         {
-                            Rice riceModel = riceSnapshot.getValue(Rice.class);
-                            riceModel.setKey(riceSnapshot.getKey());
-                            riceModels.add(riceModel);
+                            Food foodModel = riceSnapshot.getValue(Food.class);
+                            foodModel.setKey(riceSnapshot.getKey());
+                            foodModels.add(foodModel);
                         }
-                        riceLoadListener.onRiceLoadSuccess(riceModels);
+                        riceLoadListener.onRiceLoadSuccess(foodModels);
                     }
                     else
                         riceLoadListener.onRiceLoadFailed("Can't find the Rice");
@@ -139,14 +138,14 @@ public class rice_page extends AppCompatActivity implements IRiceLoadListener, I
     }
 
     @Override
-    public void onRiceLoadSuccess(List<Rice> riceModelList) {
-        RiceAdapter adapter = new RiceAdapter(this, riceModelList, cartLoadListener);
+    public void onRiceLoadSuccess(List<Food> foodModelList) {
+        FoodAdapter adapter = new FoodAdapter(this, foodModelList, cartLoadListener);
         riceListRecycler.setAdapter(adapter);
     }
 
     @Override
     public void onRiceLoadFailed(String message) {
-        Toast.makeText(rice_page.this, message, Toast.LENGTH_SHORT).show();
+        Toast.makeText(food_page.this, message, Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -160,7 +159,7 @@ public class rice_page extends AppCompatActivity implements IRiceLoadListener, I
 
     @Override
     public void onCartLoadFailed(String message) {
-        Toast.makeText(rice_page.this, message, Toast.LENGTH_SHORT).show();
+        Toast.makeText(food_page.this, message, Toast.LENGTH_SHORT).show();
     }
 
     @Override

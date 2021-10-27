@@ -2,10 +2,10 @@ package com.example.myapplication.model;
 
 import com.example.myapplication.HomePage;
 
-public class Rice{
+public class Food {
     private String key, name, price, image, id;
 
-    public Rice() {
+    public Food() {
     }
 
     public String getId() {

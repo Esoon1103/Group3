@@ -4,21 +4,15 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
 import com.example.myapplication.R;
-import com.example.myapplication.listener.IAddtoCartClickListener;
-import com.example.myapplication.listener.ICartLoadListener;
 import com.example.myapplication.listener.IViewOrderLoadListener;
 import com.example.myapplication.listener.RecyclerViewClickInterface;
-import com.example.myapplication.model.Rice;
 import com.example.myapplication.model.ViewOrderModel;
-import com.smarteist.autoimageslider.SliderViewAdapter;
 
 import java.util.List;
 

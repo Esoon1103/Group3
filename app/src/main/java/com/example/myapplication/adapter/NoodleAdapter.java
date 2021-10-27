@@ -1,7 +1,6 @@
 package com.example.myapplication.adapter;
 
 import android.content.Context;
-import android.media.Image;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,8 +17,6 @@ import com.example.myapplication.listener.IAddtoCartClickListener;
 import com.example.myapplication.listener.ICartLoadListener;
 import com.example.myapplication.model.Cart;
 import com.example.myapplication.model.Noodle;
-import com.example.myapplication.model.Rice;
-import com.example.myapplication.rice_page;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -27,7 +24,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import org.greenrobot.eventbus.EventBus;
-import org.w3c.dom.Text;
 
 import java.util.HashMap;
 import java.util.List;

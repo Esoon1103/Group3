@@ -16,7 +16,6 @@ import com.example.myapplication.listener.IAddtoCartClickListener;
 import com.example.myapplication.listener.ICartLoadListener;
 import com.example.myapplication.model.Cart;
 import com.example.myapplication.model.Drinks;
-import com.example.myapplication.model.Rice;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;

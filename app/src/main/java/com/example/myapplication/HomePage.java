@@ -48,7 +48,7 @@ public class HomePage extends AppCompatActivity implements View.OnClickListener 
                 break;
 
             case R.id.rice_btn_homepage:
-                Intent riceBtn = new Intent(this, rice_page.class);
+                Intent riceBtn = new Intent(this, food_page.class);
                 startActivity(riceBtn);
                 break;
             /*

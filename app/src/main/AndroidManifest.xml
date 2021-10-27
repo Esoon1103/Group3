@@ -48,7 +48,7 @@
         <activity android:name=".orderHistory" />
         <activity android:name=".CartActivity" />
         <activity android:name=".changePassword" />
-        <activity android:name=".rice_page" />
+        <activity android:name=".food_page" />
         <activity android:name=".Reservation_home" />
         <activity android:name=".reservation_page" />
         <activity android:name=".noodle_page" />

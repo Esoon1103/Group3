@@ -1,20 +1,14 @@
 package com.example.myapplication;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.provider.ContactsContract;
-import android.view.View;
 import android.widget.RelativeLayout;
-import android.widget.Toast;
 
-import com.example.myapplication.adapter.RiceAdapter;
 import com.example.myapplication.adapter.ViewOrderAdapter;
 import com.example.myapplication.listener.IViewOrderLoadListener;
 import com.example.myapplication.listener.RecyclerViewClickInterface;
@@ -27,14 +21,12 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.ktx.Firebase;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import io.reactivex.rxjava3.disposables.CompositeDisposable;
 
 public class ViewOrderActivity extends AppCompatActivity implements IViewOrderLoadListener, RecyclerViewClickInterface {
 
