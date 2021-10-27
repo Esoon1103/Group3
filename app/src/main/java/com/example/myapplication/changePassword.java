@@ -83,16 +83,19 @@ public class changePassword extends AppCompatActivity implements View.OnClickLis
             changePass.setOnClickListener(new View.OnClickListener(){
                 @Override
                 public void onClick(View view) {
+                    firebaseAuth = FirebaseAuth.getInstance();
 
                     reference = FirebaseDatabase.getInstance("https://intea-delight-default-rtdb.asia-southeast1.firebasedatabase.app/")
-                            .getReference("Password").child("CurrentPass");
+                            .getReference(firebaseAuth.getUid()).child("password");
 
                     reference.addValueEventListener(new ValueEventListener() {
                                 @Override
                                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                                     for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
 
-                                        String passwordData = "hi"; //dataSnapshot.getValue().toString();
+                                        String passwordData = dataSnapshot.getValue().toString();
+                                        System.out.println(passwordData);
+                                        //String passwordData = "hi"; //dataSnapshot.getValue().toString();
                                         OnChangePass(passwordData);
                                     }
                                 }
@@ -110,10 +113,11 @@ public class changePassword extends AppCompatActivity implements View.OnClickLis
                     firebaseAuth = FirebaseAuth.getInstance();
                     FirebaseUser user = firebaseAuth.getCurrentUser();
                     dialog.setMessage("Changing password, Please wait");
-                    dialog.show();
 
                     if (passwordData.equals(currentPass.getText().toString())) {
-                        if (newPass.getText().toString().equals(confirmPass.getText().toString())) {
+                        if (newPass.getText().toString().equals(confirmPass.getText().toString()) && newPass.getText().toString() != "" && confirmPass.getText().toString()!= "") {
+                            dialog.show();
+
                             user.updatePassword(newPass.getText().toString())
                                     .addOnCompleteListener(new OnCompleteListener<Void>() {
                                         @Override
@@ -133,7 +137,7 @@ public class changePassword extends AppCompatActivity implements View.OnClickLis
                                             }
                                         }
                                     });
-                        } else if (newPass.getText().toString().isEmpty() && confirmPass.getText().toString().isEmpty()) {
+                        } else if (newPass.getText().toString() == null && confirmPass.getText().toString() == null) {
                             dialog.dismiss();
                             Toast.makeText(changePassword.this,
                                     "No input detected.", Toast.LENGTH_LONG).show();
@@ -152,7 +156,7 @@ public class changePassword extends AppCompatActivity implements View.OnClickLis
                         }
                     } else {
                         Toast.makeText(changePassword.this,
-                                "Enter your Current Password.", Toast.LENGTH_LONG).show();
+                                "Password does not match.", Toast.LENGTH_LONG).show();
                     }
                 }
           });
