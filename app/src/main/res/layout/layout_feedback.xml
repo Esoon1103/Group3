@@ -25,6 +25,26 @@
             android:textSize="20sp" />
 
         <TextView
+            android:id="@+id/DateFeed"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:layout_marginLeft="280dp"
+            android:layout_marginTop="10dp"
+            android:text="Date"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/TimeFeed"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:layout_marginLeft="200dp"
+            android:layout_marginTop="10dp"
+            android:text="Time"
+            android:textSize="18sp" />
+
+        <TextView
             android:id="@+id/txtFeedback"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
