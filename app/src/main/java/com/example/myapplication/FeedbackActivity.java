@@ -48,6 +48,8 @@ public class FeedbackActivity extends AppCompatActivity implements IFeedbackLoad
     FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     List<FeedbackModel> feedbackModels = new ArrayList<>();
 
+    String timestamp = ""+System.currentTimeMillis();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,33 +59,34 @@ public class FeedbackActivity extends AppCompatActivity implements IFeedbackLoad
         SubmitFeedback = findViewById(R.id.btnSubmitFeedback);
 
         reference = FirebaseDatabase.getInstance("https://intea-delight-default-rtdb.asia-southeast1.firebasedatabase.app/")
-                .getReference().child("Users").child(firebaseAuth.getUid()).child("Feedback");
+                .getReference().child("Users").child(firebaseAuth.getUid());
 
         SubmitFeedback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
                 //Accessing to orderID for Feedback
-                reference.addListenerForSingleValueEvent(new ValueEventListener() {
+                reference.addValueEventListener(new ValueEventListener() {
 
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
 
-                            reference.child("Feedback");
+
                             String feedback = etFeedback.getText().toString();
-                            HashMap hashMap = new HashMap();
-                            hashMap.put("feedback", feedback);
+                        /*    HashMap hashMap = new HashMap();
+                            hashMap.put("feedback", feedback);*/
+                            reference.child("Feedback")
+                                    .child(timestamp)
+                                    .setValue(feedback);
 
-                            //Write Feedback to database
-                            //reference.child("Feedback").setValue(hashMap);
 
-                            reference.updateChildren(hashMap).addOnSuccessListener(new OnSuccessListener() {
+                          /*  reference.updateChildren(hashMap).addOnSuccessListener(new OnSuccessListener() {
                                 @Override
                                 public void onSuccess(Object o) {
                                     Toast.makeText(FeedbackActivity.this, "Feedback Submitted", Toast.LENGTH_SHORT).show();
                                 }
-                            });
+                            });*/
 
                         }
                     }
@@ -104,20 +107,18 @@ public class FeedbackActivity extends AppCompatActivity implements IFeedbackLoad
 
         FirebaseDatabase database = FirebaseDatabase.getInstance("https://intea-delight-default-rtdb.asia-southeast1.firebasedatabase.app/");
         DatabaseReference reference1 = database.getReference("Users")
-                .child(firebaseAuth.getUid());
+                .child(firebaseAuth.getUid()).child("Feedback");
 
         reference1.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                //String orderId = snapshot.child("orderId").getValue().toString();
-                //System.out.println(orderId);
+
                 if (snapshot.exists()) {
                     for (DataSnapshot feedbackSnapshot : snapshot.getChildren()) {
                         FeedbackModel feedbackModel = feedbackSnapshot.getValue(FeedbackModel.class);
                         feedbackModel.setKey(feedbackSnapshot.getKey());
                         feedbackModels.add(feedbackModel);
-                               /* String testing = viewOrderModel.getOrderId();
-                                System.out.println(testing);*/
+
                     }
                     feedbackLoadListener.onFeedbackLoadSuccess(feedbackModels);
                 } else {
