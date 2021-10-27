@@ -202,9 +202,9 @@ String split_date[]=date.split("/");
 
 
 
- if (Integer.valueOf(getDate_day ())-splited_day>0 && Integer.valueOf(getDate_month())-splited_month>0 ){
+ /*if (Integer.valueOf(getDate_day ())-splited_day>0  ){
      System.out.println("can compare");
- }
+ }*/
 
 
 //current time -booking time >=1 then trigger this function

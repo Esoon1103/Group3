@@ -404,13 +404,27 @@ else {
     }
 
 public Boolean validateDate(String day, String month, String year){
-        int day1, month1, year1;
+        int currday1, month1, year1;
+        currday1=Integer.valueOf(day);
+        month1=Integer.valueOf(month);
+    year1=Integer.valueOf(year);
         String val =select_Date.getText().toString();
+    String split_date[]=val.split("/");
+    int bookday=Integer.valueOf(split_date[0]);
+    int bookmonth=Integer.valueOf(split_date[1]);
+    int bookyear=Integer.valueOf(split_date[2]);
+
     if (val.isEmpty()
     ) {
         select_Date.setError("Cannot Empty");
 return false;
     }
+
+    else if(bookday<currday1 && bookmonth<month1){
+        select_Date.setError("Cannot Empty");
+        return false;
+    }
+
     else{
         select_Date.setError(null);
         return  true;
