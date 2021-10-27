@@ -17,6 +17,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
+
 import static androidx.core.content.ContextCompat.startActivity;
 
 import android.app.AlertDialog;
@@ -68,25 +69,25 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-public class reservation_form  extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemSelectedListener, IReservationLoadListener {
+public class reservation_form extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemSelectedListener, IReservationLoadListener {
     TextView select_Time, select_Date;
     private Button account1, home1, orderHistory1, cart1;
     String table_validate, time1, table, table1;
-    int temp=0;
-    ArrayList<String>list=new ArrayList<>();
-int t1Hour, t1Minutes;
-Button submit_btn;
-String table_Number, temp1;
+    int temp = 0;
+    ArrayList<String> list = new ArrayList<>();
+    int t1Hour, t1Minutes;
+    Button submit_btn;
+    String table_Number, temp1;
 
-ListView show_avail_table;
-DatePickerDialog.OnDateSetListener setListener;
-IReservationLoadListener reservationLoadListener;
+    ListView show_avail_table;
+    DatePickerDialog.OnDateSetListener setListener;
+    IReservationLoadListener reservationLoadListener;
     private FirebaseAuth firebaseAuth;
 
-FirebaseDatabase rootNode;
-String compare_time="";
-    DatabaseReference deleteNode,deleteNode1;
-DatabaseReference reference, reference1;
+    FirebaseDatabase rootNode;
+    String compare_time = "";
+    DatabaseReference deleteNode, deleteNode1;
+    DatabaseReference reference, reference1;
 
 
     @Override
@@ -115,101 +116,97 @@ DatabaseReference reference, reference1;
         }
 
 
-        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        firebaseAuth =FirebaseAuth.getInstance();
+        firebaseAuth = FirebaseAuth.getInstance();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.reservation_form);
-submit_btn=findViewById(R.id.submit_btn);
+        submit_btn = findViewById(R.id.submit_btn);
 
 
-        Spinner spinner1=findViewById(R.id.spinner2);
-        ArrayAdapter<CharSequence>adapter1=ArrayAdapter.createFromResource(this, R.array.name1, android.R.layout.simple_spinner_item);
+        Spinner spinner1 = findViewById(R.id.spinner2);
+        ArrayAdapter<CharSequence> adapter1 = ArrayAdapter.createFromResource(this, R.array.name1, android.R.layout.simple_spinner_item);
         adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-       spinner1.setAdapter(adapter1);
+        spinner1.setAdapter(adapter1);
         spinner1.setOnItemSelectedListener(this);
 
 
+        select_Date = findViewById(R.id.select_Date);
 
-
-
-        select_Date =findViewById(R.id.select_Date);
-
-        Calendar calendar =Calendar.getInstance();
-        final int year=calendar.get(Calendar.YEAR);
-        final int month=calendar.get(Calendar.MONTH);
-        final int day1=calendar.get(Calendar.DAY_OF_MONTH);
+        Calendar calendar = Calendar.getInstance();
+        final int year = calendar.get(Calendar.YEAR);
+        final int month = calendar.get(Calendar.MONTH);
+        final int day1 = calendar.get(Calendar.DAY_OF_MONTH);
 
         select_Date.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-DatePickerDialog datePickerDialog=new DatePickerDialog(reservation_form.this, android.R.style.Theme_Holo_Light_Dialog_MinWidth
-, setListener, year,month,day1);
-datePickerDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-datePickerDialog.show();
+                DatePickerDialog datePickerDialog = new DatePickerDialog(reservation_form.this, android.R.style.Theme_Holo_Light_Dialog_MinWidth
+                        , setListener, year, month, day1);
+                datePickerDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                datePickerDialog.show();
             }
         });
 
-setListener=new DatePickerDialog.OnDateSetListener() {
-    @Override
-    public void onDateSet(DatePicker view, int year, int month, int dayofMonth) {
-        month=month+1;
-        String date = dayofMonth+"/"+month+"/"+year;
-        select_Date.setText(date);
-    }
-};
-
-        select_Time=findViewById(R.id.select_Time);
-select_Time.setOnClickListener(new View.OnClickListener() {
-    @Override
-    public void onClick(View v) {
-TimePickerDialog timePickerDialog=new TimePickerDialog(
-        reservation_form.this,
-        android.R.style.Theme_Material_Light_Dialog_MinWidth,
-        new TimePickerDialog.OnTimeSetListener() {
+        setListener = new DatePickerDialog.OnDateSetListener() {
             @Override
-            public void onTimeSet(TimePicker view, int hourofDay, int minutes) {
-t1Hour=hourofDay;
-t1Minutes=minutes;
-//store in string
-              String time=t1Hour+":"+t1Minutes;
-                compare_time=t1Hour+"";
-                SimpleDateFormat f24Hours=new SimpleDateFormat(
-                        "HH:mm"
-                );
-                try {
-                    Date date= f24Hours.parse(time);
-                    SimpleDateFormat f12Hours=new SimpleDateFormat(
-                           "hh:mm aa"
-                    );
-                    select_Time.setText(f12Hours.format(date));
-                    String.format(compare_time, f24Hours);
-
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
+            public void onDateSet(DatePicker view, int year, int month, int dayofMonth) {
+                month = month + 1;
+                String date = dayofMonth + "/" + month + "/" + year;
+                select_Date.setText(date);
             }
-        },12,0,false
-);
-timePickerDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-timePickerDialog.updateTime(t1Hour,t1Minutes);
-timePickerDialog.show();
-    }
-});
+        };
 
-        DatabaseReference reference_table1 =FirebaseDatabase.getInstance("https://intea-delight-default-rtdb.asia-southeast1.firebasedatabase.app")
+        select_Time = findViewById(R.id.select_Time);
+        select_Time.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                TimePickerDialog timePickerDialog = new TimePickerDialog(
+                        reservation_form.this,
+                        android.R.style.Theme_Material_Light_Dialog_MinWidth,
+                        new TimePickerDialog.OnTimeSetListener() {
+                            @Override
+                            public void onTimeSet(TimePicker view, int hourofDay, int minutes) {
+                                t1Hour = hourofDay;
+                                t1Minutes = minutes;
+//store in string
+                                String time = t1Hour + ":" + t1Minutes;
+                                compare_time = t1Hour + "";
+                                SimpleDateFormat f24Hours = new SimpleDateFormat(
+                                        "HH:mm"
+                                );
+                                try {
+                                    Date date = f24Hours.parse(time);
+                                    SimpleDateFormat f12Hours = new SimpleDateFormat(
+                                            "hh:mm aa"
+                                    );
+                                    select_Time.setText(f12Hours.format(date));
+                                    String.format(compare_time, f24Hours);
+
+                                } catch (ParseException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        }, 12, 0, false
+                );
+                timePickerDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                timePickerDialog.updateTime(t1Hour, t1Minutes);
+                timePickerDialog.show();
+            }
+        });
+
+        DatabaseReference reference_table1 = FirebaseDatabase.getInstance("https://intea-delight-default-rtdb.asia-southeast1.firebasedatabase.app")
                 .getReference("Table_Number");
         reference_table1.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
 
-                    table_Number = snapshot.child("table_Num").getValue(String.class);
+                table_Number = snapshot.child("table_Num").getValue(String.class);
 
-                    temp=Integer.valueOf(table_Number);
-
+                temp = Integer.valueOf(table_Number);
 
 
             }
@@ -229,7 +226,7 @@ timePickerDialog.show();
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                    table_validate=dataSnapshot.child("table_id").getValue(String.class);
+                    table_validate = dataSnapshot.child("table_id").getValue(String.class);
 
 
                 }
@@ -243,81 +240,71 @@ timePickerDialog.show();
 
 
         //temp=Integer.parseInt(table_Number);
-submit_btn.setOnClickListener(new View.OnClickListener() {
-
-    @Override
-    public void onClick(View view) {
-        System.out.println(table_validate);
-        if(!validateDate()|!validateTime()){
-            return;
-        }
-if (table_validate==null){
-
-
-
-    if(temp==0){//table num
-        Toast.makeText(reservation_form.this,"No More Table", Toast.LENGTH_LONG).show();
-
-    }
-    else{
-
-        firebaseAuth=FirebaseAuth.getInstance();
-        rootNode=FirebaseDatabase.getInstance("https://intea-delight-default-rtdb.asia-southeast1.firebasedatabase.app");
-        reference=rootNode.getReference("Table_Reservation").child(firebaseAuth.getUid()).child("reservation");
-
-        String table_id= spinner1.getSelectedItem().toString();
-        String date=select_Date.getText().toString();
-        String time=select_Time.getText().toString();
-        String compare_Time=compare_time;
-
-        Reservation reservation=new Reservation(table_id, date, time,compare_Time );
-        reference.setValue(reservation);
-
-
-        //  deleteTable(table_id);
-
-        Toast.makeText(getApplicationContext(), "Reserved", Toast.LENGTH_LONG).show();
-
-
-
-        temp=temp-1;
-        temp1=String.valueOf(temp);
-        FirebaseDatabase add_table = FirebaseDatabase.getInstance("https://intea-delight-default-rtdb.asia-southeast1.firebasedatabase.app");
-        DatabaseReference reference3 =add_table.getReference("Table_Number").child("table_Num");
-        reference3.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-
-                reference3.setValue(temp1);
-            }
+        submit_btn.setOnClickListener(new View.OnClickListener() {
 
             @Override
-            public void onCancelled(@NonNull DatabaseError error) {
+            public void onClick(View view) {
+                System.out.println(table_validate);
+                if (!validateDate() | !validateTime()) {
+                    return;
+                }
+                if (table_validate == null) {
+
+
+                    if (temp == 0) {//table num
+                        Toast.makeText(reservation_form.this, "No More Table", Toast.LENGTH_LONG).show();
+
+                    } else {
+
+                        firebaseAuth = FirebaseAuth.getInstance();
+                        rootNode = FirebaseDatabase.getInstance("https://intea-delight-default-rtdb.asia-southeast1.firebasedatabase.app");
+                        reference = rootNode.getReference("Table_Reservation").child(firebaseAuth.getUid()).child("reservation");
+
+                        String table_id = spinner1.getSelectedItem().toString();
+                        String date = select_Date.getText().toString();
+                        String time = select_Time.getText().toString();
+                        String compare_Time = compare_time;
+
+                        Reservation reservation = new Reservation(table_id, date, time, compare_Time);
+                        reference.setValue(reservation);
+
+
+                        //  deleteTable(table_id);
+
+                        Toast.makeText(getApplicationContext(), "Reserved", Toast.LENGTH_LONG).show();
+
+
+                        temp = temp - 1;
+                        temp1 = String.valueOf(temp);
+                        FirebaseDatabase add_table = FirebaseDatabase.getInstance("https://intea-delight-default-rtdb.asia-southeast1.firebasedatabase.app");
+                        DatabaseReference reference3 = add_table.getReference("Table_Number").child("table_Num");
+                        reference3.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                                reference3.setValue(temp1);
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+
+                            }
+                        });
+
+
+                    }
+                    refreshPage_Reservation();
+
+                } else {
+                    Toast.makeText(reservation_form.this, "You Already Have Reservation", Toast.LENGTH_LONG).show();
+                    refreshPage_Reservation();
+
+                }
+
 
             }
+
         });
-
-
-    }
-    refreshPage_Reservation();
-
-}
-else {
-    Toast.makeText(reservation_form.this,"You Already Have Reservation", Toast.LENGTH_LONG).show();
-    refreshPage_Reservation();
-
-}
-
-
-
-
-
-
-
-
-    }
-
-});
 
         account1 = findViewById(R.id.account1);
         account1.setOnClickListener(this);
@@ -330,7 +317,6 @@ else {
 
         cart1 = findViewById(R.id.cart1);
         cart1.setOnClickListener(this);
-
 
 
         //show_avail_table=findViewById(R.id.show_avail_table);
@@ -359,10 +345,7 @@ else {
         });*/
 
 
-
-
-
-        }
+    }
 
    /* private void deleteTable(String table_id) {
         DatabaseReference drTable=FirebaseDatabase.getInstance("https://intea-delight-default-rtdb.asia-southeast1.firebasedatabase.app").getReference("Table")
@@ -375,8 +358,8 @@ else {
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int i, long l) {
 
-        String text=parent.getItemAtPosition(i).toString();
-        Toast.makeText(parent.getContext(),text,Toast.LENGTH_SHORT).show();
+        String text = parent.getItemAtPosition(i).toString();
+        Toast.makeText(parent.getContext(), text, Toast.LENGTH_SHORT).show();
     }
 
 
@@ -384,10 +367,6 @@ else {
     public void onNothingSelected(AdapterView<?> adapterView) {
 
     }
-
-
-
-
 
 
     @Override
@@ -399,32 +378,32 @@ else {
     public void onReservationLoadFailed(String message) {
 
     }
-public Boolean validateDate(){
-        String val =select_Date.getText().toString();
-    if (val.isEmpty()
-    ) {
-        select_Date.setError("Cannot Empty");
-return false;
+
+    public Boolean validateDate() {
+        String val = select_Date.getText().toString();
+        if (val.isEmpty()
+        ) {
+            select_Date.setError("Cannot Empty");
+            return false;
+        } else {
+            select_Date.setError(null);
+            return true;
+        }
     }
-    else{
-        select_Date.setError(null);
-        return  true;
-    }
-}
-    public Boolean validateTime(){
-        String val =select_Time.getText().toString();
+
+    public Boolean validateTime() {
+        String val = select_Time.getText().toString();
         if (val.isEmpty()
         ) {
             select_Time.setError("Cannot Empty");
             return false;
-        }
-        else{
+        } else {
             select_Time.setError(null);
-            return  true;
+            return true;
         }
     }
 
-    public void refreshPage_Reservation(){
+    public void refreshPage_Reservation() {
         finish();
         overridePendingTransition(0, 0);
         startActivity(getIntent());

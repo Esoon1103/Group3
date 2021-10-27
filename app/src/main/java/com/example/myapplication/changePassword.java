@@ -32,7 +32,6 @@ public class changePassword extends AppCompatActivity implements View.OnClickLis
     FirebaseAuth firebaseAuth;
     DatabaseReference reference;
     ProgressDialog dialog;
-    String currentData;
 
     @Override
     public void onClick(View view) {
@@ -79,14 +78,11 @@ public class changePassword extends AppCompatActivity implements View.OnClickLis
             }
         }); */
 
-            firebaseAuth = FirebaseAuth.getInstance();
+
 
             changePass.setOnClickListener(new View.OnClickListener(){
                 @Override
                 public void onClick(View view) {
-                    FirebaseUser user = firebaseAuth.getCurrentUser();
-                    dialog.setMessage("Changing password, Please wait");
-                    dialog.show();
 
                     reference = FirebaseDatabase.getInstance("https://intea-delight-default-rtdb.asia-southeast1.firebasedatabase.app/")
                             .getReference("CurrentPass").child("Current");
@@ -96,7 +92,9 @@ public class changePassword extends AppCompatActivity implements View.OnClickLis
                                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                                     for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
 
-                                        currentData = dataSnapshot.getValue().toString();
+                                        String currentData = "hi"; //dataSnapshot.getValue().toString();
+                                        System.out.println(currentData);
+                                        OnChangePass(currentData);
                                         System.out.println(currentData);
                                     }
                                 }
@@ -108,8 +106,15 @@ public class changePassword extends AppCompatActivity implements View.OnClickLis
 
                             });
 
-                    System.out.println(currentData);
-                  /*  if (currentData.equals(currentPass.getText().toString())){
+                } //Onclick
+
+                public void OnChangePass(String databasePass) {
+                    firebaseAuth = FirebaseAuth.getInstance();
+                    FirebaseUser user = firebaseAuth.getCurrentUser();
+                    dialog.setMessage("Changing password, Please wait");
+                    dialog.show();
+
+                    if (databasePass.equals(currentPass.getText().toString())) {
                         if (newPass.getText().toString().equals(confirmPass.getText().toString())) {
                             user.updatePassword(newPass.getText().toString())
                                     .addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -147,11 +152,11 @@ public class changePassword extends AppCompatActivity implements View.OnClickLis
                             Toast.makeText(changePassword.this,
                                     "Password not matched.", Toast.LENGTH_LONG).show();
                         }
-                    } else{
+                    } else {
                         Toast.makeText(changePassword.this,
                                 "Enter your Current Password.", Toast.LENGTH_LONG).show();
-                    } */
-                } //Onclick
+                    }
+                }
           });
 
     } //onCreate

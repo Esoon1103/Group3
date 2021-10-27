@@ -91,9 +91,9 @@ public class LoginActivity extends AppCompatActivity {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 progressBar.setVisibility(View.GONE);
-                                if(task.isSuccessful()){
+                                if (task.isSuccessful()) {
                                     startActivity(new Intent(LoginActivity.this, HomePage.class));
-                                } else{
+                                } else {
                                     Toast.makeText(LoginActivity.this, task.getException().getMessage()
                                             , Toast.LENGTH_LONG).show();
                                 }

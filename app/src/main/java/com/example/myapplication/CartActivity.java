@@ -35,6 +35,7 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import android.text.format.Time;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -43,7 +44,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class CartActivity extends AppCompatActivity implements View.OnClickListener, ICartLoadListener{
+public class CartActivity extends AppCompatActivity implements View.OnClickListener, ICartLoadListener {
     private Button account1, home1, orderHistory1, cart1, btnOrder;
     private FirebaseAuth firebaseAuth;
     Calendar cal = Calendar.getInstance();
@@ -57,21 +58,20 @@ public class CartActivity extends AppCompatActivity implements View.OnClickListe
 
     ICartLoadListener cartLoadListener;
 
-    protected void onStart(){
+    protected void onStart() {
         super.onStart();
         EventBus.getDefault().register(this);
     }
 
-    protected void onStop(){
-        if(EventBus.getDefault().hasSubscriberForEvent(UpdateCartEvent.class));
+    protected void onStop() {
+        if (EventBus.getDefault().hasSubscriberForEvent(UpdateCartEvent.class)) ;
         EventBus.getDefault().removeStickyEvent(UpdateCartEvent.class);
         EventBus.getDefault().unregister(this);
         super.onStop();
     }
 
-    @Subscribe(threadMode = ThreadMode.MAIN,sticky = true)
-    public void onUpdateCart(UpdateCartEvent event)
-    {
+    @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
+    public void onUpdateCart(UpdateCartEvent event) {
         loadCartFromFirebase();
     }
 
@@ -89,10 +89,10 @@ public class CartActivity extends AppCompatActivity implements View.OnClickListe
         home1 = findViewById(R.id.home1);
         home1.setOnClickListener(this);
 
-        orderHistory1= findViewById(R.id.orderHistory1);
+        orderHistory1 = findViewById(R.id.orderHistory1);
         orderHistory1.setOnClickListener(this);
 
-        cart1= findViewById(R.id.cart1);
+        cart1 = findViewById(R.id.cart1);
         cart1.setOnClickListener(this);
 
         init();
@@ -108,7 +108,7 @@ public class CartActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
-    private void init(){
+    private void init() {
         ButterKnife.bind(this);
 
         cartLoadListener = this;
@@ -142,9 +142,8 @@ public class CartActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onCartLoadSuccess(List<Cart> cartModelList) {
         double sum = 0;
-        for(Cart cartmodel: cartModelList)
-        {
-            sum+=cartmodel.getTotalPrice();
+        for (Cart cartmodel : cartModelList) {
+            sum += cartmodel.getTotalPrice();
         }
         txtTotalPrice.setText(new StringBuilder("RM ").append(sum));
         CartAdapter adapter = new CartAdapter(this, cartModelList);
@@ -159,7 +158,7 @@ public class CartActivity extends AppCompatActivity implements View.OnClickListe
         Toast.makeText(CartActivity.this, message, Toast.LENGTH_SHORT).show();
     }
 
-    private void loadFoodFromFirebase(List<Cart> cartModels){
+    private void loadFoodFromFirebase(List<Cart> cartModels) {
 
         firebaseAuth = FirebaseAuth.getInstance();
         FirebaseDatabase.getInstance("https://intea-delight-default-rtdb.asia-southeast1.firebasedatabase.app")
@@ -167,10 +166,8 @@ public class CartActivity extends AppCompatActivity implements View.OnClickListe
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        if(snapshot.exists())
-                        {
-                            for(DataSnapshot cartSnapshot:snapshot.getChildren())
-                            {
+                        if (snapshot.exists()) {
+                            for (DataSnapshot cartSnapshot : snapshot.getChildren()) {
                                 Cart cartModel = cartSnapshot.getValue(Cart.class);
                                 cartModel.setKey(cartSnapshot.getKey());
                                 cartModels.add(cartModel);
@@ -178,9 +175,7 @@ public class CartActivity extends AppCompatActivity implements View.OnClickListe
                             cartLoadListener.onCartLoadSuccess(cartModels);
                             //Validate Place Order
                             validatePlaceOrder(cartModels);
-                        }
-                        else
-                        {
+                        } else {
                             cartLoadListener.onCartLoadFailed("Cart Empty");
                             validatePlaceOrder(cartModels);
                         }
@@ -193,8 +188,8 @@ public class CartActivity extends AppCompatActivity implements View.OnClickListe
                 });
     }
 
-    public void validatePlaceOrder(List<Cart> cartModelList){
-        if(cartModelList.size() == 0) {
+    public void validatePlaceOrder(List<Cart> cartModelList) {
+        if (cartModelList.size() == 0) {
             recyclerCart.setVisibility(View.GONE);
 
             btnOrder.setOnClickListener(new View.OnClickListener() {
@@ -204,8 +199,7 @@ public class CartActivity extends AppCompatActivity implements View.OnClickListe
                     Toast.makeText(CartActivity.this, "No item in Cart!", Toast.LENGTH_SHORT).show();
                 }
             });
-        }
-        else if(cartModelList.size() > 0){
+        } else if (cartModelList.size() > 0) {
             btnOrder.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -214,6 +208,7 @@ public class CartActivity extends AppCompatActivity implements View.OnClickListe
             });
         }
     }
+
     public void notificationShowOrder() {
         String message = "Your order is completed";
         NotificationCompat.Builder builder = new NotificationCompat.Builder(CartActivity.this, "My Notification")
@@ -238,8 +233,7 @@ public class CartActivity extends AppCompatActivity implements View.OnClickListe
     }
 
 
-
-    public void alertConfirmation(){
+    public void alertConfirmation() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Order Confirmation");
         builder.setMessage("Do you sure to place your order?");
@@ -264,7 +258,7 @@ public class CartActivity extends AppCompatActivity implements View.OnClickListe
     }
 
 
-    public void PlaceOrder(){
+    public void PlaceOrder() {
         btnOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -281,9 +275,9 @@ public class CartActivity extends AppCompatActivity implements View.OnClickListe
     //Get Cart data and store  into a New Path called "Order"
     public void addOrderFirebaseData() {
 
-        String timestamp = ""+System.currentTimeMillis();
+        String timestamp = "" + System.currentTimeMillis();
 
-        String date = "" + cal.get(Calendar.DATE) + "-" + (cal.get(Calendar.MONTH)+1) + "-" + cal.get(Calendar.YEAR);
+        String date = "" + cal.get(Calendar.DATE) + "-" + (cal.get(Calendar.MONTH) + 1) + "-" + cal.get(Calendar.YEAR);
         String time = "" + cal.get(Calendar.HOUR_OF_DAY) + ":" + cal.get(Calendar.MINUTE);
         String feedback = "blank";
 
@@ -355,7 +349,7 @@ public class CartActivity extends AppCompatActivity implements View.OnClickListe
                 .setValue(null);
     }
 
-    public void alertSuccessDialog(){
+    public void alertSuccessDialog() {
         AlertDialog alert = new AlertDialog.Builder(CartActivity.this)
                 .setTitle("Order Status")
                 .setMessage("Order Placed Successfully")
@@ -369,7 +363,7 @@ public class CartActivity extends AppCompatActivity implements View.OnClickListe
         alert.show();
     }
 
-    public void refreshPage(){
+    public void refreshPage() {
         finish();
         overridePendingTransition(0, 0);
         startActivity(getIntent());

@@ -8,12 +8,13 @@ import android.widget.ImageButton;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class Reservation_home extends AppCompatActivity implements View.OnClickListener{
-    private Button account1,home1,orderHistory1,cart1;
+public class Reservation_home extends AppCompatActivity implements View.OnClickListener {
+    private Button account1, home1, orderHistory1, cart1;
     ImageButton reservation_btn, Reservation_form_btn;
+
     @Override
     public void onClick(View view) {
-        switch(view.getId()){
+        switch (view.getId()) {
             case R.id.account1:
                 Intent toLogin = new Intent(this, Account.class);
                 startActivity(toLogin);
@@ -44,6 +45,7 @@ public class Reservation_home extends AppCompatActivity implements View.OnClickL
 
         }
     }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,16 +57,16 @@ public class Reservation_home extends AppCompatActivity implements View.OnClickL
         home1 = findViewById(R.id.home1);
         home1.setOnClickListener(this);
 
-        orderHistory1= findViewById(R.id.orderHistory1);
+        orderHistory1 = findViewById(R.id.orderHistory1);
         orderHistory1.setOnClickListener(this);
 
-        cart1= findViewById(R.id.cart1);
+        cart1 = findViewById(R.id.cart1);
         cart1.setOnClickListener(this);
 
-        reservation_btn= findViewById(R.id.reservation_btn);
+        reservation_btn = findViewById(R.id.reservation_btn);
         reservation_btn.setOnClickListener(this);
 
-        Reservation_form_btn= findViewById(R.id.Reservation_form_btn);
+        Reservation_form_btn = findViewById(R.id.Reservation_form_btn);
         Reservation_form_btn.setOnClickListener(this);
 
 
