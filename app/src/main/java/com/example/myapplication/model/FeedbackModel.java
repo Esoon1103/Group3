@@ -3,18 +3,10 @@ package com.example.myapplication.model;
 import com.example.myapplication.FeedbackActivity;
 
 public class FeedbackModel {
-    private String orderId, feedback, key;
+    private String feedback, key;
 
     public FeedbackModel(){
 
-    }
-
-    public String getOrderId() {
-        return orderId;
-    }
-
-    public void setOrderId(String orderId) {
-        this.orderId = orderId;
     }
 
     public String getFeedback() {

@@ -57,28 +57,31 @@ public class FeedbackActivity extends AppCompatActivity implements IFeedbackLoad
         SubmitFeedback = findViewById(R.id.btnSubmitFeedback);
 
         reference = FirebaseDatabase.getInstance("https://intea-delight-default-rtdb.asia-southeast1.firebasedatabase.app/")
-                .getReference().child("Users").child(firebaseAuth.getUid()).child("Order").child("1635305556108");
+                .getReference().child("Users").child(firebaseAuth.getUid()).child("Feedback");
 
         SubmitFeedback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
                 //Accessing to orderID for Feedback
-                reference.addValueEventListener(new ValueEventListener() {
+                reference.addListenerForSingleValueEvent(new ValueEventListener() {
 
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
 
-                            //dataSnapshot.getValue(FeedbackModel.class);
+                            reference.child("Feedback");
                             String feedback = etFeedback.getText().toString();
                             HashMap hashMap = new HashMap();
                             hashMap.put("feedback", feedback);
 
+                            //Write Feedback to database
+                            //reference.child("Feedback").setValue(hashMap);
+
                             reference.updateChildren(hashMap).addOnSuccessListener(new OnSuccessListener() {
                                 @Override
                                 public void onSuccess(Object o) {
-                                    Toast.makeText(FeedbackActivity.this, "Added Feedback", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(FeedbackActivity.this, "Feedback Submitted", Toast.LENGTH_SHORT).show();
                                 }
                             });
 
@@ -101,7 +104,7 @@ public class FeedbackActivity extends AppCompatActivity implements IFeedbackLoad
 
         FirebaseDatabase database = FirebaseDatabase.getInstance("https://intea-delight-default-rtdb.asia-southeast1.firebasedatabase.app/");
         DatabaseReference reference1 = database.getReference("Users")
-                .child(firebaseAuth.getUid()).child("Order");
+                .child(firebaseAuth.getUid());
 
         reference1.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override

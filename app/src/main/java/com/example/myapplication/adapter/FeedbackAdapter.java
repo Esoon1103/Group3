@@ -38,7 +38,6 @@ public class FeedbackAdapter extends RecyclerView.Adapter<FeedbackAdapter.Feedba
        /* Glide.with(context)
                 .load(feedbackModelList.get(position).getImage()) //Get image from the position
                 .into(holder.imageView2); */
-        holder.txtFeedbackTitle.setText(new StringBuilder("Feedback for Order #").append(feedbackModelList.get(position).getOrderId()));
         holder.txtFeedback.setText(new StringBuilder().append(feedbackModelList.get(position).getFeedback()));
 
     }
@@ -49,8 +48,6 @@ public class FeedbackAdapter extends RecyclerView.Adapter<FeedbackAdapter.Feedba
     }
 
     public class FeedbackViewHolder extends RecyclerView.ViewHolder{
-        @BindView(R.id.txtFeedbackTitle)
-        TextView txtFeedbackTitle;
         @BindView(R.id.txtFeedback)
         TextView txtFeedback;
 
