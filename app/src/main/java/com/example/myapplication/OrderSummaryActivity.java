@@ -58,8 +58,8 @@ public class OrderSummaryActivity extends AppCompatActivity implements IOrderSum
         reference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if(snapshot.exists()){
-                    for(DataSnapshot orderSummarySnapshot : snapshot.getChildren()){
+                if (snapshot.exists()) {
+                    for (DataSnapshot orderSummarySnapshot : snapshot.getChildren()) {
                         OrderSummaryModel orderSummaryModel = orderSummarySnapshot.getValue(OrderSummaryModel.class);
                         orderSummaryModel.setKey(orderSummarySnapshot.getKey());
                         orderSummaryModels.add(orderSummaryModel);
@@ -80,16 +80,16 @@ public class OrderSummaryActivity extends AppCompatActivity implements IOrderSum
 
     @Override
     public void onOrderSummaryLoadSuccess(List<OrderSummaryModel> orderSummaryModelList) {
-        OrderSummaryAdapter adapter = new OrderSummaryAdapter(this,orderSummaryModelList, orderSummaryLoadListener);
+        OrderSummaryAdapter adapter = new OrderSummaryAdapter(this, orderSummaryModelList, orderSummaryLoadListener);
         recycler_order_summary.setAdapter(adapter);
     }
 
     @Override
     public void onOrderSummaryLoadFailed(String message) {
-        Snackbar.make(orderSummaryLayout,message,Snackbar.LENGTH_LONG).show();
+        Snackbar.make(orderSummaryLayout, message, Snackbar.LENGTH_LONG).show();
     }
 
-    private void init(){
+    private void init() {
         ButterKnife.bind(this);
 
         orderSummaryLoadListener = this;

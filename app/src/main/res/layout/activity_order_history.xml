@@ -131,14 +131,14 @@
         android:textStyle="bold" />
 
     <Button
-        android:id="@+id/ongoing_button"
+        android:id="@+id/feedback_button"
         android:layout_width="249dp"
         android:layout_height="141dp"
         android:layout_below="@id/layoutTopBar"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="103dp"
         android:backgroundTint="#EADC81"
-        android:text="On-going Orders"
+        android:text="Feedback"
         android:textColor="@color/black"
         android:textSize="25sp" />
 

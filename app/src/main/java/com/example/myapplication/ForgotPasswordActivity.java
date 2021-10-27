@@ -39,27 +39,27 @@ public class ForgotPasswordActivity extends AppCompatActivity {
 
         firebaseAuth = FirebaseAuth.getInstance();
 
-        userPass.setOnClickListener(new View.OnClickListener(){
+        userPass.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 progressBar.setVisibility(View.VISIBLE);
                 firebaseAuth.sendPasswordResetEmail(userEmail.getText().toString())
-                        .addOnCompleteListener(new OnCompleteListener<Void>(){
+                        .addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
                                 progressBar.setVisibility(View.GONE);
-                                if(task.isSuccessful()){
+                                if (task.isSuccessful()) {
                                     Toast.makeText(ForgotPasswordActivity.this,
                                             "Password sent to your email", Toast.LENGTH_LONG).show();
-                                    Intent i =new Intent(ForgotPasswordActivity.this, LoginActivity.class);
+                                    Intent i = new Intent(ForgotPasswordActivity.this, LoginActivity.class);
                                     startActivity(i);
-                                } else{
+                                } else {
                                     Toast.makeText(ForgotPasswordActivity.this,
                                             task.getException().getMessage(), Toast.LENGTH_LONG).show();
                                 }
                             }
-                         });
-                }
+                        });
+            }
         });
     }
 }
