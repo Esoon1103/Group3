@@ -27,6 +27,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 
@@ -50,6 +51,7 @@ public class FeedbackActivity extends AppCompatActivity implements IFeedbackLoad
     List<FeedbackModel> feedbackModels = new ArrayList<>();
 
     String timestamp = "" + System.currentTimeMillis();
+    Calendar cal = Calendar.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,6 +76,8 @@ public class FeedbackActivity extends AppCompatActivity implements IFeedbackLoad
                         for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
 
                             String feedback = etFeedback.getText().toString();
+                            String date = "" + cal.get(Calendar.DATE) + "-" + (cal.get(Calendar.MONTH)+1) + "-" + cal.get(Calendar.YEAR);
+                            String time = "" + cal.get(Calendar.HOUR_OF_DAY) + ":" + cal.get(Calendar.MINUTE);
 
                             if(feedback.equals("")){
                                 Toast.makeText(FeedbackActivity.this,
@@ -84,6 +88,14 @@ public class FeedbackActivity extends AppCompatActivity implements IFeedbackLoad
                                 reference.child("Feedback")
                                         .child(timestamp).child("feedback")
                                         .setValue(feedback);
+
+                                reference.child("Feedback")
+                                        .child(timestamp).child("date")
+                                        .setValue(date);
+
+                                reference.child("Feedback")
+                                        .child(timestamp).child("time")
+                                        .setValue(time);
 
                                 Intent i = new Intent(FeedbackActivity.this, orderHistory.class);
                                 startActivity(i);

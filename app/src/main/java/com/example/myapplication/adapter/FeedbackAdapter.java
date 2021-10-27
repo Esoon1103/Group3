@@ -39,6 +39,8 @@ public class FeedbackAdapter extends RecyclerView.Adapter<FeedbackAdapter.Feedba
                 .load(feedbackModelList.get(position).getImage()) //Get image from the position
                 .into(holder.imageView2); */
         holder.txtFeedback.setText(new StringBuilder().append(feedbackModelList.get(position).getFeedback()));
+        holder.DateFeed.setText(new StringBuilder().append(feedbackModelList.get(position).getDate()));
+        holder.TimeFeed.setText(new StringBuilder().append(feedbackModelList.get(position).getTime()));
 
     }
 
@@ -50,6 +52,10 @@ public class FeedbackAdapter extends RecyclerView.Adapter<FeedbackAdapter.Feedba
     public class FeedbackViewHolder extends RecyclerView.ViewHolder{
         @BindView(R.id.txtFeedback)
         TextView txtFeedback;
+        @BindView(R.id.DateFeed)
+        TextView DateFeed;
+        @BindView(R.id.TimeFeed)
+        TextView TimeFeed;
 
         private Unbinder unbinder;
 
