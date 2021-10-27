@@ -402,6 +402,7 @@ else {
     public void onReservationLoadFailed(String message) {
 
     }
+
 public Boolean validateDate(String day, String month, String year){
         int day1, month1, year1;
         String val =select_Date.getText().toString();
