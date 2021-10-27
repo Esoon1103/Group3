@@ -1,7 +1,5 @@
 package com.example.myapplication.model;
 
-import com.example.myapplication.HomePage;
-
 public class Food {
     private String key, name, price, image, id;
 
