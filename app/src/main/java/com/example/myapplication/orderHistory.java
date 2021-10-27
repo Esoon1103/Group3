@@ -7,12 +7,13 @@ import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class orderHistory extends AppCompatActivity implements View.OnClickListener{
-    private Button account1,home1,orderHistory1, cart1, btnCompletedOrder;
+public class orderHistory extends AppCompatActivity implements View.OnClickListener {
+    private Button account1, home1, orderHistory1, cart1, btnCompletedOrder, feedback_button;
+
     @Override
     public void onClick(View view) {
 
-        switch(view.getId()){
+        switch (view.getId()) {
             case R.id.account1:
                 Intent toLogin = new Intent(this, Account.class);
                 startActivity(toLogin);
@@ -35,8 +36,14 @@ public class orderHistory extends AppCompatActivity implements View.OnClickListe
                 Intent toLogin4 = new Intent(this, ViewOrderActivity.class);
                 startActivity(toLogin4);
                 break;
+
+            case R.id.feedback_button:
+                Intent i = new Intent(this, FeedbackActivity.class);
+                startActivity(i);
+                break;
         }
     }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,14 +55,17 @@ public class orderHistory extends AppCompatActivity implements View.OnClickListe
         home1 = findViewById(R.id.home1);
         home1.setOnClickListener(this);
 
-        orderHistory1= findViewById(R.id.orderHistory1);
+        orderHistory1 = findViewById(R.id.orderHistory1);
         orderHistory1.setOnClickListener(this);
 
-        cart1= findViewById(R.id.cart1);
+        cart1 = findViewById(R.id.cart1);
         cart1.setOnClickListener(this);
 
         btnCompletedOrder = findViewById(R.id.btnCompletedOrder);
         btnCompletedOrder.setOnClickListener(this);
+
+        feedback_button = findViewById(R.id.feedback_button);
+        feedback_button.setOnClickListener(this);
     }
 
 }

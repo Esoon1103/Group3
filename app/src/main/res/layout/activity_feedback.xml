@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".FeedbackPage">
+    tools:context=".FeedbackActivity"
+    android:id="@+id/feedbackLayout">
 
 
     <RelativeLayout
@@ -56,60 +57,60 @@
 
 
 
-<RelativeLayout
-android:id="@+id/bgcolor"
-android:layout_width="match_parent"
-android:layout_height="75dp"
-android:layout_alignParentBottom="true"
+    <RelativeLayout
+        android:id="@+id/bgcolor"
+        android:layout_width="match_parent"
+        android:layout_height="75dp"
+        android:layout_alignParentBottom="true"
 
-android:layout_marginBottom="0dp"
-android:accessibilityHeading="false"
-android:background="#D53C3C"
-android:visibility="visible">
+        android:layout_marginBottom="0dp"
+        android:accessibilityHeading="false"
+        android:background="#D53C3C"
+        android:visibility="visible">
 
-<Button
-    android:id="@+id/home1"
-    android:layout_width="40dp"
-    android:layout_height="40dp"
-    android:layout_marginLeft="40dp"
-    android:layout_marginTop="17dp"
-    android:background="@drawable/ic_home_black_24dp"
-    app:backgroundTint="#000000" />
+        <Button
+            android:id="@+id/home1"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="17dp"
+            android:background="@drawable/ic_home_black_24dp"
+            app:backgroundTint="#000000" />
 
-    <Button
-        android:id="@+id/orderHistory1"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_marginLeft="130dp"
-        android:layout_marginTop="17dp"
-        android:background="@drawable/ic_baseline_article_24"
-        app:backgroundTint="#000000"
-        tools:layout_editor_absoluteX="34dp"
-        tools:layout_editor_absoluteY="278dp" />
+        <Button
+            android:id="@+id/orderHistory1"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="130dp"
+            android:layout_marginTop="17dp"
+            android:background="@drawable/ic_baseline_article_24"
+            app:backgroundTint="#000000"
+            tools:layout_editor_absoluteX="34dp"
+            tools:layout_editor_absoluteY="278dp" />
 
-<Button
-    android:id="@+id/cart1"
-    android:layout_width="40dp"
-    android:layout_height="40dp"
-    android:layout_marginLeft="225dp"
-    android:layout_marginTop="17dp"
-    android:background="@drawable/ic_baseline_shopping_cart_24"
+        <Button
+            android:id="@+id/cart1"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="225dp"
+            android:layout_marginTop="17dp"
+            android:background="@drawable/ic_baseline_shopping_cart_24"
 
-    app:backgroundTint="#FFFFFF"
-    tools:layout_editor_absoluteX="112dp"
-    tools:layout_editor_absoluteY="236dp" />
+            app:backgroundTint="#FFFFFF"
+            tools:layout_editor_absoluteX="112dp"
+            tools:layout_editor_absoluteY="236dp" />
 
-<Button
-    android:id="@+id/account1"
-    android:layout_width="40dp"
-    android:layout_height="40dp"
-    android:layout_marginLeft="320dp"
-    android:layout_marginTop="17dp"
-    android:background="@drawable/ic_baseline_account_circle_24"
-    app:backgroundTint="#000000" />
+        <Button
+            android:id="@+id/account1"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="320dp"
+            android:layout_marginTop="17dp"
+            android:background="@drawable/ic_baseline_account_circle_24"
+            app:backgroundTint="#000000" />
 
 
-</RelativeLayout>
+    </RelativeLayout>
 
 
     <Button
@@ -124,9 +125,9 @@ android:visibility="visible">
         android:id="@+id/titleFeedback"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/layoutTopBar"
+        android:layout_below="@id/recycler_view_feedback"
         android:layout_marginLeft="30sp"
-        android:layout_marginTop="30sp"
+        android:layout_marginTop="10sp"
         android:text="Feedback for Order #xxx"
         android:textSize="20sp" />
 
@@ -141,5 +142,12 @@ android:visibility="visible">
         android:ems="10"
         android:hint="What do you think about the food?"
         android:inputType="textPersonName" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view_feedback"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:layout_below="@id/layoutTopBar"
+        android:layout_centerInParent="true" />
 
 </RelativeLayout>
