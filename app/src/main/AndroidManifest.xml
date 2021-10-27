@@ -51,9 +51,6 @@
         <activity android:name=".food_page" />
         <activity android:name=".Reservation_home" />
         <activity android:name=".reservation_page" />
-        <activity android:name=".noodle_page" />
-        <activity android:name=".dessert_page" />
-        <activity android:name=".drink_page" />
         <activity android:name=".reservation_form" />
     </application>
 

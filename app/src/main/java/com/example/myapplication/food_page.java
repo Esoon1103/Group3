@@ -41,14 +41,14 @@ public class food_page extends AppCompatActivity implements IFoodLoadListener, I
     private ImageView btnBack;
     private FirebaseAuth firebaseAuth;
 
-    @BindView(R.id.riceListRecycler)
-    RecyclerView riceListRecycler;
-    @BindView(R.id.rice_layout)
-    RelativeLayout rice_layout;
+    @BindView(R.id.foodListRecycler)
+    RecyclerView foodListRecycler;
+    @BindView(R.id.food_layout)
+    RelativeLayout food_layout;
     @BindView(R.id.cart1)
     Button cart1;
 
-    IFoodLoadListener riceLoadListener;
+    IFoodLoadListener foodLoadListener;
     ICartLoadListener cartLoadListener;
 
     protected void onStart(){
@@ -72,7 +72,7 @@ public class food_page extends AppCompatActivity implements IFoodLoadListener, I
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.rice_main_page);
+        setContentView(R.layout.food_main_page);
 
         btnBack = findViewById(R.id.btnBack);
         btnBack.setOnClickListener(this);
@@ -97,12 +97,12 @@ public class food_page extends AppCompatActivity implements IFoodLoadListener, I
     private void init(){
         ButterKnife.bind(this);
 
-        riceLoadListener = this;
+        foodLoadListener = this;
         cartLoadListener = this;
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, RecyclerView.VERTICAL, false);
-        riceListRecycler.setLayoutManager(linearLayoutManager);
-        riceListRecycler.addItemDecoration(new SpaceItemDecoration());
+        foodListRecycler.setLayoutManager(linearLayoutManager);
+        foodListRecycler.addItemDecoration(new SpaceItemDecoration());
 
         cart1.setOnClickListener(view -> startActivity(new Intent(this, CartActivity.class)));
     }
@@ -118,33 +118,33 @@ public class food_page extends AppCompatActivity implements IFoodLoadListener, I
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     if(snapshot.exists()){
-                        for(DataSnapshot riceSnapshot:snapshot.getChildren())
+                        for(DataSnapshot foodSnapshot:snapshot.getChildren())
                         {
-                            Food foodModel = riceSnapshot.getValue(Food.class);
-                            foodModel.setKey(riceSnapshot.getKey());
+                            Food foodModel = foodSnapshot.getValue(Food.class);
+                            foodModel.setKey(foodSnapshot.getKey());
                             foodModels.add(foodModel);
                         }
-                        riceLoadListener.onRiceLoadSuccess(foodModels);
+                        foodLoadListener.onFoodLoadSuccess(foodModels);
                     }
                     else
-                        riceLoadListener.onRiceLoadFailed("Can't find the Rice");
+                        foodLoadListener.onFoodLoadFailed("Can't find the Rice");
                 }
 
                 @Override
                 public void onCancelled(@NonNull DatabaseError error) {
-                    riceLoadListener.onRiceLoadFailed(error.getMessage());
+                    foodLoadListener.onFoodLoadFailed(error.getMessage());
                 }
             });
     }
 
     @Override
-    public void onRiceLoadSuccess(List<Food> foodModelList) {
+    public void onFoodLoadSuccess(List<Food> foodModelList) {
         FoodAdapter adapter = new FoodAdapter(this, foodModelList, cartLoadListener);
-        riceListRecycler.setAdapter(adapter);
+        foodListRecycler.setAdapter(adapter);
     }
 
     @Override
-    public void onRiceLoadFailed(String message) {
+    public void onFoodLoadFailed(String message) {
         Toast.makeText(food_page.this, message, Toast.LENGTH_SHORT).show();
     }
 

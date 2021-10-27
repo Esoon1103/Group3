@@ -5,6 +5,6 @@ import com.example.myapplication.model.Food;
 import java.util.List;
 
 public interface IFoodLoadListener {
-    void onRiceLoadSuccess(List<Food> foodModelList);
-    void onRiceLoadFailed(String message);
+    void onFoodLoadSuccess(List<Food> foodModelList);
+    void onFoodLoadFailed(String message);
 }

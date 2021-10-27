@@ -17,7 +17,6 @@ import com.example.myapplication.listener.IAddtoCartClickListener;
 import com.example.myapplication.listener.ICartLoadListener;
 import com.example.myapplication.model.Cart;
 import com.example.myapplication.model.Food;
-import com.example.myapplication.food_page;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -53,7 +52,7 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.FoodViewHolder
     @NonNull
     @Override
     public FoodViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new FoodViewHolder(LayoutInflater.from(context).inflate(R.layout.rice_item,parent,false));
+        return new FoodViewHolder(LayoutInflater.from(context).inflate(R.layout.food_item,parent,false));
     }
 
 
