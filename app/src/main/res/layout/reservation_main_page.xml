@@ -46,14 +46,6 @@
             android:textSize="13sp"
             android:textStyle="italic" />
 
-        <ImageView
-            android:id="@+id/notification"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:layout_marginLeft="30dp"
-            android:layout_marginTop="35dp"
-            android:src="@drawable/ic_notifications_black_24dp" />
-
     </RelativeLayout>
 
 
@@ -118,15 +110,7 @@
             tools:layout_editor_absoluteX="112dp"
             tools:layout_editor_absoluteY="236dp" />
 
-        <com.nex3z.notificationbadge.NotificationBadge
-            android:id="@+id/cartBadge"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginLeft="-10dp"
-            android:layout_marginTop="5dp"
-            android:layout_toRightOf="@id/cart1"
-            android:background="@drawable/box"
-            app:nbMaxTextLength="2" />
+
 
         <Button
             android:id="@+id/account1"
@@ -154,15 +138,7 @@
         android:layout_height="60dp"
         android:layout_below="@id/layoutTopBar">
 
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginStart="40dp"
-            android:layout_marginTop="8dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_backspace" />
+
 
         <TextView
             android:id="@+id/textView12"

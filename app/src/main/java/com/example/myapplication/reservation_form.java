@@ -420,7 +420,15 @@ public Boolean validateDate(String day, String month, String year){
 return false;
     }
 
-    else if(bookday<currday1 && bookmonth<month1){
+    else if(bookday<currday1 ){
+        select_Date.setError("Cannot Empty");
+        return false;
+    }
+    else if(bookmonth<month1 ){
+        select_Date.setError("Cannot Empty");
+        return false;
+    }
+    else if(bookyear<year1 ){
         select_Date.setError("Cannot Empty");
         return false;
     }

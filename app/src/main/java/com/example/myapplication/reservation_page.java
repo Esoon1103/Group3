@@ -202,105 +202,128 @@ String split_date[]=date.split("/");
 
 
 
- /*if (Integer.valueOf(getDate_day ())-splited_day>0  ){
-     System.out.println("can compare");
- }*/
+ if (Integer.valueOf(getDate_day ())-splited_day>0 ){
 
+     DatabaseReference drTable6=FirebaseDatabase.getInstance("https://intea-delight-default-rtdb.asia-southeast1.firebasedatabase.app").getReference("Table_Reservation")
+             .child(firebaseAuth.getUid());
+     drTable6.removeValue();
+     Toast.makeText(getApplicationContext(), "Late 1 day", Toast.LENGTH_LONG).show();
 
-//current time -booking time >=1 then trigger this function
- if(Integer.parseInt(getCurrentTime_compare())-Integer.parseInt(compare_time)>=1 ){
-
-    temp1=temp1+1;
-    temp2=String.valueOf(temp1);
-
-
-    DatabaseReference drTable2=FirebaseDatabase.getInstance("https://intea-delight-default-rtdb.asia-southeast1.firebasedatabase.app").getReference("Table_Reservation")
-            .child(firebaseAuth.getUid());
-           drTable2.removeValue();
-
-
-
-    FirebaseDatabase add_table5 = FirebaseDatabase.getInstance("https://intea-delight-default-rtdb.asia-southeast1.firebasedatabase.app");
-
-    DatabaseReference reference5 =add_table5.getReference("Table_Number").child("table_Num");
-    reference5.addListenerForSingleValueEvent(new ValueEventListener() {
-        @Override
-        public void onDataChange(@NonNull DataSnapshot snapshot) {
-
-
-            reference5.setValue(temp2);
-        }
-
-        @Override
-        public void onCancelled(@NonNull DatabaseError error) {
-
-        }
-    });
-
-            Toast.makeText(reservation_page.this,"Reservation Deleted Due to late for More than 1 Hour", Toast.LENGTH_LONG).show();
-
-
-}
- else if(Integer.parseInt(getCurrentTime_compare())-Integer.parseInt(compare_time)>=0
-        && Integer.parseInt(getCurrentTime_compare())-Integer.parseInt(compare_time)<1){
-
-
-        //duration
-        long duration = TimeUnit.MINUTES.toMillis(1);
-
-        //countdown timer
-        new CountDownTimer(duration, 1000) {
-            @Override
-            public void onTick(long l) {
-                String sDuration=String.format(Locale.ENGLISH,"%2d: %02d", TimeUnit.MILLISECONDS.toMinutes(l),
-                        TimeUnit.MILLISECONDS.toSeconds(l)-TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(l)));
-                //set converted string on text view
-                timer_text.setText(sDuration);
-            }
-
-            @Override
-            public void onFinish() {
-                temp1=temp1+1;
-                temp2=String.valueOf(temp1);
-//when finish
-                //hide text view
-                timer_text.setVisibility(View.GONE);
-                DatabaseReference drTable1=FirebaseDatabase.getInstance("https://intea-delight-default-rtdb.asia-southeast1.firebasedatabase.app").getReference("Table_Reservation")
-                        .child(firebaseAuth.getUid()).child("reservation");
-               // drTable1.removeValue();
-                drTable1.setValue(null);
-               // Toast.makeText(reservation_page.this,"Time Up", Toast.LENGTH_LONG).show();
-                FirebaseDatabase add_table5 = FirebaseDatabase.getInstance("https://intea-delight-default-rtdb.asia-southeast1.firebasedatabase.app");
-
-                DatabaseReference reference5 =add_table5.getReference("Table_Number").child("table_Num");
-                reference5.addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-
-
-                        reference5.setValue(temp2);
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-
-                    }
-                });
-
-                Toast.makeText(getApplicationContext(), "Reservation Time End", Toast.LENGTH_LONG).show();
-
-
-
-            }
-        }.start();
-
-
-
-
-}
- else{
-     Toast.makeText(getApplicationContext(), "Wrong Time", Toast.LENGTH_LONG).show();
  }
+  else if(Integer.valueOf(getDate_month ())-splited_month>0){
+     DatabaseReference drTable6=FirebaseDatabase.getInstance("https://intea-delight-default-rtdb.asia-southeast1.firebasedatabase.app").getReference("Table_Reservation")
+             .child(firebaseAuth.getUid());
+     drTable6.removeValue();
+     Toast.makeText(getApplicationContext(), "Late More Than 1 Month", Toast.LENGTH_LONG).show();
+ }
+  else if(Integer.valueOf(getDate_year ())-splited_year>0){
+     DatabaseReference drTable6=FirebaseDatabase.getInstance("https://intea-delight-default-rtdb.asia-southeast1.firebasedatabase.app").getReference("Table_Reservation")
+             .child(firebaseAuth.getUid());
+     drTable6.removeValue();
+     Toast.makeText(getApplicationContext(), "Late More Than 1 Year", Toast.LENGTH_LONG).show();
+ }
+  else{
+     //current time -booking time >=1 then trigger this function
+     if(Integer.parseInt(getCurrentTime_compare())-Integer.parseInt(compare_time)>=1 ){
+
+         temp1=temp1+1;
+         temp2=String.valueOf(temp1);
+
+
+         DatabaseReference drTable2=FirebaseDatabase.getInstance("https://intea-delight-default-rtdb.asia-southeast1.firebasedatabase.app").getReference("Table_Reservation")
+                 .child(firebaseAuth.getUid());
+         drTable2.removeValue();
+
+
+
+         FirebaseDatabase add_table5 = FirebaseDatabase.getInstance("https://intea-delight-default-rtdb.asia-southeast1.firebasedatabase.app");
+
+         DatabaseReference reference5 =add_table5.getReference("Table_Number").child("table_Num");
+         reference5.addListenerForSingleValueEvent(new ValueEventListener() {
+             @Override
+             public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+
+                 reference5.setValue(temp2);
+             }
+
+             @Override
+             public void onCancelled(@NonNull DatabaseError error) {
+
+             }
+         });
+
+         Toast.makeText(reservation_page.this,"Reservation Deleted Due to late for More than 1 Hour", Toast.LENGTH_LONG).show();
+
+
+     }
+     else if(Integer.parseInt(getCurrentTime_compare())-Integer.parseInt(compare_time)>=0
+             && Integer.parseInt(getCurrentTime_compare())-Integer.parseInt(compare_time)<1){
+
+
+         //duration
+         long duration = TimeUnit.MINUTES.toMillis(1);
+
+         //countdown timer
+         new CountDownTimer(duration, 1000) {
+             @Override
+             public void onTick(long l) {
+                 String sDuration=String.format(Locale.ENGLISH,"%2d: %02d", TimeUnit.MILLISECONDS.toMinutes(l),
+                         TimeUnit.MILLISECONDS.toSeconds(l)-TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(l)));
+                 //set converted string on text view
+                 timer_text.setText(sDuration);
+             }
+
+             @Override
+             public void onFinish() {
+                 temp1=temp1+1;
+                 temp2=String.valueOf(temp1);
+//when finish
+                 //hide text view
+                 timer_text.setVisibility(View.GONE);
+                 DatabaseReference drTable1=FirebaseDatabase.getInstance("https://intea-delight-default-rtdb.asia-southeast1.firebasedatabase.app").getReference("Table_Reservation")
+                         .child(firebaseAuth.getUid()).child("reservation");
+                 // drTable1.removeValue();
+                 drTable1.setValue(null);
+                 // Toast.makeText(reservation_page.this,"Time Up", Toast.LENGTH_LONG).show();
+                 FirebaseDatabase add_table5 = FirebaseDatabase.getInstance("https://intea-delight-default-rtdb.asia-southeast1.firebasedatabase.app");
+
+                 DatabaseReference reference5 =add_table5.getReference("Table_Number").child("table_Num");
+                 reference5.addListenerForSingleValueEvent(new ValueEventListener() {
+                     @Override
+                     public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+
+                         reference5.setValue(temp2);
+                     }
+
+                     @Override
+                     public void onCancelled(@NonNull DatabaseError error) {
+
+                     }
+                 });
+
+                 Toast.makeText(getApplicationContext(), "Reservation Time End", Toast.LENGTH_LONG).show();
+
+
+
+             }
+         }.start();
+
+
+
+
+     }
+     else{
+         Toast.makeText(getApplicationContext(), "Wrong Time", Toast.LENGTH_LONG).show();
+     }
+
+
+
+
+ }
+
+
 
 
 
