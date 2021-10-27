@@ -248,9 +248,12 @@ submit_btn.setOnClickListener(new View.OnClickListener() {
     @Override
     public void onClick(View view) {
         System.out.println(table_validate);
-        if(!validateDate()|!validateTime()){
+        if(!validateDate(getDate_day (), getDate_month(), getDate_year())|!validateTime(compare_time)){
             return;
         }
+
+
+
 if (table_validate==null){
 
 
@@ -399,7 +402,8 @@ else {
     public void onReservationLoadFailed(String message) {
 
     }
-public Boolean validateDate(){
+public Boolean validateDate(String day, String month, String year){
+        int day1, month1, year1;
         String val =select_Date.getText().toString();
     if (val.isEmpty()
     ) {
@@ -410,12 +414,18 @@ return false;
         select_Date.setError(null);
         return  true;
     }
+
 }
-    public Boolean validateTime(){
+    public Boolean validateTime( String compare_time){
         String val =select_Time.getText().toString();
+        int val1= Integer.valueOf(compare_time);
         if (val.isEmpty()
         ) {
             select_Time.setError("Cannot Empty");
+            return false;
+        }
+        else if(val1>16|| val1< 8){
+            select_Time.setError("Not Available");
             return false;
         }
         else{
@@ -424,11 +434,23 @@ return false;
         }
     }
 
+
+
     public void refreshPage_Reservation(){
         finish();
         overridePendingTransition(0, 0);
         startActivity(getIntent());
         overridePendingTransition(0, 0);
+    }
+
+    private String getDate_day (){
+        return new SimpleDateFormat("dd", Locale.getDefault()).format(new Date());
+    }
+    private String getDate_month (){
+        return new SimpleDateFormat("MM", Locale.getDefault()).format(new Date());
+    }
+    private String getDate_year (){
+        return new SimpleDateFormat("yyyy", Locale.getDefault()).format(new Date());
     }
 
 /*public Boolean validate_Table(){

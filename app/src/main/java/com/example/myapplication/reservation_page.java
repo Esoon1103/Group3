@@ -49,6 +49,10 @@ String temp, table_Number1, temp2;
  private Button arrived;
  int temp1;
 
+
+ int splited_day;
+  int splited_month;
+  int splited_year;
 DatabaseReference reference1, reference2;
 private String time, date, compare_time, time1, date1, table,table1;
 int Reser_time  =0;
@@ -190,9 +194,21 @@ TextView timer_text;
 if(time == null){
     Toast.makeText(getApplicationContext(), "No Reservation", Toast.LENGTH_LONG).show();
 }
+String split_date[]=date.split("/");
+
+ splited_day=Integer.valueOf(split_date[0]);
+  splited_month=Integer.valueOf(split_date[1]);
+  splited_year=Integer.valueOf(split_date[2]);
+
+
+
+ if (Integer.valueOf(getDate_day ())-splited_day>0 && Integer.valueOf(getDate_month())-splited_month>0 ){
+     System.out.println("can compare");
+ }
+
 
 //current time -booking time >=1 then trigger this function
-else if(Integer.parseInt(getCurrentTime_compare())-Integer.parseInt(compare_time)>=1 ||date.equalsIgnoreCase(getDate())){
+ if(Integer.parseInt(getCurrentTime_compare())-Integer.parseInt(compare_time)>=1 ){
 
     temp1=temp1+1;
     temp2=String.valueOf(temp1);
@@ -221,13 +237,14 @@ else if(Integer.parseInt(getCurrentTime_compare())-Integer.parseInt(compare_time
         }
     });
 
-            Toast.makeText(reservation_page.this,"Thank You", Toast.LENGTH_LONG).show();
+            Toast.makeText(reservation_page.this,"Reservation Deleted Due to late for More than 1 Hour", Toast.LENGTH_LONG).show();
 
 
 }
-else{
+ else if(Integer.parseInt(getCurrentTime_compare())-Integer.parseInt(compare_time)>=0
+        && Integer.parseInt(getCurrentTime_compare())-Integer.parseInt(compare_time)<1){
 
-    if(Integer.parseInt(getCurrentTime_compare())-Integer.parseInt(compare_time)>=0 &&Integer.parseInt(getCurrentTime_compare())-Integer.parseInt(compare_time)<1 ||date.equalsIgnoreCase(getDate())){
+
         //duration
         long duration = TimeUnit.MINUTES.toMillis(1);
 
@@ -270,25 +287,7 @@ else{
                     }
                 });
 
-
-
-              /*  FirebaseDatabase add_table = FirebaseDatabase.getInstance("https://intea-delight-default-rtdb.asia-southeast1.firebasedatabase.app");
-
-                DatabaseReference reference4 =add_table.getReference("Table_Number").child("table_Num");
-               reference4.addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                   public void onDataChange(@NonNull DataSnapshot snapshot) {
-
-                       reference4.setValue(temp2);
-                    }
-
-                   @Override
-                   public void onCancelled(@NonNull DatabaseError error) {
-
-                   }
-               }); */
-
-                Toast.makeText(getApplicationContext(), "Countdown timer has ended", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "Reservation Time End", Toast.LENGTH_LONG).show();
 
 
 
@@ -296,14 +295,13 @@ else{
         }.start();
 
 
-    }
-    else{
 
-        //timer_text.setVisibility(View.GONE);
-        Toast.makeText(getApplicationContext(), "Time not correct", Toast.LENGTH_LONG).show();
-    }
 
 }
+ else{
+     Toast.makeText(getApplicationContext(), "Wrong Time", Toast.LENGTH_LONG).show();
+ }
+
 
 
 
@@ -318,6 +316,8 @@ else{
 
                  }
              });
+
+
             }
 
         });
@@ -350,15 +350,30 @@ else{
     }
 
     private String getDate (){
-        return new SimpleDateFormat("dd/LLL/yyyy", Locale.getDefault()).format(new Date());
+        return new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(new Date());
     }
-    private  void getlist(Reservation list){
-        list.getDate();
-        list.getTime();
-    }
+
     private String getCurrentTime_compare(){
 
        return new SimpleDateFormat("HH", Locale.getDefault()).format(new Date());
         
     }
+    private String getDate_day (){
+        return new SimpleDateFormat("dd", Locale.getDefault()).format(new Date());
+    }
+    private String getDate_month (){
+        return new SimpleDateFormat("MM", Locale.getDefault()).format(new Date());
+    }
+    private String getDate_year (){
+        return new SimpleDateFormat("yyyy", Locale.getDefault()).format(new Date());
+    }
+
+/*public Boolean minusdate_day(int curr, int book){
+        if (curr-book>0){
+            return
+        }
+}*/
+
+
+
 }
