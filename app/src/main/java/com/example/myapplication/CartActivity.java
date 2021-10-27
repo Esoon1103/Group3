@@ -35,10 +35,13 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import android.text.format.Time;
+
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -209,7 +212,14 @@ public class CartActivity extends AppCompatActivity implements View.OnClickListe
             btnOrder.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    alertConfirmation();
+                    String currentTime = new SimpleDateFormat("HH", Locale.getDefault()).format(new Date());
+                    int time = Integer.valueOf(currentTime);
+
+                    if (time >=8 && time <= 16)
+                        alertConfirmation();
+                    else
+                        Toast.makeText(CartActivity.this, "Working hours are between 8am to 4pm", Toast.LENGTH_SHORT).show();
+
                 }
             });
         }
