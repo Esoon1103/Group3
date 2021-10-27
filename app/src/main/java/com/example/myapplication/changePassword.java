@@ -115,7 +115,7 @@ public class changePassword extends AppCompatActivity implements View.OnClickLis
                     dialog.setMessage("Changing password, Please wait");
 
                     if (passwordData.equals(currentPass.getText().toString())) {
-                        if (newPass.getText().toString().equals(confirmPass.getText().toString()) && newPass.getText().toString() != "" && confirmPass.getText().toString()!= "") {
+                        if (newPass.getText().toString().equals(confirmPass.getText().toString()) && newPass.getText().toString() != "") {
                             dialog.show();
 
                             user.updatePassword(newPass.getText().toString())

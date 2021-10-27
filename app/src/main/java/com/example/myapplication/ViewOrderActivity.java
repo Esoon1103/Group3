@@ -114,7 +114,7 @@ public class ViewOrderActivity extends AppCompatActivity implements IViewOrderLo
     @Override
     public void onItemClick(int position) {
         //Toast.makeText(this,"test", Toast.LENGTH_SHORT).show();
-        Intent i = new Intent(ViewOrderActivity.this, OrderSummaryActivity.class);
+        Intent i = new Intent(ViewOrderActivity.this, NotificationActivity.class);
         startActivity(i);
     }
 }
