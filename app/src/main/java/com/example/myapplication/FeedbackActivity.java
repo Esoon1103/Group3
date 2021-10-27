@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -48,7 +49,7 @@ public class FeedbackActivity extends AppCompatActivity implements IFeedbackLoad
     FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     List<FeedbackModel> feedbackModels = new ArrayList<>();
 
-    String timestamp = ""+System.currentTimeMillis();
+    String timestamp = "" + System.currentTimeMillis();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,14 +73,24 @@ public class FeedbackActivity extends AppCompatActivity implements IFeedbackLoad
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
 
-
                             String feedback = etFeedback.getText().toString();
+
+                            if(feedback.equals("")){
+                                Toast.makeText(FeedbackActivity.this,
+                                        "No input detected", Toast.LENGTH_LONG).show();
+                            } else {
                         /*    HashMap hashMap = new HashMap();
                             hashMap.put("feedback", feedback);*/
-                            reference.child("Feedback")
-                                    .child(timestamp)
-                                    .setValue(feedback);
+                                reference.child("Feedback")
+                                        .child(timestamp).child("feedback")
+                                        .setValue(feedback);
 
+                                Intent i = new Intent(FeedbackActivity.this, orderHistory.class);
+                                startActivity(i);
+
+                                Toast.makeText(FeedbackActivity.this,
+                                        "Thank you for your feedback!", Toast.LENGTH_LONG).show();
+                            }
 
                           /*  reference.updateChildren(hashMap).addOnSuccessListener(new OnSuccessListener() {
                                 @Override
@@ -87,7 +98,6 @@ public class FeedbackActivity extends AppCompatActivity implements IFeedbackLoad
                                     Toast.makeText(FeedbackActivity.this, "Feedback Submitted", Toast.LENGTH_SHORT).show();
                                 }
                             });*/
-
                         }
                     }
 
@@ -96,11 +106,11 @@ public class FeedbackActivity extends AppCompatActivity implements IFeedbackLoad
 
                     }
                 });
-            }
+
+            } //Onclick
         });
         init();
         loadOrderFromFirebase();
-
     }
 
     private void loadOrderFromFirebase() {
