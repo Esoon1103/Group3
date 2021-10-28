@@ -58,15 +58,13 @@ public class ViewOrderActivity extends AppCompatActivity implements IViewOrderLo
                 reference.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
-                       //String orderId = snapshot.child("orderId").getValue().toString();
-                        //System.out.println(orderId);
+
                         if(snapshot.exists()){
                             for(DataSnapshot viewOrderSnapshot : snapshot.getChildren()){
                                 ViewOrderModel viewOrderModel = viewOrderSnapshot.getValue(ViewOrderModel.class);
                                 viewOrderModel.setKey(viewOrderSnapshot.getKey());
                                 viewOrderModels.add(viewOrderModel);
-                               /* String testing = viewOrderModel.getOrderId();
-                                System.out.println(testing);*/
+
                             }
                             viewOrderLoadListener.onViewOrderLoadSuccess(viewOrderModels);
                         } else {
