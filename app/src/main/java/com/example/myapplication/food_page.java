@@ -91,7 +91,7 @@ public class food_page extends AppCompatActivity implements IFoodLoadListener, I
         
         init();
         loadFoodFromFirebase();
-        countCartItem();
+        //countCartItem();
     }
 
     private void init(){

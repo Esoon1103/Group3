@@ -14,5 +14,22 @@
 
 
     </string-array>>
+    
+    <string-array name="foodList">
+        <item>TOMYAM FRIED RICE</item>
+        <item>CHICKEN SLICE WITH RICE</item>
+        <item>CURRY FISH BALL WITH RICE</item>
+        <item>SIGNATURE NOODLE</item>
+        <item>ROAST SESAME RAMEN NOODLES</item>
+        <item>VEGGIE YAKI UDON</item>
+        <item>CHOCOLATE BROWNIE PUDDING</item>
+        <item>ICE CREAM</item>
+        <item>CHOCOLATE CUPCAKE</item>
+        <item>ORANGE JUICE</item>
+        <item>COFFEE</item>
+        <item>TEA</item>
+
+    </string-array>
+
 
 </resources>

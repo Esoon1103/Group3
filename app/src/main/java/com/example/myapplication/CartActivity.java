@@ -223,7 +223,7 @@ public class CartActivity extends AppCompatActivity implements View.OnClickListe
                     String currentTime = new SimpleDateFormat("HH", Locale.getDefault()).format(new Date());
                     int time = Integer.valueOf(currentTime);
 
-                    if (time >=8 && time <= 16)
+                    if (time >=8 && time < 16)
                         alertConfirmation();
                     else
                         Toast.makeText(CartActivity.this, "Working hours are between 8am to 4pm", Toast.LENGTH_SHORT).show();
