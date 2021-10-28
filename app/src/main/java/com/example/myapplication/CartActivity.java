@@ -109,7 +109,6 @@ public class CartActivity extends AppCompatActivity implements View.OnClickListe
 
         init();
         loadCartFromFirebase();
-
     }
 
     private void loadCartFromFirebase() {
@@ -280,21 +279,6 @@ public class CartActivity extends AppCompatActivity implements View.OnClickListe
         alertDialog.show();
     }
 
-
-    public void PlaceOrder(){
-        btnOrder.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //Click "Place Order"
-                addOrderFirebaseData(); // Copy cart data to Order data
-                Intent backHome = new Intent(view.getContext(), HomePage.class);
-                startActivity(backHome); //Navigate to HOME PAGE
-                alertSuccessDialog(); //Alert successful order
-                deleteCartFirebaseData(); // Order will be set in the Firebase
-            }
-        });
-    }
-
     //Get Cart data and store  into a New Path called "Order"
     public void addOrderFirebaseData() {
 
@@ -339,20 +323,6 @@ public class CartActivity extends AppCompatActivity implements View.OnClickListe
                                 .child(firebaseAuth.getUid())
                                 .child("Order").child(timestamp).child("time")
                                 .setValue(time);
-
-                                /*
-                                //Write feedback to database
-                                order.getReference("Users")
-                                .child(firebaseAuth.getUid())
-                                .child("Order").child(timestamp).child("feedback")
-                                .setValue(feedback);
-
-
-                                //Write orderID to database
-                                order.getReference("Users")
-                                .child(firebaseAuth.getUid())
-                                .child("Order").child("Feedback").child(timestamp)
-                                .setValue(timestamp);*/
                     }
 
                     @Override
