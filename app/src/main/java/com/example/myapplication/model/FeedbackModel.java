@@ -3,10 +3,18 @@ package com.example.myapplication.model;
 import com.example.myapplication.FeedbackActivity;
 
 public class FeedbackModel {
-    private String feedback, key, date, time;
+    private String feedback, key, date, time, food;
 
     public FeedbackModel(){
 
+    }
+
+    public String getFood() {
+        return food;
+    }
+
+    public void setFood(String food) {
+        this.food = food;
     }
 
     public String getFeedback() {

@@ -29,6 +29,15 @@
             android:textSize="28sp"
             android:textStyle="bold"/>
 
+        <Spinner
+            android:id="@+id/spinner2"
+            android:layout_width="165dp"
+            android:layout_height="59dp"
+            android:layout_below="@+id/tablePic"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="90dp"
+            android:layout_marginTop="29dp" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -120,6 +129,14 @@
         android:layout_centerInParent="true"
         android:text="Submit" />
 
+    <Spinner
+        android:id="@+id/spinnerFood"
+        android:layout_width="match_parent"
+        android:layout_height="59dp"
+        android:layout_below="@+id/titleFeedback"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="90dp"
+        android:layout_marginTop="5dp" />
 
     <TextView
         android:id="@+id/titleFeedback"
@@ -127,17 +144,16 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/recycler_view_feedback"
         android:layout_marginLeft="30sp"
-        android:layout_marginTop="40sp"
-        android:text="Your Feedback Matters"
-        android:textSize="20sp" />
-
+        android:layout_marginTop="20sp"
+        android:text="Select food that you wanna give feedback to:"
+        android:textSize="18sp" />
 
     <EditText
         android:id="@+id/etFeedback"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="288dp"
         android:layout_height="wrap_content"
-        android:layout_below="@id/titleFeedback"
+        android:layout_below="@id/spinnerFood"
         android:layout_centerInParent="true"
         android:ems="10"
         android:hint="What do you think about the food?"
@@ -159,7 +175,6 @@
         android:layout_height="200dp"
         android:layout_below="@id/titleFeedbackPage"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
-        />
+        android:layout_marginTop="20dp" />
 
 </RelativeLayout>

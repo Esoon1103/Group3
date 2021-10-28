@@ -8,9 +8,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Adapter;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.myapplication.adapter.FeedbackAdapter;
@@ -34,7 +38,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class FeedbackActivity extends AppCompatActivity implements IFeedbackLoadListener {
+public class FeedbackActivity extends AppCompatActivity implements IFeedbackLoadListener, AdapterView.OnItemSelectedListener {
 
     EditText etFeedback;
     Button SubmitFeedback;
@@ -52,6 +56,7 @@ public class FeedbackActivity extends AppCompatActivity implements IFeedbackLoad
 
     String timestamp = "" + System.currentTimeMillis();
     Calendar cal = Calendar.getInstance();
+    String text = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +65,14 @@ public class FeedbackActivity extends AppCompatActivity implements IFeedbackLoad
 
         etFeedback = findViewById(R.id.etFeedback);
         SubmitFeedback = findViewById(R.id.btnSubmitFeedback);
+        Spinner mySpinner = (Spinner) findViewById(R.id.spinnerFood);
+
+        ArrayAdapter<String> myAdapter = new ArrayAdapter<String>(FeedbackActivity.this, android.R.layout.simple_spinner_item,
+                getResources().getStringArray(R.array.foodList));
+        myAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        mySpinner.setAdapter(myAdapter);
+        mySpinner.setOnItemSelectedListener(this);
+
 
         reference = FirebaseDatabase.getInstance("https://intea-delight-default-rtdb.asia-southeast1.firebasedatabase.app/")
                 .getReference().child("Users").child(firebaseAuth.getUid());
@@ -76,15 +89,15 @@ public class FeedbackActivity extends AppCompatActivity implements IFeedbackLoad
                         for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
 
                             String feedback = etFeedback.getText().toString();
-                            String date = "" + cal.get(Calendar.DATE) + "-" + (cal.get(Calendar.MONTH)+1) + "-" + cal.get(Calendar.YEAR);
+                            String date = "" + cal.get(Calendar.DATE) + "-" + (cal.get(Calendar.MONTH)+1) + "-" +
+                                    cal.get(Calendar.YEAR);
                             String time = "" + cal.get(Calendar.HOUR_OF_DAY) + ":" + cal.get(Calendar.MINUTE);
 
                             if(feedback.equals("")){
                                 Toast.makeText(FeedbackActivity.this,
                                         "No input detected", Toast.LENGTH_LONG).show();
                             } else {
-                        /*    HashMap hashMap = new HashMap();
-                            hashMap.put("feedback", feedback);*/
+
                                 reference.child("Feedback")
                                         .child(timestamp).child("feedback")
                                         .setValue(feedback);
@@ -96,6 +109,10 @@ public class FeedbackActivity extends AppCompatActivity implements IFeedbackLoad
                                 reference.child("Feedback")
                                         .child(timestamp).child("time")
                                         .setValue(time);
+
+                                reference.child("Feedback")
+                                        .child(timestamp).child("food")
+                                        .setValue(text);
 
                                 Intent i = new Intent(FeedbackActivity.this, orderHistory.class);
                                 startActivity(i);
@@ -175,5 +192,15 @@ public class FeedbackActivity extends AppCompatActivity implements IFeedbackLoad
     @Override
     public void onFeedbackLoadFailed(String message) {
         Snackbar.make(feedbackLayout, message, Snackbar.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int i, long l) {
+        text = parent.getItemAtPosition(i).toString();
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> adapterView) {
+
     }
 }

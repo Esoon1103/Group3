@@ -41,6 +41,7 @@ public class FeedbackAdapter extends RecyclerView.Adapter<FeedbackAdapter.Feedba
         holder.txtFeedback.setText(new StringBuilder().append(feedbackModelList.get(position).getFeedback()));
         holder.DateFeed.setText(new StringBuilder().append(feedbackModelList.get(position).getDate()));
         holder.TimeFeed.setText(new StringBuilder().append(feedbackModelList.get(position).getTime()));
+        holder.FeedbackTitle.setText(new StringBuilder("Feedback for ").append(feedbackModelList.get(position).getFood()));
 
     }
 
@@ -56,6 +57,8 @@ public class FeedbackAdapter extends RecyclerView.Adapter<FeedbackAdapter.Feedba
         TextView DateFeed;
         @BindView(R.id.TimeFeed)
         TextView TimeFeed;
+        @BindView(R.id.FeedbackTitle)
+        TextView FeedbackTitle;
 
         private Unbinder unbinder;
 

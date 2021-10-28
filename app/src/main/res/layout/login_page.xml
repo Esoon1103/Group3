@@ -136,35 +136,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/shape1" />
 
-    <Button
-        android:id="@+id/buttonBackLanding"
-        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-        android:layout_width="96dp"
-        android:layout_height="39dp"
-        android:layout_marginTop="128dp"
-        android:background="@drawable/button_shape"
-        android:elevation="20dp"
-        android:text=" Back"
-        android:textColor="@color/black"
-        app:backgroundTint="@color/white"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.101"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <EditText
-        android:id="@+id/editTextTextPersonName2"
-        android:layout_width="56dp"
-        android:layout_height="48dp"
-        android:layout_marginBottom="408dp"
-        android:elevation="20dp"
-        android:ems="10"
-        android:text="Login"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.152"
-        app:layout_constraintStart_toStartOf="parent" />
-
     <TextView
         android:id="@+id/textView1"
         android:layout_width="149dp"
@@ -227,7 +198,7 @@
         android:layout_marginBottom="192dp"
         android:background="@drawable/button_shape"
         android:elevation="20dp"
-        android:text="Forget Password?"
+        android:text="Forgot Password?"
         android:textColor="#03A9F4"
         app:backgroundTint="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
