@@ -207,7 +207,7 @@ String split_date[]=date.split("/");
      DatabaseReference drTable6=FirebaseDatabase.getInstance("https://intea-delight-default-rtdb.asia-southeast1.firebasedatabase.app").getReference("Table_Reservation")
              .child(firebaseAuth.getUid());
      drTable6.removeValue();
-     Toast.makeText(getApplicationContext(), "Late 1 day", Toast.LENGTH_LONG).show();
+     Toast.makeText(getApplicationContext(), "Late More Than 1 day", Toast.LENGTH_LONG).show();
 
  }
   else if(Integer.valueOf(getDate_month ())-splited_month>0){
