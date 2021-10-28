@@ -242,7 +242,7 @@ public class reservation_form extends AppCompatActivity implements View.OnClickL
 
             @Override
             public void onClick(View view) {
-                System.out.println(table_validate);
+
                 if (!validateDate(getDate_day(), getDate_month(), getDate_year()) | !validateTime(compare_time)) {
                     return;
                 }
@@ -349,45 +349,58 @@ public class reservation_form extends AppCompatActivity implements View.OnClickL
         month1 = Integer.valueOf(month);
         year1 = Integer.valueOf(year);
         String val = select_Date.getText().toString();
-        String split_date[] = val.split("/");
-        int bookday = Integer.valueOf(split_date[0]);
-        int bookmonth = Integer.valueOf(split_date[1]);
-        int bookyear = Integer.valueOf(split_date[2]);
+
+
 
         if (val.isEmpty()
         ) {
             select_Date.setError("Cannot Empty");
             return false;
-        } else if (bookday < currday1) {
-            select_Date.setError("Cannot Empty");
-            return false;
-        } else if (bookmonth < month1) {
-            select_Date.setError("Cannot Empty");
-            return false;
-        } else if (bookyear < year1) {
-            select_Date.setError("Cannot Empty");
-            return false;
-        } else {
-            select_Date.setError(null);
-            return true;
         }
+        else{
+            String split_date[] = val.split("/");
+            int bookmonth = Integer.valueOf(split_date[1]);
+            int bookyear = Integer.valueOf(split_date[2]);
+            int bookday = Integer.valueOf(split_date[0]);
+
+            if (bookday < currday1) {
+
+                select_Date.setError("Cannot Empty");
+                return false;
+            } else if (bookmonth < month1) {
+                select_Date.setError("Cannot Empty");
+                return false;
+            } else if (bookyear < year1) {
+                select_Date.setError("Cannot Empty");
+                return false;
+            } else {
+                select_Date.setError(null);
+                return true;
+            }
+        }
+
 
     }
 
     public Boolean validateTime(String compare_time) {
         String val = select_Time.getText().toString();
-        int val1 = Integer.valueOf(compare_time);
+
         if (val.isEmpty()
         ) {
             select_Time.setError("Cannot Empty");
             return false;
-        } else if (val1 > 16 || val1 < 8) {
-            select_Time.setError("Not Available");
-            return false;
-        } else {
-            select_Time.setError(null);
-            return true;
         }
+        else{
+            int val1 = Integer.valueOf(compare_time);
+            if (val1 > 16 || val1 < 8) {
+                select_Time.setError("Not Available");
+                return false;
+            } else {
+                select_Time.setError(null);
+                return true;
+            }
+        }
+
     }
 
 
