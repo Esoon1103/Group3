@@ -84,7 +84,10 @@ public class LoginActivity extends AppCompatActivity {
                     }
                 });
 
-                progressBar.setVisibility(View.VISIBLE);
+                if (userEmail.getText().toString().isEmpty() || userPass.getText().toString().isEmpty()) {
+                    Toast.makeText(LoginActivity.this, "Missing input."
+                            , Toast.LENGTH_LONG).show();
+                } else {progressBar.setVisibility(View.VISIBLE);
                 firebaseAuth.signInWithEmailAndPassword(userEmail.getText().toString(),
                         userPass.getText().toString())
                         .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
@@ -99,6 +102,7 @@ public class LoginActivity extends AppCompatActivity {
                                 }
                             }
                         });
+            }
             } //OnClick
         });
     }

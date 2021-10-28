@@ -93,7 +93,7 @@ public class FeedbackActivity extends AppCompatActivity implements IFeedbackLoad
                                     cal.get(Calendar.YEAR);
                             String time = "" + cal.get(Calendar.HOUR_OF_DAY) + ":" + cal.get(Calendar.MINUTE);
 
-                            if(feedback.equals("")){
+                            if(feedback.isEmpty()){
                                 Toast.makeText(FeedbackActivity.this,
                                         "No input detected", Toast.LENGTH_LONG).show();
                             } else {

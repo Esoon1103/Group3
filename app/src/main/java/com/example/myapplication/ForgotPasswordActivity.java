@@ -43,22 +43,27 @@ public class ForgotPasswordActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 progressBar.setVisibility(View.VISIBLE);
-                firebaseAuth.sendPasswordResetEmail(userEmail.getText().toString())
-                        .addOnCompleteListener(new OnCompleteListener<Void>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-                                progressBar.setVisibility(View.GONE);
-                                if (task.isSuccessful()) {
-                                    Toast.makeText(ForgotPasswordActivity.this,
-                                            "Password sent to your email", Toast.LENGTH_LONG).show();
-                                    Intent i = new Intent(ForgotPasswordActivity.this, LoginActivity.class);
-                                    startActivity(i);
-                                } else {
-                                    Toast.makeText(ForgotPasswordActivity.this,
-                                            task.getException().getMessage(), Toast.LENGTH_LONG).show();
+                if (userEmail.getText().toString().isEmpty()) {
+                    Toast.makeText(ForgotPasswordActivity.this, "No input", Toast.LENGTH_LONG).show();
+                    progressBar.setVisibility(View.GONE);
+                } else {
+                    firebaseAuth.sendPasswordResetEmail(userEmail.getText().toString())
+                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    progressBar.setVisibility(View.GONE);
+                                    if (task.isSuccessful()) {
+                                        Toast.makeText(ForgotPasswordActivity.this,
+                                                "Password sent to your email", Toast.LENGTH_LONG).show();
+                                        Intent i = new Intent(ForgotPasswordActivity.this, LoginActivity.class);
+                                        startActivity(i);
+                                    } else {
+                                        Toast.makeText(ForgotPasswordActivity.this,
+                                                task.getException().getMessage(), Toast.LENGTH_LONG).show();
+                                    }
                                 }
-                            }
-                        });
+                            });
+                }
             }
         });
     }
