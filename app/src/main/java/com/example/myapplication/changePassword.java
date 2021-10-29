@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -33,6 +34,8 @@ public class changePassword extends AppCompatActivity implements View.OnClickLis
     DatabaseReference reference;
     ProgressDialog dialog;
     String passwordData;
+    private Button account1,home1, orderHistory1, cart1;
+    ImageButton Back_Button;
 
     @Override
     public void onClick(View view) {
@@ -55,6 +58,11 @@ public class changePassword extends AppCompatActivity implements View.OnClickLis
                 Intent toLogin3 = new Intent(this, CartActivity.class);
                 startActivity(toLogin3);
                 break;
+
+            case R.id.Back_Button:
+                Intent backToProfile = new Intent(this, Account.class);
+                startActivity(backToProfile);
+                break;
         }
     }
 
@@ -62,6 +70,22 @@ public class changePassword extends AppCompatActivity implements View.OnClickLis
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.change_password);
+
+        account1 = findViewById(R.id.account1);
+        account1.setOnClickListener(this);
+
+        home1 = findViewById(R.id.home1);
+        home1.setOnClickListener(this);
+
+        orderHistory1 = findViewById(R.id.orderHistory1);
+        orderHistory1.setOnClickListener(this);
+
+        cart1 = findViewById(R.id.cart1);
+        cart1.setOnClickListener(this);
+
+        Back_Button = findViewById(R.id.Back_Button);
+        Back_Button.setOnClickListener(this);
+
         dialog = new ProgressDialog(this);
 
         newPass = (EditText) findViewById(R.id.new_password);

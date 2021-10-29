@@ -38,10 +38,11 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class FeedbackActivity extends AppCompatActivity implements IFeedbackLoadListener, AdapterView.OnItemSelectedListener {
+public class FeedbackActivity extends AppCompatActivity implements IFeedbackLoadListener, AdapterView.OnItemSelectedListener, View.OnClickListener {
 
     EditText etFeedback;
     Button SubmitFeedback;
+    private Button account1,home1, orderHistory1,cart1;
 
     DatabaseReference reference;
 
@@ -58,10 +59,49 @@ public class FeedbackActivity extends AppCompatActivity implements IFeedbackLoad
     Calendar cal = Calendar.getInstance();
     String text = "";
 
+    public void onClick(View view) {
+
+        switch(view.getId()){
+            case R.id.account1:
+                Intent toLogin = new Intent(this, Account.class);
+                startActivity(toLogin);
+                break;
+            case R.id.home1:
+                Intent toLogin1 = new Intent(this, HomePage.class);
+                startActivity(toLogin1);
+                break;
+            case R.id.orderHistory1:
+                Intent toLogin2 = new Intent(this, orderHistory.class);
+                startActivity(toLogin2);
+                break;
+            case R.id.cart1:
+                Intent toLogin3 = new Intent(this, CartActivity.class);
+                startActivity(toLogin3);
+                break;
+
+            case R.id.btnChangePass:
+                Intent changePass = new Intent(this, changePassword.class);
+                startActivity(changePass);
+                break;
+        } //switch
+    } //onClick
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_feedback);
+
+        account1 = findViewById(R.id.account1);
+        account1.setOnClickListener(this);
+
+        home1 = findViewById(R.id.home1);
+        home1.setOnClickListener(this);
+
+        orderHistory1 = findViewById(R.id.orderHistory1);
+        orderHistory1.setOnClickListener(this);
+
+        cart1 = findViewById(R.id.cart1);
+        cart1.setOnClickListener(this);
 
         etFeedback = findViewById(R.id.etFeedback);
         SubmitFeedback = findViewById(R.id.btnSubmitFeedback);
@@ -161,7 +201,8 @@ public class FeedbackActivity extends AppCompatActivity implements IFeedbackLoad
                     }
                     feedbackLoadListener.onFeedbackLoadSuccess(feedbackModels);
                 } else {
-                    feedbackLoadListener.onFeedbackLoadFailed("No Feedback Given");
+                    Toast.makeText(FeedbackActivity.this,
+                            "No Feedback Given.", Toast.LENGTH_LONG).show();
                 }
             }
 
