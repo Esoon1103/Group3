@@ -32,7 +32,7 @@ public class LoginActivity extends AppCompatActivity {
     Button userLogin;
     Button forgotPass;
 
-    FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+    FirebaseAuth firebaseAuth;
     DatabaseReference reference;
 
     @Override
@@ -55,7 +55,7 @@ public class LoginActivity extends AppCompatActivity {
 
         firebaseAuth = firebaseAuth.getInstance();
         reference = FirebaseDatabase.getInstance("https://intea-delight-default-rtdb.asia-southeast1.firebasedatabase.app/")
-                .getReference().child("Password");
+                .getReference("Password");
 
         userLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -66,15 +66,11 @@ public class LoginActivity extends AppCompatActivity {
                         for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
 
                             String currentPass = userPass.getText().toString();
-                            HashMap hashMap = new HashMap();
-                            hashMap.put("CurrentPass", currentPass);
+                            //Write Password to database
+                            reference//.child(firebaseAuth.getUid())
+                                    .child("CurrentPass")
+                                    .setValue(currentPass);
 
-                            reference.updateChildren(hashMap).addOnSuccessListener(new OnSuccessListener() {
-                                @Override
-                                public void onSuccess(Object o) {
-                                    //Toast.makeText(LoginActivity.this, "Logged In", Toast.LENGTH_SHORT).show();
-                                }
-                            });
                         }
                     }
 
@@ -85,24 +81,25 @@ public class LoginActivity extends AppCompatActivity {
                 });
 
                 if (userEmail.getText().toString().isEmpty() || userPass.getText().toString().isEmpty()) {
-                    Toast.makeText(LoginActivity.this, "Missing input."
+                    Toast.makeText(LoginActivity.this, "Please enter your e-mail and password."
                             , Toast.LENGTH_LONG).show();
-                } else {progressBar.setVisibility(View.VISIBLE);
-                firebaseAuth.signInWithEmailAndPassword(userEmail.getText().toString(),
-                        userPass.getText().toString())
-                        .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                            @Override
-                            public void onComplete(@NonNull Task<AuthResult> task) {
-                                progressBar.setVisibility(View.GONE);
-                                if (task.isSuccessful()) {
-                                    startActivity(new Intent(LoginActivity.this, HomePage.class));
-                                } else {
-                                    Toast.makeText(LoginActivity.this, task.getException().getMessage()
-                                            , Toast.LENGTH_LONG).show();
+                } else {
+                    progressBar.setVisibility(View.VISIBLE);
+                    firebaseAuth.signInWithEmailAndPassword(userEmail.getText().toString(),
+                            userPass.getText().toString())
+                            .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                                @Override
+                                public void onComplete(@NonNull Task<AuthResult> task) {
+                                    progressBar.setVisibility(View.GONE);
+                                    if (task.isSuccessful()) {
+                                        startActivity(new Intent(LoginActivity.this, HomePage.class));
+                                    } else {
+                                        Toast.makeText(LoginActivity.this, task.getException().getMessage()
+                                                , Toast.LENGTH_LONG).show();
+                                    }
                                 }
-                            }
-                        });
-            }
+                            });
+                }
             } //OnClick
         });
     }
