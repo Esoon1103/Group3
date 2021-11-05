@@ -30,12 +30,14 @@ public class changePassword extends AppCompatActivity implements View.OnClickLis
     //Button forgotPass;
     Button changePass;
     EditText newPass, confirmPass, currentPass;
-    FirebaseAuth firebaseAuth;
-    DatabaseReference reference;
     ProgressDialog dialog;
     String passwordData;
     private Button account1,home1, orderHistory1, cart1;
     ImageButton Back_Button;
+
+    FirebaseAuth firebaseAuth;
+    DatabaseReference reference;
+    FirebaseUser user;
 
     @Override
     public void onClick(View view) {
@@ -110,16 +112,15 @@ public class changePassword extends AppCompatActivity implements View.OnClickLis
         changePass.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 reference.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
 
                             passwordData = dataSnapshot.getValue().toString();
-                            onPasswordChange(passwordData);
 
                         }
+                        onPasswordChange(passwordData);
                     }
 
                     @Override
@@ -130,13 +131,11 @@ public class changePassword extends AppCompatActivity implements View.OnClickLis
 
             } //Onclick
             public void onPasswordChange(String passwordData) {
-                System.out.println(passwordData);
-                FirebaseUser user = firebaseAuth.getCurrentUser();
+                user = firebaseAuth.getCurrentUser();
                 dialog.setMessage("Changing password, Please wait");
                 if (passwordData.equals(currentPass.getText().toString())) {
                     if (newPass.getText().toString().equals(confirmPass.getText().toString()) && newPass.getText().toString().isEmpty() == false) {
                         dialog.show();
-
                         user.updatePassword(newPass.getText().toString())
                                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                                     @Override
@@ -144,7 +143,7 @@ public class changePassword extends AppCompatActivity implements View.OnClickLis
                                         if (task.isSuccessful()) {
                                             dialog.dismiss();
                                             Toast.makeText(changePassword.this,
-                                                    "Password has been changed.", Toast.LENGTH_LONG).show();
+                                                    "Password successfully changed.", Toast.LENGTH_LONG).show();
                                             firebaseAuth.signOut();
                                             finish();
                                             Intent i = new Intent(changePassword.this, LoginActivity.class);
@@ -152,7 +151,7 @@ public class changePassword extends AppCompatActivity implements View.OnClickLis
                                         } else {
                                             dialog.dismiss();
                                             Toast.makeText(changePassword.this,
-                                                    "No input detected.", Toast.LENGTH_LONG).show();
+                                                    "Password must be at least 6 characters", Toast.LENGTH_LONG).show();
                                         }
                                     }
                                 });

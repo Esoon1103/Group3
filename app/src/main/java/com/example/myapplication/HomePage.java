@@ -6,8 +6,15 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.smarteist.autoimageslider.IndicatorView.animation.type.IndicatorAnimationType;
 import com.smarteist.autoimageslider.SliderAnimations;
 import com.smarteist.autoimageslider.SliderView;
@@ -16,6 +23,9 @@ public class HomePage extends AppCompatActivity implements View.OnClickListener 
     private Button account1, home1, orderHistory1, cart1;
     private ImageButton rice_btn_homepage,
             noodle_btn_homepage, drink_btn_homepage, dessert_btn_homepage, temp_btn_homepage;
+
+    FirebaseAuth firebaseAuth;
+    DatabaseReference reference;
 
     //local variable for slide show
     SliderView sliderview1;
@@ -79,6 +89,9 @@ public class HomePage extends AppCompatActivity implements View.OnClickListener 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home_page);
 
+        Intent intent = getIntent();
+        String currentPass = intent.getStringExtra(LoginActivity.EXTRA_TEXT);
+
         account1 = findViewById(R.id.account1);
         account1.setOnClickListener(this);
 
@@ -121,5 +134,31 @@ public class HomePage extends AppCompatActivity implements View.OnClickListener 
         //autocycle
         sliderview1.startAutoCycle();
 
+
+        firebaseAuth = firebaseAuth.getInstance();
+        reference = FirebaseDatabase.getInstance("https://intea-delight-default-rtdb.asia-southeast1.firebasedatabase.app/")
+                .getReference("Password");
+
+        reference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+
+                    //Write Password to database
+                    if (currentPass == null) {
+
+                    } else {
+                        reference.child(firebaseAuth.getUid())
+                                .child("CurrentPass")
+                                .setValue(currentPass);
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 }
