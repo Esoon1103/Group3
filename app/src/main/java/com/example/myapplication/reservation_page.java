@@ -220,20 +220,16 @@ public class reservation_page extends AppCompatActivity implements View.OnClickL
                                     temp1 = temp1 + 1;
                                     temp2 = String.valueOf(temp1);
 
-
                                     DatabaseReference drTable2 = FirebaseDatabase.getInstance("https://intea-delight-default-rtdb.asia-southeast1.firebasedatabase.app")
                                             .getReference("Table_Reservation")
                                             .child(firebaseAuth.getUid());
                                     drTable2.removeValue();
 
-
                                     FirebaseDatabase add_table5 = FirebaseDatabase.getInstance("https://intea-delight-default-rtdb.asia-southeast1.firebasedatabase.app");
-
                                     DatabaseReference reference5 = add_table5.getReference("Table_Number").child("table_Num");
                                     reference5.addListenerForSingleValueEvent(new ValueEventListener() {
                                         @Override
                                         public void onDataChange(@NonNull DataSnapshot snapshot) {
-
 
                                             reference5.setValue(temp2);
                                         }

@@ -19,7 +19,7 @@ public class HomePage extends AppCompatActivity implements View.OnClickListener 
 
     //local variable for slide show
     SliderView sliderview1;
-    int[] image = {R.drawable.rice, R.drawable.dessert, R.drawable.drink};
+    int[] image = {R.drawable.slide_home_1st, R.drawable.rice, R.drawable.dessert, R.drawable.drink};
     SliderAdp sliderAdp;
 
 
