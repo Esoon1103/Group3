@@ -25,6 +25,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.HashMap;
 
 public class LoginActivity extends AppCompatActivity {
+    public static final String EXTRA_TEXT = "com.example.application.example.EXTRA_TEXT";
 
     ProgressBar progressBar;
     EditText userEmail;
@@ -33,7 +34,6 @@ public class LoginActivity extends AppCompatActivity {
     Button forgotPass;
 
     FirebaseAuth firebaseAuth;
-    DatabaseReference reference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,32 +54,12 @@ public class LoginActivity extends AppCompatActivity {
         });
 
         firebaseAuth = firebaseAuth.getInstance();
-        reference = FirebaseDatabase.getInstance("https://intea-delight-default-rtdb.asia-southeast1.firebasedatabase.app/")
-                .getReference("Password");
 
         userLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                reference.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
 
-                            String currentPass = userPass.getText().toString();
-                            //Write Password to database
-                            reference//.child(firebaseAuth.getUid())
-                                    .child("CurrentPass")
-                                    .setValue(currentPass);
-
-                        }
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-
-                    }
-                });
-
+                //Validation for empty input
                 if (userEmail.getText().toString().isEmpty() || userPass.getText().toString().isEmpty()) {
                     Toast.makeText(LoginActivity.this, "Please enter your e-mail and password."
                             , Toast.LENGTH_LONG).show();
@@ -92,7 +72,10 @@ public class LoginActivity extends AppCompatActivity {
                                 public void onComplete(@NonNull Task<AuthResult> task) {
                                     progressBar.setVisibility(View.GONE);
                                     if (task.isSuccessful()) {
-                                        startActivity(new Intent(LoginActivity.this, HomePage.class));
+                                        String currentPass = userPass.getText().toString();
+                                        Intent intent = new Intent(LoginActivity.this, HomePage.class);
+                                        intent.putExtra(EXTRA_TEXT, currentPass);
+                                        startActivity(intent);
                                     } else {
                                         Toast.makeText(LoginActivity.this, task.getException().getMessage()
                                                 , Toast.LENGTH_LONG).show();
